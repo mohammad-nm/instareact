@@ -1,3 +1,9 @@
+import ReactInfo from "./ReactInfo";
+
 export default function ReactList() {
-  return;
+  return (
+    <>
+      <ReactInfo />
+    </>
+  );
 }
