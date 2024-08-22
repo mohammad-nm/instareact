@@ -1,3 +1,4 @@
+import AddNew from "@/components/AddNew";
 import Category from "@/components/Category";
 import Navbar from "@/components/Navbar";
 import Profile from "@/components/Profile";
@@ -19,10 +20,12 @@ export default function Deck() {
         <SortBy />
         <Category />
       </div>
-      <div className="flex justify-center">
+      <div className="flex justify-center ">
         <ReactList />
       </div>
-      <div></div>
+      <div className="flex justify-center">
+        <AddNew />
+      </div>
     </div>
   );
 }

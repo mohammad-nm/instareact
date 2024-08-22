@@ -6,11 +6,11 @@ export default function ReactInfo() {
   return (
     <>
       <div
-        className=" h-auto w-[90%] outline-1 outline mt-6 rounded-md p-2  bg-[#F0EEEB] shadow-md"
+        className=" h-auto w-[90%] outline-1 outline rounded-md p-2  bg-[#F0EEEB] shadow-md"
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex items-center">
-          <div className="text-[8px] w-1/4 grid gap-y-1">
+          <div className="text-[8px] w-fit grid gap-y-1">
             <h2>
               react to: <span>DM, comments</span>
             </h2>
