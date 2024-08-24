@@ -2,7 +2,11 @@ import ReactInfo from "./ReactInfo";
 
 export default function ReactList() {
   return (
-    <div className="flex-col flex gap-4 items-center mt-8">
+    <div className="flex flex-wrap mt-8 gap-3 p-3 w-full h-auto">
+      <ReactInfo />
+      <ReactInfo />
+      <ReactInfo />
+      <ReactInfo />
       <ReactInfo />
       <ReactInfo />
       <ReactInfo />

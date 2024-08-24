@@ -14,19 +14,19 @@ export default function Profile() {
           />
         </div>
         <div className="ml-4">
-          <div className="text-center text-[10px]">
+          <div className="text-center text-[1rem]">
             <div>username</div>
           </div>
           <div className="flex text-center">
-            <div className="text-[5px]">
+            <div className="text-[.5rem]">
               <div>posts</div>
               <div>0</div>
             </div>
-            <div className="text-[5px] ml-2 ">
+            <div className="text-[.5rem] ml-2 ">
               <div className="">followers</div>
               <div>0</div>
             </div>
-            <div className="text-[5px] ml-2">
+            <div className="text-[.5rem] ml-2">
               <div>following</div>
               <div>0</div>
             </div>
