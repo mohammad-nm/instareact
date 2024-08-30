@@ -2,8 +2,8 @@ export default function ReactInfo() {
   return (
     <>
       <div
-        className=" h-auto w-[48%]  rounded-md p-2  bg-[#FFFFFF] text-black [box-shadow:rgba(0,_0,_0,_0.25)_0px_0.0625em_0.0625em,_rgba(0,_0,_0,_0.25)_0px_0.125em_0.5em,_rgba(255,_255,_255,_0.1)_0px_0px_0px_1px_inset]
- mx-auto   "
+        className="w-[48%] h-auto rounded-md p-2 bg-[#FFFFFF] text-black [box-shadow:rgba(0,_0,_0,_0.25)_0px_0.0625em_0.0625em,_rgba(0,_0,_0,_0.25)_0px_0.125em_0.5em,_rgba(255,_255,_255,_0.1)_0px_0px_0px_1px_inset]
+ mx-auto max-w-96  min-w-[10rem] "
       >
         <div className="flex w-full">
           <div className="w-3/5">
@@ -12,7 +12,7 @@ export default function ReactInfo() {
               <div className="text-[.6rem] font-semibold ">DM, comments</div>
             </h2>
             <h2>
-              <div className="text-[.5rem] ">Look for: </div>
+              <div className="text-[.5rem] mt-2">Look for: </div>
               <div className="text-[.6rem] font-semibold ">44, Hoodie</div>{" "}
             </h2>
           </div>
@@ -55,16 +55,22 @@ export default function ReactInfo() {
             </div>
           </div>
         </div>
-        <div className="w-full ">
-          <div className="text-[.5rem]">Message:</div>
-          <div className="ml-1 text-[.6rem] font-semibold">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque rem,
-            cumque maiores obcaecati facilis voluptate natus dignissimos quam
-            animi dolorum eligendi unde molestias impedit sapiente tenetur
-            repudiandae magnam itaque debitis?
+
+        <div className="w-full">
+          <div className="text-[.5rem] mt-2">Message:</div>
+          <div
+            className="ml-1 text-[.6rem] font-semibold  text-ellipsis overflow-hidden whitespace-normal line-clamp-5 "
+            dir="auto"
+          >
+            Header Information: Displaying &quot;react to&quot; and &quot;look
+            for&quot; details. Message: The message text with some margin-top
+            for spacing. Icon and Actions: A placeholder for an icon and buttons
+            for Delete, Bookmark, and Edit. Date: Positioned at the bottom-right
+            corner.
           </div>
         </div>
-        <div className="flex justify-center w-full mt-2 ">
+        {/* buttons */}
+        <div className="flex w-full justify-evenly mt-2 mb-2">
           <div className="flex items-center bg-[#C2C8CD] bg-opacity-60 pr-2 pl-1 rounded-xl">
             <div>
               <svg
@@ -82,6 +88,7 @@ export default function ReactInfo() {
             </div>
             <div className="text-[.6rem]">Delete</div>
           </div>
+
           <div className="flex items-center ml-2 bg-[#C2C8CD] bg-opacity-60 pr-2 pl-2 rounded-xl">
             <div>
               <svg
@@ -99,8 +106,9 @@ export default function ReactInfo() {
                 />
               </svg>
             </div>
-            <div className="text-[.6rem] ml-1">Save</div>
+            <div className="text-[.6rem] ml-1 ">Save</div>
           </div>
+
           <div className="flex items-center ml-2 bg-[#C2C8CD] bg-opacity-60 pr-2 pl-2 rounded-xl ">
             <div>
               <svg
@@ -140,29 +148,4 @@ export default function ReactInfo() {
       </div>
     </>
   );
-}
-{
-  /* <div className="flex items-center">
-          <div className="text-[8px] w-fit grid gap-y-1">
-            <h2>
-              react to: <span>DM, comments</span>
-            </h2>
-            <h2>
-              look for: <span>44, Hoodie</span>{" "}
-            </h2>
-            <h2>
-              date: <span>13th Sep</span>
-            </h2>
-          </div>
-          <div className="text-[8px] h-[55px] w-3/6 overflow-hidden ml-4">
-            <h2 className="">message: </h2>
-            <p className="">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit
-              delectus, error velit tempora quis nisi doloremque doloribus esse
-              incidunt reiciendis commodi, modi adipisci. Omnis eius corporis,
-              quaerat sapiente quidem assumenda.
-            </p>
-          </div>
-          <div className="mr-4 ml-auto">photo</div>
-        </div> */
 }

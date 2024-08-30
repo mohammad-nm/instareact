@@ -7,7 +7,7 @@ export default function Login() {
     <>
       <div className="flex flex-col items-center">
         <div className="text-6xl mt-20">InstaReact</div>
-        <div className="w-5/6 h-auto mt-24">
+        <div className="w-96 h-auto mt-24 min-[]">
           <div className="flex">
             <div
               className={`w-1/2 h-12 flex justify-center  rounded-tl-md

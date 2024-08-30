@@ -2,9 +2,9 @@ import Image from "next/image";
 
 export default function Profile() {
   return (
-    <div className="">
-      <div className="w-auto mt-4 flex items-center">
-        <div className="ml-4 mt-2">
+    <div className="mt-4 ml-4 bg-white p-2 bg-opacity-50 rounded-3xl text-black">
+      <div className="w-auto  flex items-center">
+        <div className="">
           <Image
             src={"https://xsgames.co/randomusers/avatar.php?g=female"}
             width={30}
