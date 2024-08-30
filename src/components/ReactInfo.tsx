@@ -1,7 +1,10 @@
 export default function ReactInfo() {
   return (
     <>
-      <div className=" h-auto w-[48%] outline-1 outline rounded-md p-2  bg-[#979797] bg-opacity-20 shadow-md mx-auto">
+      <div
+        className=" h-auto w-[48%]  rounded-md p-2  bg-[#FFFFFF] text-black [box-shadow:rgba(0,_0,_0,_0.25)_0px_0.0625em_0.0625em,_rgba(0,_0,_0,_0.25)_0px_0.125em_0.5em,_rgba(255,_255,_255,_0.1)_0px_0px_0px_1px_inset]
+ mx-auto   "
+      >
         <div className="flex w-full">
           <div className="w-3/5">
             <h2>

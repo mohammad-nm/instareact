@@ -1,5 +1,4 @@
 "use client";
-import LoginSignupBtn from "@/components/LoginSignupBtn";
 import { useState } from "react";
 
 export default function Login() {
@@ -7,8 +6,8 @@ export default function Login() {
   return (
     <>
       <div className="flex flex-col items-center">
-        <div className="text-7xl mt-36">InstaReact</div>
-        <div className="w-2/3 h-auto mt-32">
+        <div className="text-6xl mt-20">InstaReact</div>
+        <div className="w-5/6 h-auto mt-24">
           <div className="flex">
             <div
               className={`w-1/2 h-12 flex justify-center  rounded-tl-md
@@ -36,7 +35,10 @@ export default function Login() {
               <div className="ml-8 mt-6 text-2xl">
                 <h3>{login ? "Login:" : "SignUp:"}</h3>
               </div>
-              <form action="" className="flex flex-col items-center ">
+              <form
+                action="http://localhost:3000/deck"
+                className="flex flex-col items-center "
+              >
                 <input
                   type="email"
                   placeholder="Email:"
@@ -48,10 +50,13 @@ export default function Login() {
                   placeholder="Password:"
                   className="h-12 w-4/5 border border-opacity-30 border-[#000000] mt-8 p-3 rounded-[2px]"
                 />
-                <a href="" className="mt-8">
+                <a href="" className="mt-8 text-sm text-gray-400">
                   Forgot password?
                 </a>
-                <button type="submit" className="mt-5">
+                <button
+                  type="submit"
+                  className="mt-5  bg-[#DEDEDE] w-36 h-8 rounded-xl"
+                >
                   Login
                 </button>
               </form>

@@ -7,9 +7,6 @@ export default function ReactList() {
       <ReactInfo />
       <ReactInfo />
       <ReactInfo />
-      <ReactInfo />
-      <ReactInfo />
-      <ReactInfo />
     </div>
   );
 }

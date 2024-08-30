@@ -18,12 +18,15 @@ export default function AddNew() {
         >
           <path
             d="M50 25C50 31.6304 47.3661 37.9893 42.6777 42.6777C37.9893 47.3661 31.6304 50 25 50C18.3696 50 12.0107 47.3661 7.32233 42.6777C2.63392 37.9893 0 31.6304 0 25C0 18.3696 2.63392 12.0107 7.32233 7.32233C12.0107 2.63392 18.3696 0 25 0C31.6304 0 37.9893 2.63392 42.6777 7.32233C47.3661 12.0107 50 18.3696 50 25ZM26.5625 14.0625C26.5625 13.6481 26.3979 13.2507 26.1049 12.9576C25.8118 12.6646 25.4144 12.5 25 12.5C24.5856 12.5 24.1882 12.6646 23.8951 12.9576C23.6021 13.2507 23.4375 13.6481 23.4375 14.0625V23.4375H14.0625C13.6481 23.4375 13.2507 23.6021 12.9576 23.8951C12.6646 24.1882 12.5 24.5856 12.5 25C12.5 25.4144 12.6646 25.8118 12.9576 26.1049C13.2507 26.3979 13.6481 26.5625 14.0625 26.5625H23.4375V35.9375C23.4375 36.3519 23.6021 36.7493 23.8951 37.0424C24.1882 37.3354 24.5856 37.5 25 37.5C25.4144 37.5 25.8118 37.3354 26.1049 37.0424C26.3979 36.7493 26.5625 36.3519 26.5625 35.9375V26.5625H35.9375C36.3519 26.5625 36.7493 26.3979 37.0424 26.1049C37.3354 25.8118 37.5 25.4144 37.5 25C37.5 24.5856 37.3354 24.1882 37.0424 23.8951C36.7493 23.6021 36.3519 23.4375 35.9375 23.4375H26.5625V14.0625Z"
-            fill="black"
+            fill="white"
           />
         </svg>
       </div>
       {isOpen ? (
-        <div className="w-[90%] h-auto bg-[#F0EEEB] p-2 fixed bottom-4 rounded-xl outline outline-1">
+        <div
+          className="w-[90%] h-auto bg-[#ffffff] p-4 fixed bottom-4 rounded-xl  text-black [box-shadow:rgba(0,_0,_0,_0.25)_0px_0.0625em_0.0625em,_rgba(0,_0,_0,_0.25)_0px_0.125em_0.5em,_rgba(255,_255,_255,_0.1)_0px_0px_0px_1px_inset]
+"
+        >
           <div className="flex items-center">
             <div>React to: </div>
             <div className="flex items-center ml-6">
@@ -60,7 +63,7 @@ export default function AddNew() {
             <div className="w-1/3 flex items-center">
               <input
                 type="text"
-                className="ml-2 bg-[#D9D9D9] p-2 w-full text-[.5rem] rounded-sm "
+                className="ml-2 bg-[#efefef] p-2 w-full text-[.5rem] rounded-sm "
                 placeholder="What to look for?"
               />
               <div className="-ml-8">
@@ -79,7 +82,7 @@ export default function AddNew() {
               </div>
             </div>
 
-            <div className="flex ml-4 items-center bg-[#D9D9D9] bg-opacity-60 rounded-lg ">
+            <div className="flex ml-4 items-center bg-[#efefef] bg-opacity-60 rounded-lg ">
               <div className="ml-2">44</div>
               <div className="ml-2">
                 <svg
@@ -96,7 +99,7 @@ export default function AddNew() {
                 </svg>
               </div>
             </div>
-            <div className="flex ml-4 items-center  bg-[#D9D9D9] bg-opacity-60 rounded-lg mt-2">
+            <div className="flex ml-4 items-center  bg-[#efefef] bg-opacity-60 rounded-lg mt-2">
               <div className="ml-2">Hoodie </div>
               <div className="ml-2">
                 <svg
@@ -119,12 +122,12 @@ export default function AddNew() {
             <div className="h-28 mt-1">
               <input
                 type="text"
-                className="h-full w-full bg-[#D9D9D9] rounded-sm pl-2 text-start"
-                placeholder="message:"
+                className="h-full w-full bg-[#efefef] rounded-sm pl-2 text-start"
+                placeholder=""
               />
             </div>
           </div>
-          <div className="mt-3 bg-[#D1D2D1] w-fit p-1 pr-2 rounded-lg flex items-center  ">
+          <div className="mt-3 bg-[#efefef] w-fit p-1 pr-2 rounded-lg flex items-center  ">
             <div>
               <svg
                 width="25"

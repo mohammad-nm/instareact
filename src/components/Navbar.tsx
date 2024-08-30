@@ -7,8 +7,8 @@ export default function Navbar({
   setSidebarIsOpen,
 }: NavbarProps) {
   return (
-    <div className="w-full h-11  border-b-2 border-black flex">
-      <div className="ml-4 text-2xl place-content-center">InstaReact</div>
+    <div className="w-full h-11   flex">
+      <div className="ml-4 text-3xl place-content-center">InstaReact</div>
       <div className="mr-4 ml-auto place-content-center mt-2 z-50">
         <button className="" onClick={() => setSidebarIsOpen(!sidebarIsOpen)}>
           <svg
@@ -20,19 +20,19 @@ export default function Navbar({
           >
             <path
               d="M1 1H20.0024"
-              stroke="black"
+              stroke={sidebarIsOpen ? "black" : "white"}
               stroke-width="2"
               stroke-linecap="round"
             />
             <path
               d="M1 7H20.0024"
-              stroke="black"
+              stroke={sidebarIsOpen ? "black" : "white"}
               stroke-width="2"
               stroke-linecap="round"
             />
             <path
               d="M1 13H20.0024"
-              stroke="black"
+              stroke={sidebarIsOpen ? "black" : "white"}
               stroke-width="2"
               stroke-linecap="round"
             />
