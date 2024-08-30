@@ -18,7 +18,7 @@ export default function Deck() {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   return (
     <div
-      className={`bg-custom-bg-gradient  text-white h-full ${nunito.className}`}
+      className={`bg-custom-bg-gradient  text-white min-h-screen ${nunito.className}`}
     >
       <div className="">
         <Navbar
@@ -27,20 +27,22 @@ export default function Deck() {
         />
         {sidebarIsOpen ? <Sidebar /> : null}
       </div>
-      <div className="flex items-center">
-        <Profile />
-        <SearchBox />
-      </div>
-      <div className="flex justify-between h-auto items-center">
-        <div className="flex items-center pl-5 text-2xl mt-5 min-[600px]:text-3xl">
-          Reacts:
+      <div className="min-[780px]:flex min-[780px]:justify-between      min-[950px]:mt-8">
+        <div className="flex items-center  min-[920px]:ml-12  ">
+          <Profile />
+          <SearchBox />
         </div>
-        <div className="flex items-center justify-end ">
-          <SortBy />
-          <Category />
+        <div className="flex justify-between h-auto items-center">
+          <div className="flex items-center pl-5 text-2xl mt-5 min-[600px]:text-3xl min-[780px]:hidden">
+            Reacts:
+          </div>
+          <div className="flex items-center justify-end min-[920px]:mr-20">
+            <SortBy />
+            <Category />
+          </div>
         </div>
       </div>
-      <div className="flex justify-center ">
+      <div className="">
         <ReactList />
       </div>
       <div className="flex justify-center min-[450px]:justify-end">
