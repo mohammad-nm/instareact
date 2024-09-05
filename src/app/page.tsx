@@ -4,7 +4,7 @@ export default function Home() {
       <div className="flex justify-center">
         <div>
           <div>
-            <a href="http://localhost:3000/deck">Login</a>
+            <a href="http://localhost:3000/login">Login</a>
           </div>
           <div>SignUp</div>
         </div>
