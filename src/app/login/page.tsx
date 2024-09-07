@@ -14,44 +14,83 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSignUp = async () => {
+    setIsLoading(true);
+    setError("");
     try {
       if (!validateEmail(email)) {
         setError("Please enter a valid email address");
+        setIsLoading(false);
         return;
       }
       if (!validatePassword(password)) {
         setError(
           "Password must be at least 8 characters long and contain both letters and numbers"
         );
+        setIsLoading(false);
         return;
       }
-      await signUp(email, password);
+
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(`Error: ${text}`);
+      }
+      const data = await res.json();
+
+      if (res.ok) {
+        setError(
+          "Signed Up successfully. Please check your email for verification. And then you can log into your account."
+        );
+      }
     } catch (error: any) {
-      setError("⚠️ " + error.message);
+      setError(error.message);
     }
+    setIsLoading(false);
   };
 
   const handleSignIn = async () => {
+    setIsLoading(true);
+    setError("");
     try {
       if (!validateEmail(email)) {
         setError("Please enter a valid email address");
+        setIsLoading(false);
         return;
       }
-      if (!validatePassword(password)) {
-        setError(
-          "Password must be at least 8 characters long and contain both letters and numbers"
-        );
-        return;
+
+      const res = await fetch("/api/auth/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      if (!res.ok) {
+        const text = await res.json();
+
+        throw new Error(`${text.message}`);
       }
-      const { user } = await signIn(email, password);
-      console.log(user);
+      const data = await res.json();
     } catch (error: any) {
-      setError("⚠️ " + error.message);
+      setError(error.message);
     }
+    setIsLoading(false);
   };
 
+  function handleReset() {
+    setError("");
+    setIsLoading(false);
+  }
   return (
     <>
       <div className="flex flex-col items-center">
@@ -72,7 +111,11 @@ export default function Login() {
                 
                 ${login ? "bg-[#DEDEDE] text-black" : "bg-[#000000] text-white"}
                 `}
-              onClick={() => setLogin(false)}
+              onClick={() => {
+                setLogin(false);
+
+                handleReset();
+              }}
             >
               <button className="opacity-100" onClick={() => setLogin(false)}>
                 SignUp
@@ -86,44 +129,24 @@ export default function Login() {
               </div>
               <form className="flex flex-col items-center ">
                 <input
+                  name="email"
                   type="email"
                   placeholder="Email:"
                   className="h-12 w-4/5 border border-opacity-30 border-[#000000] mt-6 p-3 rounded-[2px]"
                   onChange={(e) => {
                     setEmail(e.target.value);
-                    if (
-                      e.target.value.length >= 5 &&
-                      !validateEmail(e.target.value)
-                    ) {
-                      setError("Please enter a valid email address");
-                    } else if (e.target.value.length < 5) {
-                      setError("");
-                    } else {
-                      setError("");
-                    }
                   }}
                 />
                 <input
+                  name="password"
                   type="password"
                   placeholder="Password:"
                   className="h-12 w-4/5 border border-opacity-30 border-[#000000] mt-8 p-3 rounded-[2px]"
                   onChange={(e) => {
                     setPassword(e.target.value);
-                    if (
-                      e.target.value.length >= 5 &&
-                      !validatePassword(e.target.value)
-                    ) {
-                      setError(
-                        "Password must be at least 8 characters long and contain both letters and numbers"
-                      );
-                    } else if (e.target.value.length < 8) {
-                      setError("");
-                    } else {
-                      setError("");
-                    }
                   }}
                 />
-                <div className="mt-3 text-orange-400 font-semibold text-[.5rem] w-3/5 flex justify-center">
+                <div className="mt-3 text-orange-400 font-semibold text-[.5rem] w-3/5 flex justify-center text-center">
                   {error && <p>⚠️ {error}</p>}
                 </div>
                 <a href="" className="mt-8 text-sm text-gray-400">
@@ -139,8 +162,9 @@ export default function Login() {
                       handleSignUp();
                     }
                   }}
+                  disabled={isLoading}
                 >
-                  {login ? "Login" : "SignUp"}
+                  {isLoading ? "Loading..." : login ? "Login" : "SignUp"}
                 </button>
               </form>
             </div>

@@ -15,11 +15,8 @@ export default async function handler(
     }
 
     try {
-      // Call the signIn function from authService
-      const { user, session } = await signIn(email, password);
-      return res
-        .status(200)
-        .json({ message: "Signed in successfully!", user, session });
+      const data = await signIn(email, password);
+      return res.status(200).json({ message: "Signed in successfully!", data });
     } catch (error: any) {
       return res.status(500).json({ message: error.message });
     }

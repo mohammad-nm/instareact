@@ -1,0 +1,98 @@
+{
+  "message": "Signed in successfully!",
+  "data": {
+    "data": {
+      "user": {
+        "id": "9e2073db-7949-475c-abd4-a30822fd18e2",
+        "aud": "authenticated",
+        "role": "authenticated",
+        "email": "mohammadnickmagham@gmail.com",
+        "email_confirmed_at": "2024-09-04T08:12:11.801477Z",
+        "phone": "",
+        "confirmation_sent_at": "2024-09-04T08:10:54.331642Z",
+        "confirmed_at": "2024-09-04T08:12:11.801477Z",
+        "last_sign_in_at": "2024-09-05T11:50:48.065840838Z",
+        "app_metadata": {
+          "provider": "email",
+          "providers": ["email"]
+        },
+        "user_metadata": {
+          "email": "mohammadnickmagham@gmail.com",
+          "email_verified": false,
+          "phone_verified": false,
+          "sub": "9e2073db-7949-475c-abd4-a30822fd18e2"
+        },
+        "identities": [
+          {
+            "identity_id": "b9ddd082-4eff-4caf-9f12-63ef295e7e50",
+            "id": "9e2073db-7949-475c-abd4-a30822fd18e2",
+            "user_id": "9e2073db-7949-475c-abd4-a30822fd18e2",
+            "identity_data": {
+              "email": "mohammadnickmagham@gmail.com",
+              "email_verified": false,
+              "phone_verified": false,
+              "sub": "9e2073db-7949-475c-abd4-a30822fd18e2"
+            },
+            "provider": "email",
+            "last_sign_in_at": "2024-09-04T08:10:54.324139Z",
+            "created_at": "2024-09-04T08:10:54.324192Z",
+            "updated_at": "2024-09-04T08:10:54.324192Z",
+            "email": "mohammadnickmagham@gmail.com"
+          }
+        ],
+        "created_at": "2024-09-04T08:10:54.314312Z",
+        "updated_at": "2024-09-05T11:50:48.06922Z",
+        "is_anonymous": false
+      },
+      "session": {
+        "access_token": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImR3ZGh3cnJOdmpSbEh6Y2oiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2lsaXdqcnF6cmh4cHVqdHlhYnF5LnN1cGFiYXNlLmNvL2F1dGgvdjEiLCJzdWIiOiI5ZTIwNzNkYi03OTQ5LTQ3NWMtYWJkNC1hMzA4MjJmZDE4ZTIiLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzI1NTQwNjQ4LCJpYXQiOjE3MjU1MzcwNDgsImVtYWlsIjoibW9oYW1tYWRuaWNrbWFnaGFtQGdtYWlsLmNvbSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsiZW1haWwiOiJtb2hhbW1hZG5pY2ttYWdoYW1AZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwaG9uZV92ZXJpZmllZCI6ZmFsc2UsInN1YiI6IjllMjA3M2RiLTc5NDktNDc1Yy1hYmQ0LWEzMDgyMmZkMThlMiJ9LCJyb2xlIjoiYXV0aGVudGljYXRlZCIsImFhbCI6ImFhbDEiLCJhbXIiOlt7Im1ldGhvZCI6InBhc3N3b3JkIiwidGltZXN0YW1wIjoxNzI1NTM3MDQ4fV0sInNlc3Npb25faWQiOiI4MWYwZDJkMy1iMWU1LTRiNDYtYTUxNy0wM2ZmMGE5YWIzNjAiLCJpc19hbm9ueW1vdXMiOmZhbHNlfQ.N5CX6D_fBO4IAesq7PnSmd0KjWxeIZ1-xCLzrApb8iQ",
+        "token_type": "bearer",
+        "expires_in": 3600,
+        "expires_at": 1725540648,
+        "refresh_token": "MOhIoDR6C1TO_ceBKtqubA",
+        "user": {
+          "id": "9e2073db-7949-475c-abd4-a30822fd18e2",
+          "aud": "authenticated",
+          "role": "authenticated",
+          "email": "mohammadnickmagham@gmail.com",
+          "email_confirmed_at": "2024-09-04T08:12:11.801477Z",
+          "phone": "",
+          "confirmation_sent_at": "2024-09-04T08:10:54.331642Z",
+          "confirmed_at": "2024-09-04T08:12:11.801477Z",
+          "last_sign_in_at": "2024-09-05T11:50:48.065840838Z",
+          "app_metadata": {
+            "provider": "email",
+            "providers": ["email"]
+          },
+          "user_metadata": {
+            "email": "mohammadnickmagham@gmail.com",
+            "email_verified": false,
+            "phone_verified": false,
+            "sub": "9e2073db-7949-475c-abd4-a30822fd18e2"
+          },
+          "identities": [
+            {
+              "identity_id": "b9ddd082-4eff-4caf-9f12-63ef295e7e50",
+              "id": "9e2073db-7949-475c-abd4-a30822fd18e2",
+              "user_id": "9e2073db-7949-475c-abd4-a30822fd18e2",
+              "identity_data": {
+                "email": "mohammadnickmagham@gmail.com",
+                "email_verified": false,
+                "phone_verified": false,
+                "sub": "9e2073db-7949-475c-abd4-a30822fd18e2"
+              },
+              "provider": "email",
+              "last_sign_in_at": "2024-09-04T08:10:54.324139Z",
+              "created_at": "2024-09-04T08:10:54.324192Z",
+              "updated_at": "2024-09-04T08:10:54.324192Z",
+              "email": "mohammadnickmagham@gmail.com"
+            }
+          ],
+          "created_at": "2024-09-04T08:10:54.314312Z",
+          "updated_at": "2024-09-05T11:50:48.06922Z",
+          "is_anonymous": false
+        }
+      }
+    }
+  }
+}
