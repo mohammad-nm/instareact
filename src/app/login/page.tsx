@@ -1,7 +1,8 @@
 "use client";
 "strict mode";
 import { useState } from "react";
-
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../../store/userSlice";
 import { validateEmail, validatePassword } from "@/services/formValidation";
 import { useRouter } from "next/navigation";
 
@@ -12,10 +13,14 @@ export default function Login() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-
+  const dispatch = useDispatch();
+  const handleDispatch = async (data: any) => {
+    dispatch(setUser(data.data));
+  };
   const handleSignUp = async () => {
     setIsLoading(true);
     setError("");
+    //email and password validation
     try {
       if (!validateEmail(email)) {
         setError("Please enter a valid email address");
@@ -29,7 +34,7 @@ export default function Login() {
         setIsLoading(false);
         return;
       }
-
+      //signing up the user
       const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: {
@@ -37,7 +42,7 @@ export default function Login() {
         },
         body: JSON.stringify({ email, password }),
       });
-
+      //signing up error handling
       if (!res.ok) {
         const text = await res.text();
         throw new Error(`Error: ${text}`);
@@ -78,8 +83,12 @@ export default function Login() {
         throw new Error(`${text.message}`);
       }
       const data = await res.json();
-      console.log(data);
-      router.push("/main");
+      console.log(data); //remember to delete
+      if (res.ok) {
+        await handleDispatch(data);
+
+        router.push("/main");
+      }
     } catch (error: any) {
       setError(error.message);
     }
