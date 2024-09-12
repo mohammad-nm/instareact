@@ -1,9 +1,8 @@
 "use server";
-import { redirect } from "next/dist/server/api-utils";
+
 import { supabase } from "../utils/supabaseClient";
 
 ///////////////////SIGNUP function
-
 export const signUp = async (email: string, password: string) => {
   const { data, error } = await supabase.auth.signUp({
     email,
@@ -15,6 +14,7 @@ export const signUp = async (email: string, password: string) => {
   if (error) {
     throw error;
   }
+
   return data;
 };
 

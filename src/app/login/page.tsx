@@ -1,13 +1,9 @@
 "use client";
 "strict mode";
 import { useState } from "react";
-import {
-  signUp,
-  signIn,
-  getCurrentUser,
-  getSession,
-} from "../../services/authService";
+
 import { validateEmail, validatePassword } from "@/services/formValidation";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [login, setLogin] = useState(true);
@@ -15,6 +11,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const handleSignUp = async () => {
     setIsLoading(true);
@@ -46,11 +43,12 @@ export default function Login() {
         throw new Error(`Error: ${text}`);
       }
       const data = await res.json();
-
+      console.log(data);
       if (res.ok) {
         setError(
           "Signed Up successfully. Please check your email for verification. And then you can log into your account."
         );
+        setLogin(true);
       }
     } catch (error: any) {
       setError(error.message);
@@ -77,10 +75,11 @@ export default function Login() {
       });
       if (!res.ok) {
         const text = await res.json();
-
         throw new Error(`${text.message}`);
       }
       const data = await res.json();
+      console.log(data);
+      router.push("/main");
     } catch (error: any) {
       setError(error.message);
     }
@@ -91,6 +90,7 @@ export default function Login() {
     setError("");
     setIsLoading(false);
   }
+
   return (
     <>
       <div className="flex flex-col items-center">

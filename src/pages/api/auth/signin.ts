@@ -16,6 +16,7 @@ export default async function handler(
 
     try {
       const data = await signIn(email, password);
+
       return res.status(200).json({ message: "Signed in successfully!", data });
     } catch (error: any) {
       return res.status(500).json({ message: error.message });

@@ -18,7 +18,7 @@ export default function Deck() {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   return (
     <div
-      className={`bg-custom-bg-gradient  text-white min-h-screen ${nunito.className}`}
+      className={`bg-[#252525ea]  text-white min-h-screen ${nunito.className} min-[500px]:tracking-wider`}
     >
       <div className="">
         <Navbar
