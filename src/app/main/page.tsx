@@ -7,33 +7,35 @@ import ReactList from "@/components/ReactsList";
 import SearchBox from "@/components/SearchBox";
 import Sidebar from "@/components/Sidebar";
 import SortBy from "@/components/SortBy";
-import { useState } from "react";
-import { Nunito } from "next/font/google";
-import { useSelector } from "react-redux";
-
+import { useEffect, useState } from "react";
+import { getSession, refreshSession, signOut } from "@/services/authService";
 import { useDispatch } from "react-redux";
-import { clearUser } from "../../store/userSlice";
+import { clearUser, setUser } from "../../store/userSlice";
 import { useRouter } from "next/navigation";
 
-const nunito = Nunito({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-});
 export default function Main() {
-  const user = useSelector((state: any) => state.user);
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
-  const dispatch = useDispatch();
   const router = useRouter();
-  console.log(user);
+  const dispatch = useDispatch();
+  const [session, setSession] = useState(localStorage.getItem("session"));
+
   const handleLogout = () => {
+    signOut();
     dispatch(clearUser());
+    localStorage.setItem("session", "");
     router.push("/login");
   };
+  useEffect(() => {
+    if (session === null) {
+      handleLogout();
+    }
+  }, [session]);
+
   return (
     <div
-      className={`bg-[#252525ea]  text-white min-h-screen ${nunito.className} min-[500px]:tracking-wider`}
+      className={`bg-[#252525ea]  text-white min-h-screen min-[500px]:tracking-wider`}
     >
-      <div className="">
+      <div>
         <Navbar
           sidebarIsOpen={sidebarIsOpen}
           setSidebarIsOpen={setSidebarIsOpen}

@@ -1,10 +1,16 @@
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Profile() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <div className="mt-4 ml-4 bg-white p-2 bg-opacity-50 rounded-3xl text-black">
-      <div className="w-auto  flex items-center">
-        <div className="">
+    <div
+      className="mt-4 ml-4 bg-white p-2 bg-opacity-50 rounded-3xl text-black"
+      onClick={() => setIsOpen(!isOpen)}
+    >
+      <div className="w-auto flex items-center">
+        <div>
           <Image
             src={"https://xsgames.co/randomusers/avatar.php?g=female"}
             width={30}
@@ -17,20 +23,20 @@ export default function Profile() {
           <div className="text-center text-[1rem]">
             <div>username</div>
           </div>
-          <div className="flex text-center">
+          {/* <div className="flex text-center">
             <div className="text-[.5rem]">
               <div>posts</div>
               <div>0</div>
             </div>
             <div className="text-[.5rem] ml-2 ">
-              <div className="">followers</div>
+              <div>followers</div>
               <div>0</div>
             </div>
             <div className="text-[.5rem] ml-2">
               <div>following</div>
               <div>0</div>
             </div>
-          </div>
+          </div> */}
         </div>
         <div className=" self-center ml-4">
           <svg

@@ -1,6 +1,6 @@
 "use client";
-"strict mode";
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../store/userSlice";
 import { validateEmail, validatePassword } from "@/services/formValidation";
@@ -14,9 +14,10 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
-  const handleDispatch = async (data: any) => {
-    dispatch(setUser(data.data));
-  };
+
+  useEffect(() => {
+    localStorage.setItem("session", "");
+  }, []);
   const handleSignUp = async () => {
     setIsLoading(true);
     setError("");
@@ -83,10 +84,10 @@ export default function Login() {
         throw new Error(`${text.message}`);
       }
       const data = await res.json();
-      console.log(data); //remember to delete
-      if (res.ok) {
-        await handleDispatch(data);
 
+      if (res.ok) {
+        dispatch(setUser(data.data.data.session));
+        localStorage.setItem("session", JSON.stringify(data.data.data.session));
         router.push("/main");
       }
     } catch (error: any) {
@@ -136,8 +137,13 @@ export default function Login() {
               <div className="ml-8 mt-6 text-2xl">
                 <h3>{login ? "Login:" : "SignUp:"}</h3>
               </div>
-              <form className="flex flex-col items-center ">
+              <form
+                className="flex flex-col items-center "
+                id="login"
+                autoComplete="on"
+              >
                 <input
+                  autoComplete="on"
                   name="email"
                   type="email"
                   placeholder="Email:"
@@ -147,6 +153,7 @@ export default function Login() {
                   }}
                 />
                 <input
+                  autoComplete="on"
                   name="password"
                   type="password"
                   placeholder="Password:"

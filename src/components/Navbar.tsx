@@ -23,20 +23,20 @@ export default function Navbar({
             <path
               d="M1 1H20.0024"
               stroke={sidebarIsOpen ? "black" : "white"}
-              stroke-width="2"
-              stroke-linecap="round"
+              strokeWidth="2"
+              strokeLinecap="round"
             />
             <path
               d="M1 7H20.0024"
               stroke={sidebarIsOpen ? "black" : "white"}
-              stroke-width="2"
-              stroke-linecap="round"
+              strokeWidth="2"
+              strokeLinecap="round"
             />
             <path
               d="M1 13H20.0024"
               stroke={sidebarIsOpen ? "black" : "white"}
-              stroke-width="2"
-              stroke-linecap="round"
+              strokeWidth="2"
+              strokeLinecap="round"
             />
           </svg>
         </button>
