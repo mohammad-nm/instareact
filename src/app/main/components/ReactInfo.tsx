@@ -1,4 +1,4 @@
-export default function ReactInfo() {
+export default function ReactInfo({ react }: any) {
   return (
     <div
       className="w-[160px] min-[600px]:w-80 max-[388px]:w-full h-auto rounded-md p-2 bg-[#cdcdcd] text-black [box-shadow:rgba(0,_0,_0,_0.25)_0px_0.0625em_0.0625em,_rgba(0,_0,_0,_0.25)_0px_0.125em_0.5em,_rgba(255,_255,_255,_0.1)_0px_0px_0px_1px_inset] box-content           mx-auto 
@@ -8,11 +8,19 @@ export default function ReactInfo() {
         <div className="w-3/5">
           <h2>
             <div className="text-[.5rem] ">React to: </div>
-            <div className="text-[.6rem] font-semibold ">DM, comments</div>
+            <div className="text-[.6rem] font-semibold ">
+              {react.reactTo.map((item: string, index: number) => (
+                <div key={index}>{item}</div>
+              ))}
+            </div>
           </h2>
           <h2>
             <div className="text-[.5rem] mt-2 ">Look for: </div>
-            <div className="text-[.6rem] font-semibold ">44, Hoodie</div>{" "}
+            <div className="text-[.6rem] font-semibold ">
+              {react.lookFor.map((item: string, index: number) => (
+                <div key={index}>{item}</div>
+              ))}
+            </div>{" "}
           </h2>
         </div>
         <div className="w-2/5 justify-center flex">
@@ -61,11 +69,7 @@ export default function ReactInfo() {
           className="ml-1 text-[.6rem] font-semibold  text-ellipsis overflow-hidden whitespace-normal line-clamp-5 "
           dir="auto"
         >
-          Header Information: Displaying &quot;react to&quot; and &quot;look
-          for&quot; details. Message: The message text with some margin-top for
-          spacing. Icon and Actions: A placeholder for an icon and buttons for
-          Delete, Bookmark, and Edit. Date: Positioned at the bottom-right
-          corner.
+          {react.message}
         </div>
       </div>
       {/* buttons */}

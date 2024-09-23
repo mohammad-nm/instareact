@@ -1,12 +1,12 @@
 "use client";
-import AddNew from "@/components/AddNew";
-import Category from "@/components/Category";
-import Navbar from "@/components/Navbar";
-import Profile from "@/components/Profile";
-import ReactList from "@/components/ReactsList";
-import SearchBox from "@/components/SearchBox";
-import Sidebar from "@/components/Sidebar";
-import SortBy from "@/components/SortBy";
+import AddNew from "@/app/main/components/AddNew";
+import Category from "@/app/main/components/Category";
+import Navbar from "@/app/main/components/Navbar";
+import Profile from "@/app/main/components/Profile";
+import ReactList from "@/app/main/components/ReactsList";
+import SearchBox from "@/app/main/components/SearchBox";
+import Sidebar from "@/app/main/components/Sidebar";
+import SortBy from "@/app/main/components/SortBy";
 import { useEffect, useState } from "react";
 import { getSession, refreshSession, signOut } from "@/services/authService";
 import { useDispatch } from "react-redux";
@@ -18,18 +18,33 @@ export default function Main() {
   const router = useRouter();
   const dispatch = useDispatch();
   const [session, setSession] = useState(localStorage.getItem("session"));
-
-  const handleLogout = () => {
-    signOut();
-    dispatch(clearUser());
-    localStorage.setItem("session", "");
-    router.push("/login");
-  };
   useEffect(() => {
     if (session === null) {
       handleLogout();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
+  // const handleSession = async () => {
+  //   if (localStorage.getItem("session") === null) {
+  //     return null;
+  //   } else {
+  //     if (JSON.parse(session).expires_at < Date.now()) {
+  //       const newSession = await refreshSession(
+  //         JSON.parse(session).refresh_token
+  //       );
+  //       setSession(newSession);
+  //       console.log(newSession);
+  //     }
+  //   }
+  // };
+
+  const handleLogout = () => {
+    signOut();
+    dispatch(clearUser());
+    setSession(null);
+    localStorage.setItem("session", "");
+    router.push("/login");
+  };
 
   return (
     <div
@@ -58,7 +73,7 @@ export default function Main() {
         </div>
       </div>
       <div className="">
-        <ReactList />
+        <ReactList session={session ? JSON.parse(session) : null} />
       </div>
       <div className="flex justify-center min-[450px]:justify-end">
         <AddNew />
