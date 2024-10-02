@@ -5,34 +5,45 @@ import Navbar from "@/app/main/components/Navbar";
 import Profile from "@/app/main/components/Profile";
 import ReactList from "@/app/main/components/ReactsList";
 import SearchBox from "@/app/main/components/SearchBox";
-import Sidebar from "@/app/main/components/Sidebar";
+
 import SortBy from "@/app/main/components/SortBy";
 import { useEffect, useState } from "react";
-import { getSession, refreshSession, signOut } from "@/services/authService";
-import { useDispatch, useSelector } from "react-redux";
-import { clearSession, setSession } from "../../store/sessionSlice";
+
+import { useDispatch } from "react-redux";
+import { clearSession } from "../../store/sessionSlice";
 import { useRouter } from "next/navigation";
+import getSessionCookie from "@/services/sessionCookie/getSessionCookie";
 
 export default function Main() {
-  const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
-
-  const session = useSelector((state: any) => state.session.session);
+  const [session, setSession] = useState(null);
   useEffect(() => {
-    if (session === null) {
-      handleLogout();
-    }
-    console.log(session);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session]);
+    const fetchSession = async () => {
+      const cookie = await getSessionCookie();
+      if (cookie === null) {
+        handleLogout();
+      } else {
+        setSession(JSON.parse(cookie));
+      }
+    };
 
-  const handleLogout = () => {
-    signOut();
-    dispatch(clearSession());
-    setSession(null);
-    localStorage.setItem("session", "");
-    router.push("/login");
+    fetchSession();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleLogout = async () => {
+    const response = await fetch("/api/auth/logout", {
+      method: "POST",
+    });
+
+    if (response.ok) {
+      dispatch(clearSession());
+      router.push("/login");
+    } else {
+      console.error("Logout failed");
+    }
   };
 
   return (
@@ -40,11 +51,7 @@ export default function Main() {
       className={`bg-[#252525ea]  text-white min-h-screen min-[500px]:tracking-wider`}
     >
       <div>
-        <Navbar
-          sidebarIsOpen={sidebarIsOpen}
-          setSidebarIsOpen={setSidebarIsOpen}
-        />
-        {sidebarIsOpen ? <Sidebar handleLogOut={handleLogout} /> : null}
+        <Navbar handleLogout={handleLogout} />
       </div>
       <div className="min-[780px]:flex min-[780px]:justify-between      min-[950px]:mt-8">
         <div className="flex items-center  min-[920px]:ml-12  ">

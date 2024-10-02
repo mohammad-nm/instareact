@@ -1,11 +1,8 @@
-type NavbarProps = {
-  sidebarIsOpen: boolean;
-  setSidebarIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-};
-export default function Navbar({
-  sidebarIsOpen,
-  setSidebarIsOpen,
-}: NavbarProps) {
+import { useState } from "react";
+import Sidebar from "./Sidebar";
+
+export default function Navbar({ handleLogout }: any) {
+  const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   return (
     <div className="w-full h-11 flex">
       <div className="ml-4 text-3xl place-content-center min-[600px]:text-4xl min-[600px]:ml-6 min-[600px]:mt-2">
@@ -41,6 +38,7 @@ export default function Navbar({
           </svg>
         </button>
       </div>
+      {sidebarIsOpen ? <Sidebar handleLogOut={handleLogout} /> : null}
     </div>
   );
 }

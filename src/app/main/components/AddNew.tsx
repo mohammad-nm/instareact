@@ -9,7 +9,7 @@ export default function AddNew({ session }: any) {
   const [message, setMessage] = useState("");
   const [photos, setPhotos] = useState([]);
   const [id, setId] = useState();
-  console.log(session);
+
   const addNewReact = async (react: any) => {
     console.log(react);
     console.log(session.user.id);

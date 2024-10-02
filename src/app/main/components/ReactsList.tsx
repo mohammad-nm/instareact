@@ -15,11 +15,13 @@ export default function ReactList({ session }: any) {
     const fetchReacts = async () => {
       setIsLoading(true);
       const fetchedReacts = await getReacts(session?.user?.id);
-      console.log(fetchedReacts);
+
       setReacts(fetchedReacts);
       setIsLoading(false);
     };
-    fetchReacts();
+    if (session !== null) {
+      fetchReacts();
+    }
   }, [session]);
 
   return (

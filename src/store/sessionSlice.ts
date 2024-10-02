@@ -8,7 +8,7 @@ const sessionSlice = createSlice({
   name: "session",
   initialState,
   reducers: {
-    setSession: (state, action) => {
+    setSessionSlice: (state, action) => {
       state.session = action.payload;
     },
     clearSession: (state) => {
@@ -16,7 +16,15 @@ const sessionSlice = createSlice({
     },
   },
 });
+export const loginAsync = (credentials: any) => async (dispatch: any) => {
+  try {
+    const session = credentials;
 
-export const { setSession, clearSession } = sessionSlice.actions;
+    dispatch(setSessionSlice(session));
+  } catch (error) {
+    console.error("Failed to login:", error);
+  }
+};
+export const { setSessionSlice, clearSession } = sessionSlice.actions;
 
 export default sessionSlice.reducer;
