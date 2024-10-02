@@ -9,38 +9,27 @@ import Sidebar from "@/app/main/components/Sidebar";
 import SortBy from "@/app/main/components/SortBy";
 import { useEffect, useState } from "react";
 import { getSession, refreshSession, signOut } from "@/services/authService";
-import { useDispatch } from "react-redux";
-import { clearUser, setUser } from "../../store/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { clearSession, setSession } from "../../store/sessionSlice";
 import { useRouter } from "next/navigation";
 
 export default function Main() {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
-  const [session, setSession] = useState(localStorage.getItem("session"));
+
+  const session = useSelector((state: any) => state.session.session);
   useEffect(() => {
     if (session === null) {
       handleLogout();
     }
+    console.log(session);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
-  // const handleSession = async () => {
-  //   if (localStorage.getItem("session") === null) {
-  //     return null;
-  //   } else {
-  //     if (JSON.parse(session).expires_at < Date.now()) {
-  //       const newSession = await refreshSession(
-  //         JSON.parse(session).refresh_token
-  //       );
-  //       setSession(newSession);
-  //       console.log(newSession);
-  //     }
-  //   }
-  // };
 
   const handleLogout = () => {
     signOut();
-    dispatch(clearUser());
+    dispatch(clearSession());
     setSession(null);
     localStorage.setItem("session", "");
     router.push("/login");
@@ -73,10 +62,10 @@ export default function Main() {
         </div>
       </div>
       <div className="">
-        <ReactList session={session ? JSON.parse(session) : null} />
+        <ReactList session={session} />
       </div>
       <div className="flex justify-center min-[450px]:justify-end">
-        <AddNew />
+        <AddNew session={session} />
       </div>
     </div>
   );

@@ -1,8 +1,24 @@
 "use client";
 import { useState } from "react";
-
-export default function AddNew() {
+import { sendReact } from "@/services/handleData";
+export default function AddNew({ session }: any) {
   const [isOpen, setIsOpen] = useState(false);
+  const [newReact, setNewReact] = useState({});
+  const [reactTo, setReactTo] = useState([]);
+  const [lookFor, setLookFor] = useState([]);
+  const [message, setMessage] = useState("");
+  const [photos, setPhotos] = useState([]);
+  const [id, setId] = useState();
+  console.log(session);
+  const addNewReact = async (react: any) => {
+    console.log(react);
+    console.log(session.user.id);
+    try {
+      await sendReact(session.user.id, react);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <div
@@ -146,7 +162,22 @@ export default function AddNew() {
           </div>
           <div className="flex w-full mt-3 mb-2">
             <div className="bg-black text-white p-2 w-full items-center text-center rounded-lg ml-4 mr-4 ">
-              <button className="">Add new</button>
+              <button
+                className=""
+                onClick={() =>
+                  addNewReact({
+                    reactTo: ["DM", "comments", "aliiii"],
+
+                    lookFor: ["44", "hoodie", "aaaaaaaaa"],
+                    message: "dante is dead",
+                    saved: false,
+                    photos: [],
+                    id: "asdasd",
+                  })
+                }
+              >
+                Add new
+              </button>
             </div>
           </div>
         </div>

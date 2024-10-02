@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../../store/userSlice";
+import { useDispatch } from "react-redux";
+import { setSession } from "../../store/sessionSlice";
 import { validateEmail, validatePassword } from "@/services/formValidation";
 import { useRouter } from "next/navigation";
 
@@ -48,8 +48,8 @@ export default function Login() {
         const text = await res.text();
         throw new Error(`Error: ${text}`);
       }
-      const data = await res.json();
-      console.log(data);
+      // const data = await res.json();
+
       if (res.ok) {
         setError(
           "Signed Up successfully. Please check your email for verification. And then you can log into your account."
@@ -86,8 +86,8 @@ export default function Login() {
       const data = await res.json();
 
       if (res.ok) {
-        dispatch(setUser(data.data.data.session));
-        localStorage.setItem("session", JSON.stringify(data.data.data.session));
+        dispatch(setSession(data.data.data.session));
+
         router.push("/main");
       }
     } catch (error: any) {
