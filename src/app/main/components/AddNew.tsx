@@ -1,6 +1,6 @@
 "use client";
 import { useRef, useState } from "react";
-
+import { v4 } from "uuid";
 import { useDispatch } from "react-redux";
 
 interface NewReact {
@@ -21,14 +21,9 @@ export default function AddNew({ session }: any) {
     lookFor: [],
     message: "",
     photos: [],
-    id: "",
+    id: v4(),
     active: false,
   });
-
-  const handelChanges = (e: any) => {
-    const { name, value } = e.target;
-    setNewReact((prev) => ({ ...prev, [name]: value }));
-  };
 
   return (
     <>
