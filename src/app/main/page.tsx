@@ -44,12 +44,12 @@ export default function Main() {
         const response = await fetch("/api/reacts/getReacts", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id }), // Ensure id is sent as JSON
+          body: JSON.stringify({ id }),
         });
 
         if (response.ok) {
           const data = await response.json();
-          dispatch(setReactsSlice(data)); // Dispatch fetched reacts
+          dispatch(setReactsSlice(data));
         } else {
           console.error("Failed to fetch reacts:", response.statusText);
         }

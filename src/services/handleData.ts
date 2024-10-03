@@ -13,10 +13,10 @@ export const getReacts = async (id: string) => {
   }
 };
 
-export const sendReact = async (id: string, newReacts: object) => {
+export const sendReact = async (id: string, newReact: object, reacts: any) => {
   const { data, error } = await supabase
     .from("profiles")
-    .update({ reacts: newReacts })
+    .update(reacts ? { reacts: [...reacts, newReact] } : { reacts: [newReact] })
     .eq("id", id)
     .select("reacts");
   if (error) {

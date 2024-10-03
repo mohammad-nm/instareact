@@ -1,7 +1,8 @@
 "use client";
+import { setReactsSlice } from "@/store/reactsSlice";
 import { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { v4 } from "uuid";
-import { useDispatch } from "react-redux";
 
 interface NewReact {
   reactTo: string[];
@@ -13,9 +14,10 @@ interface NewReact {
 }
 export default function AddNew({ session }: any) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const reacts = useSelector((state: any) => state.reacts.reacts);
   const dispatch = useDispatch();
+  const id = useSelector((state: any) => state.session.session?.user?.id);
   const [isOpen, setIsOpen] = useState(false);
-
   const [newReact, setNewReact] = useState<NewReact>({
     reactTo: [],
     lookFor: [],
@@ -25,6 +27,24 @@ export default function AddNew({ session }: any) {
     active: false,
   });
 
+  const handelSendNewReact = async () => {
+    try {
+      const res = await fetch("/api/reacts/sendReacts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, newReact, reacts }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        dispatch(setReactsSlice(data[0].reacts));
+        setIsOpen(false);
+      } else {
+        console.error(res.statusText);
+      }
+    } catch (error) {
+      console.error("Error sending react:", error);
+    }
+  };
   return (
     <>
       <div
@@ -213,7 +233,9 @@ export default function AddNew({ session }: any) {
           </div>
           <div className="flex w-full mt-3 mb-2">
             <div className="bg-black text-white p-2 w-full items-center text-center rounded-lg ml-4 mr-4 ">
-              <button className="">Add new</button>
+              <button className="" onClick={() => handelSendNewReact()}>
+                Add new
+              </button>
             </div>
           </div>
         </div>
