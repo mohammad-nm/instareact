@@ -1,24 +1,35 @@
 "use client";
-import { useState } from "react";
-import { sendReact } from "@/services/handleData";
-export default function AddNew({ session }: any) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [newReact, setNewReact] = useState({});
-  const [reactTo, setReactTo] = useState([]);
-  const [lookFor, setLookFor] = useState([]);
-  const [message, setMessage] = useState("");
-  const [photos, setPhotos] = useState([]);
-  const [id, setId] = useState();
+import { useRef, useState } from "react";
 
-  const addNewReact = async (react: any) => {
-    console.log(react);
-    console.log(session.user.id);
-    try {
-      await sendReact(session.user.id, react);
-    } catch (error) {
-      console.log(error);
-    }
+import { useDispatch } from "react-redux";
+
+interface NewReact {
+  reactTo: string[];
+  lookFor: string[];
+  message: string;
+  photos: string[];
+  id: string;
+  active: boolean;
+}
+export default function AddNew({ session }: any) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const [newReact, setNewReact] = useState<NewReact>({
+    reactTo: [],
+    lookFor: [],
+    message: "",
+    photos: [],
+    id: "",
+    active: false,
+  });
+
+  const handelChanges = (e: any) => {
+    const { name, value } = e.target;
+    setNewReact((prev) => ({ ...prev, [name]: value }));
   };
+
   return (
     <>
       <div
@@ -46,13 +57,47 @@ export default function AddNew({ session }: any) {
           <div className="flex items-center">
             <div>React to: </div>
             <div className="flex items-center ml-6">
-              <input type="checkbox" name="DM" id="DM" />
+              <input
+                type="checkbox"
+                name="DM"
+                id="DM"
+                onChange={(e) =>
+                  e.target.checked
+                    ? setNewReact((prev) => ({
+                        ...prev,
+                        reactTo: [...(prev.reactTo || []), "DM"],
+                      }))
+                    : setNewReact((prev) => ({
+                        ...prev,
+                        reactTo: (prev.reactTo || []).filter(
+                          (item) => item !== "DM"
+                        ),
+                      }))
+                }
+              />
               <label htmlFor="DM" className="ml-2">
                 DM
               </label>
             </div>
             <div className="flex items-center ml-6">
-              <input type="checkbox" name="comments" id="comments" />
+              <input
+                type="checkbox"
+                name="comments"
+                id="comments"
+                onChange={(e) =>
+                  e.target.checked
+                    ? setNewReact((prev) => ({
+                        ...prev,
+                        reactTo: [...(prev.reactTo || []), "Comments"],
+                      }))
+                    : setNewReact((prev) => ({
+                        ...prev,
+                        reactTo: (prev.reactTo || []).filter(
+                          (item) => item !== "Comments"
+                        ),
+                      }))
+                }
+              />
               <label htmlFor="comments" className="ml-2">
                 Comments
               </label>
@@ -79,10 +124,21 @@ export default function AddNew({ session }: any) {
             <div className="w-1/3 flex items-center">
               <input
                 type="text"
+                name="lookFor"
                 className="ml-2 bg-[#efefef] p-2 w-full text-[.5rem] rounded-sm "
                 placeholder="What to look for?"
+                ref={inputRef}
               />
-              <div className="-ml-8">
+              <div
+                className="-ml-8"
+                onClick={() => {
+                  const inputValue = inputRef.current?.value || "";
+                  setNewReact((prev) => ({
+                    ...prev,
+                    lookFor: [...(prev.lookFor || []), inputValue],
+                  }));
+                }}
+              >
                 <svg
                   width="25"
                   height="25"
@@ -97,41 +153,38 @@ export default function AddNew({ session }: any) {
                 </svg>
               </div>
             </div>
-
-            <div className="flex ml-4 items-center bg-[#efefef] bg-opacity-60 rounded-lg ">
-              <div className="ml-2">44</div>
-              <div className="ml-2">
-                <svg
-                  width="26"
-                  height="25"
-                  viewBox="0 0 26 25"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+            {newReact.lookFor.map((item, index) => {
+              return (
+                <div
+                  className="flex ml-4 items-center bg-[#efefef] bg-opacity-60 rounded-lg mt-2"
+                  key={index}
                 >
-                  <path
-                    d="M7.76184 7.50625C7.83317 7.43474 7.9179 7.37801 8.01119 7.3393C8.10448 7.30059 8.20448 7.28066 8.30548 7.28066C8.40648 7.28066 8.50649 7.30059 8.59978 7.3393C8.69307 7.37801 8.7778 7.43474 8.84913 7.50625L12.9126 11.5713L16.9761 7.50625C17.0475 7.43486 17.1323 7.37823 17.2255 7.33959C17.3188 7.30095 17.4188 7.28106 17.5198 7.28106C17.6207 7.28106 17.7207 7.30095 17.814 7.33959C17.9073 7.37823 17.992 7.43486 18.0634 7.50625C18.1348 7.57764 18.1914 7.6624 18.2301 7.75567C18.2687 7.84895 18.2886 7.94893 18.2886 8.04989C18.2886 8.15086 18.2687 8.25083 18.2301 8.34411C18.1914 8.43739 18.1348 8.52214 18.0634 8.59353L13.9984 12.657L18.0634 16.7205C18.1348 16.7919 18.1914 16.8767 18.2301 16.97C18.2687 17.0632 18.2886 17.1632 18.2886 17.2642C18.2886 17.3651 18.2687 17.4651 18.2301 17.5584C18.1914 17.6517 18.1348 17.7364 18.0634 17.8078C17.992 17.8792 17.9073 17.9358 17.814 17.9745C17.7207 18.0131 17.6207 18.033 17.5198 18.033C17.4188 18.033 17.3188 18.0131 17.2255 17.9745C17.1323 17.9358 17.0475 17.8792 16.9761 17.8078L12.9126 13.7428L8.84913 17.8078C8.77773 17.8792 8.69298 17.9358 8.5997 17.9745C8.50642 18.0131 8.40645 18.033 8.30548 18.033C8.20452 18.033 8.10454 18.0131 8.01127 17.9745C7.91799 17.9358 7.83323 17.8792 7.76184 17.8078C7.69045 17.7364 7.63382 17.6517 7.59518 17.5584C7.55654 17.4651 7.53666 17.3651 7.53666 17.2642C7.53666 17.1632 7.55654 17.0632 7.59518 16.97C7.63382 16.8767 7.69045 16.7919 7.76184 16.7205L11.8269 12.657L7.76184 8.59353C7.69033 8.52221 7.6336 8.43747 7.59489 8.34419C7.55618 8.2509 7.53625 8.15089 7.53625 8.04989C7.53625 7.94889 7.55618 7.84888 7.59489 7.7556C7.6336 7.66231 7.69033 7.57758 7.76184 7.50625Z"
-                    fill="black"
-                  />
-                </svg>
-              </div>
-            </div>
-            <div className="flex ml-4 items-center  bg-[#efefef] bg-opacity-60 rounded-lg mt-2">
-              <div className="ml-2">Hoodie </div>
-              <div className="ml-2">
-                <svg
-                  width="26"
-                  height="25"
-                  viewBox="0 0 26 25"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M7.76184 7.50625C7.83317 7.43474 7.9179 7.37801 8.01119 7.3393C8.10448 7.30059 8.20448 7.28066 8.30548 7.28066C8.40648 7.28066 8.50649 7.30059 8.59978 7.3393C8.69307 7.37801 8.7778 7.43474 8.84913 7.50625L12.9126 11.5713L16.9761 7.50625C17.0475 7.43486 17.1323 7.37823 17.2255 7.33959C17.3188 7.30095 17.4188 7.28106 17.5198 7.28106C17.6207 7.28106 17.7207 7.30095 17.814 7.33959C17.9073 7.37823 17.992 7.43486 18.0634 7.50625C18.1348 7.57764 18.1914 7.6624 18.2301 7.75567C18.2687 7.84895 18.2886 7.94893 18.2886 8.04989C18.2886 8.15086 18.2687 8.25083 18.2301 8.34411C18.1914 8.43739 18.1348 8.52214 18.0634 8.59353L13.9984 12.657L18.0634 16.7205C18.1348 16.7919 18.1914 16.8767 18.2301 16.97C18.2687 17.0632 18.2886 17.1632 18.2886 17.2642C18.2886 17.3651 18.2687 17.4651 18.2301 17.5584C18.1914 17.6517 18.1348 17.7364 18.0634 17.8078C17.992 17.8792 17.9073 17.9358 17.814 17.9745C17.7207 18.0131 17.6207 18.033 17.5198 18.033C17.4188 18.033 17.3188 18.0131 17.2255 17.9745C17.1323 17.9358 17.0475 17.8792 16.9761 17.8078L12.9126 13.7428L8.84913 17.8078C8.77773 17.8792 8.69298 17.9358 8.5997 17.9745C8.50642 18.0131 8.40645 18.033 8.30548 18.033C8.20452 18.033 8.10454 18.0131 8.01127 17.9745C7.91799 17.9358 7.83323 17.8792 7.76184 17.8078C7.69045 17.7364 7.63382 17.6517 7.59518 17.5584C7.55654 17.4651 7.53666 17.3651 7.53666 17.2642C7.53666 17.1632 7.55654 17.0632 7.59518 16.97C7.63382 16.8767 7.69045 16.7919 7.76184 16.7205L11.8269 12.657L7.76184 8.59353C7.69033 8.52221 7.6336 8.43747 7.59489 8.34419C7.55618 8.2509 7.53625 8.15089 7.53625 8.04989C7.53625 7.94889 7.55618 7.84888 7.59489 7.7556C7.6336 7.66231 7.69033 7.57758 7.76184 7.50625Z"
-                    fill="black"
-                  />
-                </svg>
-              </div>
-            </div>
+                  <div className="ml-2">{item}</div>
+                  <div
+                    className="ml-2"
+                    onClick={() => {
+                      setNewReact((prev) => ({
+                        ...prev,
+                        lookFor: prev.lookFor.filter((i, ind) => ind !== index),
+                      }));
+                    }}
+                  >
+                    <svg
+                      width="26"
+                      height="25"
+                      viewBox="0 0 26 25"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M7.76184 7.50625C7.83317 7.43474 7.9179 7.37801 8.01119 7.3393C8.10448 7.30059 8.20448 7.28066 8.30548 7.28066C8.40648 7.28066 8.50649 7.30059 8.59978 7.3393C8.69307 7.37801 8.7778 7.43474 8.84913 7.50625L12.9126 11.5713L16.9761 7.50625C17.0475 7.43486 17.1323 7.37823 17.2255 7.33959C17.3188 7.30095 17.4188 7.28106 17.5198 7.28106C17.6207 7.28106 17.7207 7.30095 17.814 7.33959C17.9073 7.37823 17.992 7.43486 18.0634 7.50625C18.1348 7.57764 18.1914 7.6624 18.2301 7.75567C18.2687 7.84895 18.2886 7.94893 18.2886 8.04989C18.2886 8.15086 18.2687 8.25083 18.2301 8.34411C18.1914 8.43739 18.1348 8.52214 18.0634 8.59353L13.9984 12.657L18.0634 16.7205C18.1348 16.7919 18.1914 16.8767 18.2301 16.97C18.2687 17.0632 18.2886 17.1632 18.2886 17.2642C18.2886 17.3651 18.2687 17.4651 18.2301 17.5584C18.1914 17.6517 18.1348 17.7364 18.0634 17.8078C17.992 17.8792 17.9073 17.9358 17.814 17.9745C17.7207 18.0131 17.6207 18.033 17.5198 18.033C17.4188 18.033 17.3188 18.0131 17.2255 17.9745C17.1323 17.9358 17.0475 17.8792 16.9761 17.8078L12.9126 13.7428L8.84913 17.8078C8.77773 17.8792 8.69298 17.9358 8.5997 17.9745C8.50642 18.0131 8.40645 18.033 8.30548 18.033C8.20452 18.033 8.10454 18.0131 8.01127 17.9745C7.91799 17.9358 7.83323 17.8792 7.76184 17.8078C7.69045 17.7364 7.63382 17.6517 7.59518 17.5584C7.55654 17.4651 7.53666 17.3651 7.53666 17.2642C7.53666 17.1632 7.55654 17.0632 7.59518 16.97C7.63382 16.8767 7.69045 16.7919 7.76184 16.7205L11.8269 12.657L7.76184 8.59353C7.69033 8.52221 7.6336 8.43747 7.59489 8.34419C7.55618 8.2509 7.53625 8.15089 7.53625 8.04989C7.53625 7.94889 7.55618 7.84888 7.59489 7.7556C7.6336 7.66231 7.69033 7.57758 7.76184 7.50625Z"
+                        fill="black"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              );
+            })}
           </div>{" "}
           <div className="mt-4 ">
             <div>Message:</div>
@@ -139,7 +192,10 @@ export default function AddNew({ session }: any) {
               <input
                 type="text"
                 className="h-full w-full bg-[#efefef] rounded-sm pl-2 text-start"
-                placeholder=""
+                placeholder="Type your message here:"
+                onChange={(e) =>
+                  setNewReact((prev) => ({ ...prev, message: e.target.value }))
+                }
               />
             </div>
           </div>
@@ -162,22 +218,7 @@ export default function AddNew({ session }: any) {
           </div>
           <div className="flex w-full mt-3 mb-2">
             <div className="bg-black text-white p-2 w-full items-center text-center rounded-lg ml-4 mr-4 ">
-              <button
-                className=""
-                onClick={() =>
-                  addNewReact({
-                    reactTo: ["DM", "comments", "aliiii"],
-
-                    lookFor: ["44", "hoodie", "aaaaaaaaa"],
-                    message: "dante is dead",
-                    saved: false,
-                    photos: [],
-                    id: "asdasd",
-                  })
-                }
-              >
-                Add new
-              </button>
+              <button className="">Add new</button>
             </div>
           </div>
         </div>

@@ -5,19 +5,20 @@ import Navbar from "@/app/main/components/Navbar";
 import Profile from "@/app/main/components/Profile";
 import ReactList from "@/app/main/components/ReactsList";
 import SearchBox from "@/app/main/components/SearchBox";
-
 import SortBy from "@/app/main/components/SortBy";
 import { useEffect, useState } from "react";
 
 import { useDispatch } from "react-redux";
-import { clearSession } from "../../store/sessionSlice";
+import { clearSession, setSessionSlice } from "../../store/sessionSlice";
 import { useRouter } from "next/navigation";
 import getSessionCookie from "@/services/sessionCookie/getSessionCookie";
+import { setReactsSlice } from "@/store/reactsSlice";
 
 export default function Main() {
   const router = useRouter();
   const dispatch = useDispatch();
   const [session, setSession] = useState(null);
+  const [id, setId] = useState(null);
   useEffect(() => {
     const fetchSession = async () => {
       const cookie = await getSessionCookie();
@@ -25,6 +26,9 @@ export default function Main() {
         handleLogout();
       } else {
         setSession(JSON.parse(cookie));
+        setId(JSON.parse(cookie).user.id);
+
+        dispatch(setSessionSlice(JSON.parse(cookie)));
       }
     };
 
@@ -32,6 +36,29 @@ export default function Main() {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect(() => {
+    const fetchReacts = async () => {
+      if (!id) return;
+
+      try {
+        const response = await fetch("/api/reacts/getReacts", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id }), // Ensure id is sent as JSON
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          dispatch(setReactsSlice(data)); // Dispatch fetched reacts
+        } else {
+          console.error("Failed to fetch reacts:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Error fetching reacts:", error);
+      }
+    };
+    fetchReacts();
+  }, [id, dispatch]);
 
   const handleLogout = async () => {
     const response = await fetch("/api/auth/logout", {

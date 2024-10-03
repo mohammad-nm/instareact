@@ -6,14 +6,14 @@ const reactsSlice = createSlice({
   name: "reacts",
   initialState,
   reducers: {
-    setReacts: (state, action) => {
+    setReactsSlice: (state, action) => {
       state.reacts = action.payload;
     },
-    clearReacts: (state) => {
+    clearReactsSlice: (state) => {
       state.reacts = null;
     },
   },
 });
-export const { setReacts, clearReacts } = reactsSlice.actions;
+export const { setReactsSlice, clearReactsSlice } = reactsSlice.actions;
 
 export default reactsSlice.reducer;
