@@ -1,8 +1,33 @@
-export default function ReactInfo({ react }: any) {
+import { setReactsSlice } from "@/store/reactsSlice";
+import { useSelector, useDispatch } from "react-redux";
+
+export default function ReactInfo({ react, index }: any) {
+  const reacts = useSelector((state: any) => state.reacts.reacts);
+  const dispatch = useDispatch();
+  const id = useSelector((state: any) => state.session.session?.user?.id);
+  const reactId = react.id;
+  const handleDeleteReact = async () => {
+    try {
+      const res = await fetch("/api/reacts/deleteReact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reacts, reactId, id }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+
+        dispatch(setReactsSlice(data[0].reacts));
+      } else {
+        console.error(res.statusText);
+      }
+    } catch (error) {
+      console.error("Error sending react:", error);
+    }
+  };
   return (
     <div
-      className="w-[160px] min-[600px]:w-80 max-[388px]:w-full h-auto rounded-md p-2 bg-[#cdcdcd] text-black [box-shadow:rgba(0,_0,_0,_0.25)_0px_0.0625em_0.0625em,_rgba(0,_0,_0,_0.25)_0px_0.125em_0.5em,_rgba(255,_255,_255,_0.1)_0px_0px_0px_1px_inset] box-content           mx-auto 
-   "
+      className="w-[160px] min-[600px]:w-80 max-[388px]:w-full h-auto rounded-md p-2 bg-[#cdcdcd] text-black [box-shadow:rgba(0,_0,_0,_0.25)_0px_0.0625em_0.0625em,_rgba(0,_0,_0,_0.25)_0px_0.125em_0.5em,_rgba(255,_255,_255,_0.1)_0px_0px_0px_1px_inset] box-content mx-auto"
+      key={index}
     >
       <div className="flex w-full">
         <div className="w-3/5">
@@ -16,9 +41,11 @@ export default function ReactInfo({ react }: any) {
           </h2>
           <h2>
             <div className="text-[.5rem] mt-2 ">Look for: </div>
-            <div className="text-[.6rem] font-semibold ">
+            <div className="text-[.6rem] font-semibold">
               {react.lookFor.map((item: string, index: number) => (
-                <div key={index}>{item}</div>
+                <div key={index} className="mr-3">
+                  {item}
+                </div>
               ))}
             </div>{" "}
           </h2>
@@ -74,7 +101,12 @@ export default function ReactInfo({ react }: any) {
       </div>
       {/* buttons */}
       <div className="flex w-full justify-evenly mt-2 mb-2 ">
-        <div className="flex items-center bg-[#000000] bg-opacity-60 pr-2 rounded-xl w-1/3 justify-evenly text-white">
+        <button
+          className="flex items-center bg-[#000000] bg-opacity-60 pr-2 rounded-xl w-1/3 justify-evenly text-white"
+          onClick={() => {
+            handleDeleteReact();
+          }}
+        >
           <div>
             <svg
               width="20"
@@ -90,7 +122,7 @@ export default function ReactInfo({ react }: any) {
             </svg>
           </div>
           <div className="text-[.6rem]">Delete</div>
-        </div>
+        </button>
 
         <div className="flex items-center ml-1 bg-[#000000] bg-opacity-60 pr-2 pl-2 rounded-xl w-1/3 justify-evenly text-white">
           <div>
@@ -150,4 +182,7 @@ export default function ReactInfo({ react }: any) {
       </div>
     </div>
   );
+}
+function dispatch(arg0: any) {
+  throw new Error("Function not implemented.");
 }

@@ -1,20 +1,18 @@
 "use client";
-import { cookies } from "next/headers";
-import { useEffect, useState } from "react";
+
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginAsync } from "../../store/sessionSlice";
 import { validateEmail, validatePassword } from "@/services/formValidation";
 import { useRouter } from "next/navigation";
 import setCookieSession from "@/services/sessionCookie/setSessionCookie";
 export default function Login() {
-  const [session, setSession] = useState({});
   const [login, setLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const dispatch = useDispatch();
 
   const handleSignUp = async () => {
     setIsLoading(true);
@@ -86,7 +84,7 @@ export default function Login() {
       if (res.ok) {
         loginAsync(data.data.data.session);
 
-        setCookieSession(JSON.stringify(data.data.data.session));
+        await setCookieSession(JSON.stringify(data.data.data.session));
         router.push("/main");
       }
     } catch (error: any) {
@@ -183,7 +181,7 @@ export default function Login() {
                 </button>
               </form>
             </div>
-            {/* Login with google functionality */}
+            {/* Login with google*/}
             <div className="mt-10 mb-8">Login with google</div>
           </div>
         </div>

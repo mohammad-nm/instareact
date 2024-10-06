@@ -37,6 +37,14 @@ export default function AddNew({ session }: any) {
       if (res.ok) {
         const data = await res.json();
         dispatch(setReactsSlice(data[0].reacts));
+        setNewReact({
+          reactTo: [],
+          lookFor: [],
+          message: "",
+          photos: [],
+          id: v4(),
+          active: false,
+        });
         setIsOpen(false);
       } else {
         console.error(res.statusText);
@@ -152,6 +160,9 @@ export default function AddNew({ session }: any) {
                     ...prev,
                     lookFor: [...(prev.lookFor || []), inputValue],
                   }));
+                  if (inputRef.current) {
+                    inputRef.current.value = "";
+                  }
                 }}
               >
                 <svg
@@ -171,7 +182,7 @@ export default function AddNew({ session }: any) {
             {newReact.lookFor.map((item, index) => {
               return (
                 <div
-                  className="flex ml-4 items-center bg-[#efefef] bg-opacity-60 rounded-lg mt-2"
+                  className="flex ml-4 items-center bg-[#efefef] bg-opacity-60 rounded-lg mt-1 mb-1"
                   key={index}
                 >
                   <div className="ml-2">{item}</div>
@@ -204,9 +215,8 @@ export default function AddNew({ session }: any) {
           <div className="mt-4 ">
             <div>Message:</div>
             <div className="h-28 mt-1">
-              <input
-                type="text"
-                className="h-full w-full bg-[#efefef] rounded-sm pl-2 text-start"
+              <textarea
+                className="h-full w-full bg-[#efefef] rounded-sm p-2 "
                 placeholder="Type your message here:"
                 onChange={(e) =>
                   setNewReact((prev) => ({ ...prev, message: e.target.value }))
