@@ -13,3 +13,6 @@ export const validateNewReactLookFor = () => {
 export const validateNewReactMessage = () => {
   return;
 };
+export const validateNewReactReactTo = () => {
+  return;
+};

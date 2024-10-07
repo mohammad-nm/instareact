@@ -3,13 +3,13 @@ export default function SortBy() {
     <div className="flex h-auto items-center mt-6">
       <div className="text-lg">Sort by:</div>
       <div>
-        <div className="ml-2 pl-2 pr-2 pt-1 pb-1 text-xs rounded-[4px] w-auto bg-white  bg-opacity-50 flex text-black">
+        <div className="ml-2 pl-2 pr-2 pt-1 pb-1 text-xs rounded-[4px] w-auto bg-white font-semibold flex text-black">
           <span>DM</span>
           <div className="ml-2 items-center flex">
             <svg
               width="9"
-              height="7"
-              viewBox="0 0 9 7"
+              height="9"
+              viewBox="0 0 9 9"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >

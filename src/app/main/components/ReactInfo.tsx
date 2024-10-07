@@ -26,9 +26,10 @@ export default function ReactInfo({ react, index }: any) {
   };
   return (
     <div
-      className="w-[160px] min-[600px]:w-80 max-[388px]:w-full h-auto rounded-md p-2 bg-[#cdcdcd] text-black [box-shadow:rgba(0,_0,_0,_0.25)_0px_0.0625em_0.0625em,_rgba(0,_0,_0,_0.25)_0px_0.125em_0.5em,_rgba(255,_255,_255,_0.1)_0px_0px_0px_1px_inset] box-content mx-auto"
+      className="w-[160px] min-[600px]:w-80 max-[388px]:w-[90%] h-auto rounded-md p-2 bg-[#ffffff] text-black  box-content mx-auto [box-shadow:rgba(0,_0,_0,_0.25)_0px_0.0625em_0.0625em,_rgba(0,_0,_0,_0.25)_0px_0.125em_0.5em,_rgba(255,_255,_255,_0.1)_0px_0px_0px_1px_inset] break-inside-avoid mb-4"
       key={index}
     >
+      {/* bg-[#cdcdcd] */}
       <div className="flex w-full">
         <div className="w-3/5">
           <h2>
@@ -102,7 +103,7 @@ export default function ReactInfo({ react, index }: any) {
       {/* buttons */}
       <div className="flex w-full justify-evenly mt-2 mb-2 ">
         <button
-          className="flex items-center bg-[#000000] bg-opacity-60 pr-2 rounded-xl w-1/3 justify-evenly text-white"
+          className="flex items-center bg-[#000000]  pr-2 rounded-xl w-1/3 justify-evenly text-white"
           onClick={() => {
             handleDeleteReact();
           }}
@@ -121,10 +122,10 @@ export default function ReactInfo({ react, index }: any) {
               />
             </svg>
           </div>
-          <div className="text-[.6rem]">Delete</div>
+          <div className="text-[.6rem] font-semibold">Delete</div>
         </button>
 
-        <div className="flex items-center ml-1 bg-[#000000] bg-opacity-60 pr-2 pl-2 rounded-xl w-1/3 justify-evenly text-white">
+        <div className="flex items-center ml-1 bg-[#000000]  pr-2 pl-2 rounded-xl w-1/3 justify-evenly text-white">
           <div>
             <svg
               width="9"
@@ -141,10 +142,10 @@ export default function ReactInfo({ react, index }: any) {
               />
             </svg>
           </div>
-          <div className="text-[.6rem] ml-1 ">Save</div>
+          <div className="text-[.6rem] ml-1 font-semibold ">Save</div>
         </div>
 
-        <div className=" flex items-center ml-1 bg-[#000000] bg-opacity-60 pr-2 pl-2 rounded-xl w-1/3 justify-evenly text-white">
+        <div className=" flex items-center ml-1 bg-[#000000]  pr-2 pl-2 rounded-xl w-1/3 justify-evenly text-white">
           <div>
             <svg
               width="12"
@@ -177,12 +178,9 @@ export default function ReactInfo({ react, index }: any) {
               </defs>
             </svg>
           </div>
-          <div className="text-[.6rem] ml-1">Edit</div>
+          <div className="text-[.6rem] ml-1 font-semibold">Edit</div>
         </div>
       </div>
     </div>
   );
-}
-function dispatch(arg0: any) {
-  throw new Error("Function not implemented.");
 }

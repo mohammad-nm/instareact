@@ -6,7 +6,7 @@ export default function Profile() {
 
   return (
     <div
-      className="mt-4 ml-4 bg-white p-2 bg-opacity-50 rounded-3xl text-black"
+      className="mt-4 ml-4 bg-white p-2 rounded-3xl text-black"
       onClick={() => setIsOpen(!isOpen)}
     >
       <div className="w-auto flex items-center">
@@ -16,11 +16,11 @@ export default function Profile() {
             width={30}
             height={30}
             alt="instagram profile"
-            className="rounded-full"
+            className="rounded-full "
           />
         </div>
         <div className="ml-4">
-          <div className="text-center text-[1rem]">
+          <div className="text-center text-[1rem] font-semibold">
             <div>username</div>
           </div>
           {/* <div className="flex text-center">

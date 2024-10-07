@@ -24,3 +24,9 @@ body {
     text-wrap: balance;
   }
 }
+
+/* * {
+  outline: 1px;
+  outline-color: red;
+  outline-style: solid;
+} */

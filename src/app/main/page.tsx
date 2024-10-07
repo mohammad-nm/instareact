@@ -75,8 +75,9 @@ export default function Main() {
 
   return (
     <div
-      className={`bg-[#252525ea]  text-white min-h-screen min-[500px]:tracking-wider`}
+      className={`bg-[#252525]  text-white min-h-screen min-[500px]:tracking-wider`}
     >
+      {/* 252525ea */}
       <div>
         <Navbar handleLogout={handleLogout} />
       </div>
@@ -86,7 +87,7 @@ export default function Main() {
           <SearchBox />
         </div>
         <div className="flex justify-between h-auto items-center">
-          <div className="flex items-center pl-5 text-2xl mt-5 min-[600px]:text-3xl min-[780px]:hidden">
+          <div className="flex items-center pl-5 text-2xl mt-5 min-[600px]:text-3xl min-[780px]:hidden ">
             Reacts:
           </div>
           <div className="flex items-center justify-end min-[920px]:mr-20">
