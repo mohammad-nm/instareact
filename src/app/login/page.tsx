@@ -83,7 +83,6 @@ export default function Login() {
 
       if (res.ok) {
         loginAsync(data.data.data.session);
-
         await setCookieSession(JSON.stringify(data.data.data.session));
         router.push("/main");
       }

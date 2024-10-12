@@ -96,7 +96,7 @@ export default function Main() {
           </div>
         </div>
       </div>
-      <div className="">
+      <div className="flex justify-center">
         <ReactList session={session} />
       </div>
       <div className="flex justify-center min-[450px]:justify-end">

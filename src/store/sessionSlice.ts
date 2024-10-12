@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  session: null,
-};
+const initialState = { session: null };
 
 const sessionSlice = createSlice({
   name: "session",
@@ -16,6 +14,7 @@ const sessionSlice = createSlice({
     },
   },
 });
+export const { setSessionSlice, clearSession } = sessionSlice.actions;
 export const loginAsync = (credentials: any) => async (dispatch: any) => {
   try {
     const session = credentials;
@@ -25,6 +24,5 @@ export const loginAsync = (credentials: any) => async (dispatch: any) => {
     console.error("Failed to login:", error);
   }
 };
-export const { setSessionSlice, clearSession } = sessionSlice.actions;
 
 export default sessionSlice.reducer;

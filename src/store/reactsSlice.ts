@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { reacts: null };
+const initialState = { reacts: [] };
 
 const reactsSlice = createSlice({
   name: "reacts",
@@ -10,7 +10,7 @@ const reactsSlice = createSlice({
       state.reacts = action.payload;
     },
     clearReactsSlice: (state) => {
-      state.reacts = null;
+      state.reacts = [];
     },
   },
 });

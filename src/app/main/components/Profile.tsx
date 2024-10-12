@@ -23,20 +23,6 @@ export default function Profile() {
           <div className="text-center text-[1rem] font-semibold">
             <div>username</div>
           </div>
-          {/* <div className="flex text-center">
-            <div className="text-[.5rem]">
-              <div>posts</div>
-              <div>0</div>
-            </div>
-            <div className="text-[.5rem] ml-2 ">
-              <div>followers</div>
-              <div>0</div>
-            </div>
-            <div className="text-[.5rem] ml-2">
-              <div>following</div>
-              <div>0</div>
-            </div>
-          </div> */}
         </div>
         <div className=" self-center ml-4">
           <svg
