@@ -15,33 +15,51 @@ export default async function handler(
       return res.status(400).json({ message: "no code" });
     }
     if (code) {
-      const SLToken = await getSLToken(code as string);
-      if (!SLToken.access_token) {
-        return res.status(400).json({
-          messsage: "didnt get the SLToken!",
-          SLToken: SLToken.access_token,
-        });
-      }
-      if (SLToken.access_token) {
-        const LLToken = await getLLToken(SLToken.access_token);
-        if (!LLToken.access_token) {
-          return res
-            .status(400)
-            .json({ messsage: "didnt get the LLToken!", LLToken });
+      try {
+        const SLToken = await getSLToken(code as string);
+        if (!SLToken.access_token) {
+          return res.status(400).json({
+            messsage: "didnt get the SLToken!",
+            SLToken: SLToken.access_token,
+          });
         }
-        if (LLToken.access_token) {
-          const sendToken = await sendLLToken(id, LLToken);
-          if (sendToken) {
-            return res.status(200).json({
-              message: "token has been sent!",
-              LLToken,
-              sendToken,
-            });
+        if (SLToken.access_token) {
+          try {
+            const LLToken = await getLLToken(SLToken.access_token);
+            if (!LLToken.access_token) {
+              return res
+                .status(400)
+                .json({ messsage: "didnt get the LLToken!", LLToken });
+            }
+            if (LLToken.access_token) {
+              try {
+                const sendToken = await sendLLToken(id, LLToken.access_token);
+                if (sendToken) {
+                  return res.status(200).json({
+                    message: "token has been sent!",
+                    LLToken,
+                    sendToken,
+                  });
+                }
+              } catch (error) {
+                return res
+                  .status(400)
+                  .json({ message: "error in sendtoken", error: error });
+              }
+            }
+          } catch (error) {
+            return res
+              .status(400)
+              .json({ message: "error in LLtoken", error: error });
           }
         }
+      } catch (error) {
+        return res
+          .status(400)
+          .json({ message: "error in sltoken", error: error });
       }
     }
   } catch (error) {
-    return res.status(400).json({ message: "did nothing" });
+    return res.status(400).json({ message: "did nothing", error: error });
   }
 }
