@@ -44,15 +44,17 @@ export default async function handler(
                   });
                 }
               } catch (error) {
-                return res
-                  .status(400)
-                  .json({ message: "error in sendtoken", error: error });
+                return res.status(400).json({
+                  message: "error in sendtoken",
+                  error: error,
+                });
               }
             }
           } catch (error) {
             return res.status(400).json({
               message: "error in LLtoken",
               error: error,
+              SLToken: SLToken,
             });
           }
         }
