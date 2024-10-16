@@ -17,6 +17,7 @@ export default async function handler(
     if (code) {
       try {
         const SLToken = await getSLToken(code as string);
+        console.log(SLToken);
         if (!SLToken.access_token) {
           return res.status(400).json({
             messsage: "didnt get the SLToken!",
@@ -25,7 +26,7 @@ export default async function handler(
         }
         if (SLToken.access_token) {
           try {
-            const LLToken = await getLLToken(SLToken.access_token);
+            const LLToken = await getLLToken(SLToken.access_token as string);
             console.log(LLToken);
             if (!LLToken.access_token) {
               return res
