@@ -21,12 +21,15 @@ export default async function handler(
   }
 
   try {
+    console.log(code);
     const shortLivedTokenData = await getShortLivedToken(code as string);
+    console.log(shortLivedTokenData);
     const longLivedTokenData = await getLongLivedToken(
       shortLivedTokenData.access_token
     );
-    const saveToken: any = await sendToken(state as string, longLivedTokenData);
     console.log(longLivedTokenData);
+    const saveToken: any = await sendToken(state as string, longLivedTokenData);
+    console.log(saveToken);
     return res.status(200).json({ longLivedTokenData, saveToken });
   } catch (error) {
     console.log(error);
