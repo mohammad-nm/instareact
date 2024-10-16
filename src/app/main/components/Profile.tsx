@@ -13,7 +13,7 @@ export default function Profile() {
       {!logedIn ? (
         <a
           className="flex items-center"
-          href={`https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=915318097167332&redirect_uri=${process.env.INSTAGRAM_REDIRECT_URI}&response_type=code&scope=instagram_business_basic%2Cinstagram_business_manage_messages%2Cinstagram_business_manage_comments`}
+          href={`https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${process.env.INSTAGRAM_CLIENT_ID}&redirect_uri=${process.env.INSTAGRAM_REDIRECT_URI}&response_type=code&scope=instagram_business_basic%2Cinstagram_business_manage_messages%2Cinstagram_business_manage_comments`}
           target="_blank"
         >
           <div className="ml-2">
