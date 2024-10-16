@@ -26,6 +26,7 @@ export default async function handler(
         if (SLToken.access_token) {
           try {
             const LLToken = await getLLToken(SLToken.access_token);
+            console.log(LLToken);
             if (!LLToken.access_token) {
               return res
                 .status(400)
@@ -48,9 +49,10 @@ export default async function handler(
               }
             }
           } catch (error) {
-            return res
-              .status(400)
-              .json({ message: "error in LLtoken", error: error });
+            return res.status(400).json({
+              message: "error in LLtoken",
+              error: error,
+            });
           }
         }
       } catch (error) {
