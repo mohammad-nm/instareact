@@ -7,7 +7,7 @@ export default function Profile() {
   const [logedIn, setLogedIn] = useState(false);
   const clientID = process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_ID;
   const redirectUri = process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_ID;
-  const userId = useSelector((state: any) => state.session.session.user.id);
+  const userId = useSelector((state: any) => state.session.session?.user?.id);
 
   return (
     <button
