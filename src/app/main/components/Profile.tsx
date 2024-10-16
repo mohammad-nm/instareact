@@ -5,14 +5,7 @@ import { useSelector } from "react-redux";
 export default function Profile() {
   const [isOpen, setIsOpen] = useState(false);
   const [logedIn, setLogedIn] = useState(false);
-  const clientID = process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_ID;
-  const redirectUri = process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI;
-  const userId: string = useSelector(
-    (state: any) => state.session?.session?.user?.id
-  );
 
-  console.log(clientID, redirectUri, userId);
-  useEffect(() => {}, []);
   return (
     <button
       className="mt-4 ml-4 bg-white p-2 rounded-3xl text-black"

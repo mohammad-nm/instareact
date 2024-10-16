@@ -1,6 +1,6 @@
 import { supabase } from "../../utils/supabaseClient";
 
-export const sendToken = async (id: string, token: string) => {
+export async function sendLLToken(id: string, token: string) {
   const { data, error } = await supabase
     .from("profiles")
     .update({
@@ -12,9 +12,8 @@ export const sendToken = async (id: string, token: string) => {
     .eq("id", id)
     .select("instagram");
   if (error) {
-    console.log("error while sendToken: ", error);
-    return null;
+    return error;
   } else {
     return data;
   }
-};
+}
