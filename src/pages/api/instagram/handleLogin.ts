@@ -32,6 +32,6 @@ export default async function handler(
       return res.status(900).json({ message: "no code" });
     }
   } catch (error) {
-    return res.status(500).json({ message: "Internal server error", error });
+    return res.status(200).json({ message: error });
   }
 }
