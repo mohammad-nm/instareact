@@ -8,16 +8,15 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const code = req.query.code;
+  const state = req.query.state as string;
+  const id = state.split("#_")[0];
   try {
-    if (req.query.code) {
+    if (code) {
       const SLToken = await getSLToken(code as string);
       if (SLToken.data) {
         const LLToken = await getLLToken(SLToken);
         if (LLToken.access_token) {
-          const sendToken = await sendLLToken(
-            req.query.state as string,
-            LLToken
-          );
+          const sendToken = await sendLLToken(id, LLToken);
           console.log(sendToken);
         } else if (!LLToken.access_token) {
           return res.status(901).json({ messsage: "didnt get the LLToken!" });
@@ -25,7 +24,7 @@ export default async function handler(
       } else if (!SLToken.data) {
         return res.status(901).json({ messsage: "didnt get the SLToken!" });
       }
-    } else if (!req.query.code) {
+    } else if (!code) {
       return res.status(900).json({ message: "no code" });
     }
   } catch (error) {
