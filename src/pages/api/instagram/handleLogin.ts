@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getSLToken } from "@/services/instagram/getSLToken";
-import { getLLToken } from "@/services/instagram/getLLToken";
-import { sendLLToken } from "@/services/instagram/sendLLToken";
+import { getSLToken } from "../../../services/instagram/getSLToken";
+import { getLLToken } from "../../../services/instagram/getLLToken";
+import { sendLLToken } from "../../../services/instagram/sendLLToken";
 
 export default async function handler(
   req: NextApiRequest,
