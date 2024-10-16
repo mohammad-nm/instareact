@@ -1,6 +1,6 @@
 import { supabase } from "../../utils/supabaseClient";
 
-export async function sendLLToken(id: string, token: string) {
+export const sendLLToken = async (id: string, token: string) => {
   const { data, error } = await supabase
     .from("profiles")
     .update({
@@ -16,4 +16,4 @@ export async function sendLLToken(id: string, token: string) {
   } else {
     return data;
   }
-}
+};
