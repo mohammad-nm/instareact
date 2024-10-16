@@ -3,6 +3,8 @@
 // Function to get the Instagram access token (short-lived)
 export const getShortLivedToken = async (code: string) => {
   try {
+    const cleanCode = Array.isArray(code) ? code[0] : code;
+    const strippedCode = cleanCode.split("#")[0];
     const response = await fetch(
       "https://api.instagram.com/oauth/access_token",
       {
@@ -15,7 +17,7 @@ export const getShortLivedToken = async (code: string) => {
           client_secret: process.env.INSTAGRAM_CLIENT_SECRET!,
           grant_type: "authorization_code",
           redirect_uri: process.env.INSTAGRAM_REDIRECT_URI!,
-          code: code,
+          code: strippedCode,
         }).toString(),
       }
     );
