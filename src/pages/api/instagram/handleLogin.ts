@@ -1,8 +1,8 @@
-import { getLLToken } from "@/services/instagram/getLLToken";
-import { getSLToken } from "@/services/instagram/getSLToken";
 import { NextApiRequest, NextApiResponse } from "next";
+import { getSLToken } from "@/services/instagram/getSLToken";
+import { getLLToken } from "@/services/instagram/getLLToken";
 import { sendLLToken } from "@/services/instagram/sendLLToken";
-import { error } from "console";
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -17,7 +17,11 @@ export default async function handler(
         const LLToken = await getLLToken(SLToken);
         if (LLToken.access_token) {
           const sendToken = await sendLLToken(id, LLToken);
-          console.log(sendToken);
+          return res.status(200).json({
+            message: "token has been sent!",
+            LLToken,
+            sendToken,
+          });
         } else if (!LLToken.access_token) {
           return res.status(901).json({ messsage: "didnt get the LLToken!" });
         }
