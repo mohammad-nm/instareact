@@ -17,9 +17,10 @@ export default async function handler(
     if (code) {
       const SLToken = await getSLToken(code as string);
       if (!SLToken.access_token) {
-        return res
-          .status(400)
-          .json({ messsage: "didnt get the SLToken!", SLToken });
+        return res.status(400).json({
+          messsage: "didnt get the SLToken!",
+          SLToken: SLToken.access_token,
+        });
       }
       if (SLToken.access_token) {
         const LLToken = await getLLToken(SLToken.access_token);
@@ -41,6 +42,6 @@ export default async function handler(
       }
     }
   } catch (error) {
-    return res.status(400).json({ message: error });
+    return res.status(400).json({ message: "did nothing" });
   }
 }
