@@ -35,7 +35,7 @@ export default async function handler(
             }
             if (LLToken.access_token) {
               try {
-                const sendToken = await sendLLToken(id, LLToken.access_token);
+                const sendToken = await sendLLToken(id, LLToken);
                 if (sendToken) {
                   return res.status(200).json({
                     message: "token has been sent!",
