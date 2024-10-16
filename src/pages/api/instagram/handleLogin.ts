@@ -17,12 +17,16 @@ export default async function handler(
     if (code) {
       const SLToken = await getSLToken(code as string);
       if (!SLToken.data) {
-        return res.status(400).json({ messsage: "didnt get the SLToken!" });
+        return res
+          .status(400)
+          .json({ messsage: "didnt get the SLToken!", SLToken });
       }
       if (SLToken.data) {
         const LLToken = await getLLToken(SLToken);
         if (!LLToken.access_token) {
-          return res.status(400).json({ messsage: "didnt get the LLToken!" });
+          return res
+            .status(400)
+            .json({ messsage: "didnt get the LLToken!", LLToken });
         }
         if (LLToken.access_token) {
           const sendToken = await sendLLToken(id, LLToken);
