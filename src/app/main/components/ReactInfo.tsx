@@ -122,7 +122,7 @@ export default function ReactInfo({ react, index }: any) {
               />
             </svg>
           </div>
-          <div className="min-[420px]:text-[.6rem] font-semibold  text-[.3rem]">
+          <div className="min-[420px]:text-[.6rem] font-semibold  text-[.4rem]">
             Delete
           </div>
         </button>
@@ -144,7 +144,7 @@ export default function ReactInfo({ react, index }: any) {
               />
             </svg>
           </div>
-          <div className="min-[420px]:text-[.6rem] ml-1 font-semibold  text-[.3rem]">
+          <div className="min-[420px]:text-[.6rem] ml-1 font-semibold  text-[.4rem]">
             Save
           </div>
         </div>
@@ -182,7 +182,7 @@ export default function ReactInfo({ react, index }: any) {
               </defs>
             </svg>
           </div>
-          <div className="min-[420px]:text-[.6rem] text-[.3rem] ml-1 font-semibold">
+          <div className="min-[420px]:text-[.6rem] text-[.4rem] ml-1 font-semibold">
             Edit
           </div>
         </div>
