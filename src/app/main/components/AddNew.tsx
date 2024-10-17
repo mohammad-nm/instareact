@@ -1,4 +1,5 @@
 "use client";
+import { validateNewReactLookFor } from "@/services/formValidation";
 import { setReactsSlice } from "@/store/reactsSlice";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +19,12 @@ export default function AddNew({ session }: any) {
   const dispatch = useDispatch();
   const id = useSelector((state: any) => state.session.session?.user?.id);
   const [isOpen, setIsOpen] = useState(false);
+  const [validationError, setValidationError] = useState({
+    reactTo: "",
+    lookFor: "",
+    message: "",
+    addNew: "",
+  });
   const [newReact, setNewReact] = useState<NewReact>({
     reactTo: [],
     lookFor: [],
@@ -26,31 +33,64 @@ export default function AddNew({ session }: any) {
     id: v4(),
     active: false,
   });
+  const handleValidation = () => {
+    let valid = true;
+    const errors = {
+      reactTo: "",
+      lookFor: "",
+      message: "",
+      addNew: "",
+    };
 
+    if (newReact.reactTo.length === 0) {
+      errors.reactTo = "*Check one at least!";
+      valid = false;
+    }
+    if (newReact.lookFor.length === 0) {
+      errors.lookFor = "*Add one at least!";
+      valid = false;
+    }
+    if (newReact.message.length > 500 || newReact.message.length === 0) {
+      errors.message = "*1 to 500 characters!";
+      valid = false;
+    }
+
+    if (valid) {
+      setValidationError({ reactTo: "", lookFor: "", message: "", addNew: "" });
+    }
+    if (!valid) {
+      errors.addNew = "*Complete the from!";
+    }
+    setValidationError(errors);
+    return valid;
+  };
   const handelSendNewReact = async () => {
-    try {
-      const res = await fetch("/api/reacts/sendReacts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, newReact, reacts }),
-      });
-      if (res.ok) {
-        const data = await res.json();
-        dispatch(setReactsSlice(data[0].reacts));
-        setNewReact({
-          reactTo: [],
-          lookFor: [],
-          message: "",
-          photos: [],
-          id: v4(),
-          active: false,
+    const validated = handleValidation();
+    if (validated) {
+      try {
+        const res = await fetch("/api/reacts/sendReacts", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id, newReact, reacts }),
         });
-        setIsOpen(false);
-      } else {
-        console.error(res.statusText);
+        if (res.ok) {
+          const data = await res.json();
+          dispatch(setReactsSlice(data[0].reacts));
+          setNewReact({
+            reactTo: [],
+            lookFor: [],
+            message: "",
+            photos: [],
+            id: v4(),
+            active: false,
+          });
+          setIsOpen(false);
+        } else {
+          console.error(res.statusText);
+        }
+      } catch (error) {
+        console.error("Error sending react:", error);
       }
-    } catch (error) {
-      console.error("Error sending react:", error);
     }
   };
   return (
@@ -142,6 +182,11 @@ export default function AddNew({ session }: any) {
               </button>
             </div>
           </div>
+          {validationError.reactTo === "" ? null : (
+            <span className="text-xs text-orange-400 font-semibold">
+              {validationError.reactTo}
+            </span>
+          )}
           <div className="flex mt-4 flex-wrap items-center ">
             <div className="">Look for:</div>
             <div className="w-1/3 flex items-center">
@@ -156,10 +201,25 @@ export default function AddNew({ session }: any) {
                 className="-ml-8"
                 onClick={() => {
                   const inputValue = inputRef.current?.value || "";
-                  setNewReact((prev) => ({
-                    ...prev,
-                    lookFor: [...(prev.lookFor || []), inputValue],
-                  }));
+                  if (validateNewReactLookFor(inputValue)) {
+                    setNewReact((prev) => ({
+                      ...prev,
+                      lookFor: [...(prev.lookFor || []), inputValue],
+                    }));
+                    setValidationError({
+                      lookFor: "",
+                      reactTo: validationError.reactTo,
+                      message: validationError.message,
+                      addNew: validationError.addNew,
+                    });
+                  } else {
+                    setValidationError({
+                      lookFor: "*1 to 12 charachters!",
+                      reactTo: validationError.reactTo,
+                      message: validationError.message,
+                      addNew: validationError.addNew,
+                    });
+                  }
                   if (inputRef.current) {
                     inputRef.current.value = "";
                   }
@@ -179,6 +239,13 @@ export default function AddNew({ session }: any) {
                 </svg>
               </div>
             </div>
+            {validationError ? (
+              <span className="text-orange-400 text-xs ml-2 font-semibold">
+                {validationError.lookFor}
+              </span>
+            ) : (
+              ""
+            )}
             {newReact.lookFor.map((item, index) => {
               return (
                 <div
@@ -215,15 +282,28 @@ export default function AddNew({ session }: any) {
           <div className="mt-4 ">
             <div>Message:</div>
             <div className="h-28 mt-1">
-              <textarea
-                className="h-full w-full bg-[#efefef] rounded-sm p-2 "
+              <input
+                className="h-full w-full bg-[#efefef] rounded-sm p-2 block "
                 placeholder="Type your message here:"
-                onChange={(e) =>
-                  setNewReact((prev) => ({ ...prev, message: e.target.value }))
-                }
+                onChange={(e) => {
+                  setNewReact((prev) => ({ ...prev, message: e.target.value }));
+                  newReact.message.length > 500
+                    ? setValidationError({
+                        reactTo: validationError.reactTo,
+                        lookFor: validationError.lookFor,
+                        message: "*Less than 500 characters!",
+                        addNew: validationError.addNew,
+                      })
+                    : null;
+                }}
               />
             </div>
           </div>
+          {validationError.message && (
+            <div className=" font-semibold text-xs text-orange-400 mt-2">
+              {validationError.message}
+            </div>
+          )}
           <div className="mt-3 bg-[#efefef] w-fit p-1 pr-2 rounded-lg flex items-center  ">
             <div>
               <svg
@@ -248,6 +328,11 @@ export default function AddNew({ session }: any) {
               </button>
             </div>
           </div>
+          {validationError.addNew ? (
+            <span className="text-xs text-orange-400 font-semibold">
+              {validationError.addNew}
+            </span>
+          ) : null}
         </div>
       ) : null}
     </>

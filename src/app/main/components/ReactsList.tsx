@@ -22,7 +22,7 @@ export default function ReactList({ session }: any) {
   //     </div>
   //   );
   return (
-    <div className="columns-[170px] min-[600px]:columns-[250px] p-3 mt-8 ">
+    <div className="columns-[170px] min-[600px]:columns-[250px] p-3 mt-8 w-full">
       {reacts.length > 0 ? (
         reacts.map((react: ReactItem, index: number) => {
           return <ReactInfo react={react} key={index} />;

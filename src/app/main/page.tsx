@@ -13,6 +13,7 @@ import { clearSession, setSessionSlice } from "../../store/sessionSlice";
 import { useRouter } from "next/navigation";
 import getSessionCookie from "@/services/sessionCookie/getSessionCookie";
 import { setReactsSlice } from "@/store/reactsSlice";
+import { setInstaSlice } from "@/store/instaSlice";
 
 export default function Main() {
   const router = useRouter();
@@ -59,7 +60,27 @@ export default function Main() {
     };
     fetchReacts();
   }, [id, dispatch]);
-
+  useEffect(() => {
+    const fetchInsta = async () => {
+      if (!id) return;
+      try {
+        const response = await fetch("/api/instagram/fetchInfo", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id }),
+        });
+        if (response.ok) {
+          const data = await response.json();
+          dispatch(setInstaSlice(data.instagram));
+        } else {
+          console.log("error");
+        }
+      } catch (error) {
+        console.log("error while fetching insta info:", error);
+      }
+    };
+    fetchInsta();
+  }, [id, dispatch]);
   const handleLogout = async () => {
     const response = await fetch("/api/auth/logout", {
       method: "POST",

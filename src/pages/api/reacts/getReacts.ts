@@ -1,4 +1,4 @@
-import { getReacts } from "@/services/handleData";
+import { getReacts } from "@/services/handleReacts";
 
 export default async function handler(req: any, res: any) {
   const { id } = req.body;

@@ -1,4 +1,4 @@
-import { deleteReact } from "@/services/handleData";
+import { deleteReact } from "@/services/handleReacts";
 export default async function handler(req: any, res: any) {
   const { reacts, reactId, id } = req.body;
   const data = await deleteReact(reacts, reactId, id);
