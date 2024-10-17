@@ -101,7 +101,7 @@ export default function ReactInfo({ react, index }: any) {
         </div>
       </div>
       {/* buttons */}
-      <div className="flex w-full justify-evenly mt-2 mb-2 ">
+      <div className="flex w-full justify-evenly mt-6 mb-2 ">
         <button
           className="flex items-center bg-[#000000]  pr-2 rounded-xl w-1/3 justify-evenly text-white"
           onClick={() => {
@@ -122,7 +122,9 @@ export default function ReactInfo({ react, index }: any) {
               />
             </svg>
           </div>
-          <div className="text-[.6rem] font-semibold">Delete</div>
+          <div className="min-[420px]:text-[.6rem] font-semibold  text-[.3rem]">
+            Delete
+          </div>
         </button>
 
         <div className="flex items-center ml-1 bg-[#000000]  pr-2 pl-2 rounded-xl w-1/3 justify-evenly text-white">
@@ -142,7 +144,9 @@ export default function ReactInfo({ react, index }: any) {
               />
             </svg>
           </div>
-          <div className="text-[.6rem] ml-1 font-semibold ">Save</div>
+          <div className="min-[420px]:text-[.6rem] ml-1 font-semibold  text-[.3rem]">
+            Save
+          </div>
         </div>
 
         <div className=" flex items-center ml-1 bg-[#000000]  pr-2 pl-2 rounded-xl w-1/3 justify-evenly text-white">
@@ -178,7 +182,9 @@ export default function ReactInfo({ react, index }: any) {
               </defs>
             </svg>
           </div>
-          <div className="text-[.6rem] ml-1 font-semibold">Edit</div>
+          <div className="min-[420px]:text-[.6rem] text-[.3rem] ml-1 font-semibold">
+            Edit
+          </div>
         </div>
       </div>
     </div>
