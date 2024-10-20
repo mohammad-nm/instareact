@@ -1,14 +1,41 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
+interface Profile {
+  user_id: string;
+  username: string;
+  profile_picture_url: string;
+  account_type: string;
+}
 export default function Profile() {
   const [isOpen, setIsOpen] = useState(false);
+  const [profile, setProfile] = useState<Profile>();
   const logedIn = useSelector((state: any) => state.insta.insta);
   const clientID = process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_ID;
   const redirectUri = process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI;
   const userId = useSelector((state: any) => state.session.session?.user?.id);
-  useEffect(() => {}, [logedIn]);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      if (logedIn.LLToken !== undefined) {
+        try {
+          const response = await fetch("/api/instagram/getProfile", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ LLToken: logedIn.LLToken }),
+          });
+          if (response.ok) {
+            const data = await response.json();
+            setProfile(data);
+            console.log(data);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    };
+    fetchProfile();
+  }, [logedIn]);
   return (
     <button
       className="mt-4 ml-4 bg-white p-2 rounded-3xl text-black"
@@ -44,9 +71,12 @@ export default function Profile() {
             className="w-auto flex items-center"
             onClick={() => setIsOpen(!isOpen)}
           >
+            {/* "https://xsgames.co/randomusers/avatar.php?g=female" */}
             <div>
               <Image
-                src={"https://xsgames.co/randomusers/avatar.php?g=female"}
+                src={
+                  "https://scontent-prg1-1.cdninstagram.com/v/t51.2885-19/462704354_8510982465682056_31330118634083699_n.jpg?stp=dst-jpg_s206x206&_nc_cat=108&ccb=1-7&_nc_sid=bf7eb4&_nc_ohc=DxWPN9s5miYQ7kNvgESSlVh&_nc_ht=scontent-prg1-1.cdninstagram.com&edm=AP4hL3IEAAAA&oh=00_AYBK9Qx1XfLA1COF-cehppQXxoTObANls1xO0qqmGs6yyQ&oe=671B0816"
+                }
                 width={30}
                 height={30}
                 alt="instagram profile"
@@ -55,10 +85,9 @@ export default function Profile() {
             </div>
             <div className="ml-4">
               <div className="text-center text-[1rem] font-semibold">
-                <div>username</div>
+                <div>{profile ? profile.username : "Loading..."}</div>
               </div>
             </div>
-
             <div className={`self-center ml-4 ${isOpen && "rotate-180"}`}>
               <svg
                 width="9"

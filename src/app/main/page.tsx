@@ -72,6 +72,7 @@ export default function Main() {
         if (response.ok) {
           const data = await response.json();
           dispatch(setInstaSlice(data.instagram));
+          console.log(data);
         } else {
           console.log("error");
         }
