@@ -3,13 +3,13 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  //handling verification
   if (req.method === "GET") {
+    //handling verification
     const {
       "hub.mode": mode,
       "hub.challenge": challenge,
       "hub.verify_token": verifyToken,
-    } = req.query;
+    } = req.query || {};
     if (mode && process.env.WEBHOOK_VERIFICATION_TOKEN === verifyToken) {
       res.status(200).send(challenge);
     } else {

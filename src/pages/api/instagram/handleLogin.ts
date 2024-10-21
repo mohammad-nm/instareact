@@ -1,7 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSLToken } from "../../../services/instagram/getSLToken";
 import { getLLToken } from "../../../services/instagram/getLLToken";
-import { sendLLToken } from "../../../services/instagram/sendLLToken";
+import { sendInstaInfo } from "../../../services/instagram/sendInstaInfo";
+import getProfile from "@/services/instagram/getProfile";
 
 export default async function handler(
   req: NextApiRequest,
@@ -35,17 +36,36 @@ export default async function handler(
             }
             if (LLToken.access_token) {
               try {
-                const sendToken = await sendLLToken(id, LLToken);
-                if (sendToken) {
-                  return res.status(200).json({
-                    message: "token has been sent!",
-                    LLToken,
-                    sendToken,
-                  });
+                const instaInfo = await getProfile(LLToken.access_token);
+                if (instaInfo.user_id) {
+                  try {
+                    const instagram = {
+                      access_token: LLToken.access_token,
+                      expires_in: LLToken.expires_in,
+                      token_type: LLToken.token_type,
+                      account_type: instaInfo.account_type,
+                      profile_picture_url: instaInfo.profile_picture_url,
+                      user_id: instaInfo.user_id,
+                      username: instaInfo.username,
+                    };
+                    const sendToken = await sendInstaInfo(id, instagram);
+                    if (sendToken) {
+                      return res.status(200).json({
+                        message: "token has been sent!",
+                        LLToken,
+                        sendToken,
+                      });
+                    }
+                  } catch (error) {
+                    return res.status(400).json({
+                      message: "error in sendtoken",
+                      error: error,
+                    });
+                  }
                 }
               } catch (error) {
                 return res.status(400).json({
-                  message: "error in sendtoken",
+                  message: "error in instaInfo",
                   error: error,
                 });
               }
