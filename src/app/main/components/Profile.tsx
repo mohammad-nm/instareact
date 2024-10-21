@@ -75,7 +75,9 @@ export default function Profile() {
             <div>
               <Image
                 src={
-                  "https://scontent-prg1-1.cdninstagram.com/v/t51.2885-19/462704354_8510982465682056_31330118634083699_n.jpg?stp=dst-jpg_s206x206&_nc_cat=108&ccb=1-7&_nc_sid=bf7eb4&_nc_ohc=DxWPN9s5miYQ7kNvgESSlVh&_nc_ht=scontent-prg1-1.cdninstagram.com&edm=AP4hL3IEAAAA&oh=00_AYBK9Qx1XfLA1COF-cehppQXxoTObANls1xO0qqmGs6yyQ&oe=671B0816"
+                  profile?.profile_picture_url
+                    ? profile?.profile_picture_url
+                    : ""
                 }
                 width={30}
                 height={30}

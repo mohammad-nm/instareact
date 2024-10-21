@@ -11,13 +11,13 @@ export default async function handler(
       "hub.verify_token": verifyToken,
     } = req.query;
     if (mode && process.env.WEBHOOK_VERIFICATION_TOKEN === verifyToken) {
-      res.status(200).json(challenge);
+      res.status(200).send(challenge);
     } else {
       res
-        .status(500)
+        .status(403)
         .json({ error: "verify token invalid!:", verify_token: verifyToken });
     }
-  } //handling notifs
-  else if (req.method === "POST") {
+  } else if (req.method === "POST") {
+    //handling notifs
   }
 }
