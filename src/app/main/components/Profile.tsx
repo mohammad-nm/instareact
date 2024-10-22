@@ -10,38 +10,38 @@ interface Profile {
 export default function Profile() {
   const [isOpen, setIsOpen] = useState(false);
   const [profile, setProfile] = useState<Profile>();
-  const logedIn = useSelector((state: any) => state.insta.insta);
+  const instagram = useSelector((state: any) => state.insta.insta);
   const clientID = process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_ID;
   const redirectUri = process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI;
   const userId = useSelector((state: any) => state.session.session?.user?.id);
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      if (logedIn.LLToken !== undefined) {
-        try {
-          const response = await fetch("/api/instagram/getProfile", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ LLToken: logedIn.LLToken }),
-          });
-          if (response.ok) {
-            const data = await response.json();
-            setProfile(data);
-            console.log(data);
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    };
-    fetchProfile();
-  }, [logedIn]);
+  console.log(instagram);
+  // useEffect(() => {
+  //   const fetchProfile = async () => {
+  //     if (logedIn && logedIn.LLToken !== undefined) {
+  //       try {
+  //         const response = await fetch("/api/instagram/getProfile", {
+  //           method: "POST",
+  //           headers: { "Content-Type": "application/json" },
+  //           body: JSON.stringify({ LLToken: logedIn.token.LLToken }),
+  //         });
+  //         if (response.ok) {
+  //           const data = await response.json();
+  //           setProfile(data.profile);
+  //           console.log("fetch profile:", data);
+  //         }
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
+  //     }
+  //   };
+  //   fetchProfile();
+  // }, [logedIn]);
   return (
     <button
       className="mt-4 ml-4 bg-white p-2 rounded-3xl text-black"
       onClick={() => setIsOpen(!isOpen)}
     >
-      {!logedIn ? (
+      {!instagram.token?.LLToken ? (
         <a
           className="flex items-center"
           href={`https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${clientID}&redirect_uri=${redirectUri}&response_type=code&scope=instagram_business_basic%2Cinstagram_business_manage_messages%2Cinstagram_business_manage_comments&state=${userId}`}
@@ -75,8 +75,8 @@ export default function Profile() {
             <div>
               <Image
                 src={
-                  profile?.profile_picture_url
-                    ? profile?.profile_picture_url
+                  instagram.profile?.profile_picture_url
+                    ? instagram.profile?.profile_picture_url
                     : ""
                 }
                 width={30}
@@ -87,7 +87,11 @@ export default function Profile() {
             </div>
             <div className="ml-4">
               <div className="text-center text-[1rem] font-semibold">
-                <div>{profile ? profile.username : "Loading..."}</div>
+                <div>
+                  {instagram.profile
+                    ? instagram.profile.username
+                    : "Loading..."}
+                </div>
               </div>
             </div>
             <div className={`self-center ml-4 ${isOpen && "rotate-180"}`}>

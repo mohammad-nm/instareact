@@ -12,8 +12,8 @@ import { useDispatch } from "react-redux";
 import { clearSession, setSessionSlice } from "../../store/sessionSlice";
 import { useRouter } from "next/navigation";
 import getSessionCookie from "@/services/sessionCookie/getSessionCookie";
-import { setReactsSlice } from "@/store/reactsSlice";
-import { setInstaSlice } from "@/store/instaSlice";
+import { clearReactsSlice, setReactsSlice } from "@/store/reactsSlice";
+import { clearInstaSlice, setInstaSlice } from "@/store/instaSlice";
 
 export default function Main() {
   const router = useRouter();
@@ -50,6 +50,7 @@ export default function Main() {
 
         if (response.ok) {
           const data = await response.json();
+
           dispatch(setReactsSlice(data));
         } else {
           console.error("Failed to fetch reacts:", response.statusText);
@@ -72,7 +73,6 @@ export default function Main() {
         if (response.ok) {
           const data = await response.json();
           dispatch(setInstaSlice(data.instagram));
-          console.log(data);
         } else {
           console.log("error");
         }
@@ -89,6 +89,8 @@ export default function Main() {
 
     if (response.ok) {
       dispatch(clearSession());
+      dispatch(clearReactsSlice());
+      dispatch(clearInstaSlice());
       router.push("/login");
     } else {
       console.error("Logout failed");
