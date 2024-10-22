@@ -99,7 +99,7 @@ export default function Main() {
 
   return (
     <div
-      className={`bg-[#252525]  text-white min-h-screen min-[500px]:tracking-wider`}
+      className={`bg-[#000000f0]  text-white min-h-screen min-[500px]:tracking-wider`}
     >
       {/* 252525ea */}
       <div>

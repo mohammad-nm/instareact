@@ -11,7 +11,7 @@ export default function Navbar({ handleLogout }: any) {
         InstaReact
       </div>
       <div className="font-semibold w-56  text-ellipsis overflow-hidden place-content-center mx-auto">
-        {useSelector((state: any) => state.session.session.user.email)}
+        {useSelector((state: any) => state.session.session?.user?.email)}
       </div>
       <div className="mr-4 ml-auto place-content-center mt-2 z-50">
         <button onClick={() => setSidebarIsOpen(!sidebarIsOpen)}>
