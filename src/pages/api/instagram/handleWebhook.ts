@@ -4,7 +4,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "GET") {
-    //handling verification
+    //handling webhook handler verification
     const {
       "hub.mode": mode,
       "hub.challenge": challenge,
@@ -19,7 +19,7 @@ export default async function handler(
     }
   } else if (req.method === "POST") {
     //handling notifs
-    res.status(200);
     console.log(JSON.stringify(req.body.entry[0].messaging));
+    return res.status(200).json({ message: "Recived!" });
   }
 }
