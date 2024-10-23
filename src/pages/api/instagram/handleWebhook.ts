@@ -19,6 +19,7 @@ export default async function handler(
     }
   } else if (req.method === "POST") {
     //handling notifs
-    console.log(req.body);
+    res.status(200);
+    console.log(JSON.stringify(req.body));
   }
 }
