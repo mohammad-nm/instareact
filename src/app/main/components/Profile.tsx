@@ -15,31 +15,11 @@ export default function Profile() {
   const redirectUri = process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI;
   const userId = useSelector((state: any) => state.session.session?.user?.id);
   console.log(instagram);
-  // useEffect(() => {
-  //   const fetchProfile = async () => {
-  //     if (logedIn && logedIn.LLToken !== undefined) {
-  //       try {
-  //         const response = await fetch("/api/instagram/getProfile", {
-  //           method: "POST",
-  //           headers: { "Content-Type": "application/json" },
-  //           body: JSON.stringify({ LLToken: logedIn.token.LLToken }),
-  //         });
-  //         if (response.ok) {
-  //           const data = await response.json();
-  //           setProfile(data.profile);
-  //           console.log("fetch profile:", data);
-  //         }
-  //       } catch (error) {
-  //         console.log(error);
-  //       }
-  //     }
-  //   };
-  //   fetchProfile();
-  // }, [logedIn]);
+
   return (
     <div>
       <button
-        className="mt-4 ml-4  p-2 rounded-lg text-white bg-[#0A0A0A] [box-shadow:#666666_0px_0px_0px_1px]"
+        className="mt-4 ml-4  p-3 rounded-lg text-white bg-[#0A0A0A] [box-shadow:#666666_0px_0px_0px_1px]"
         onClick={() => setIsOpen(!isOpen)}
       >
         {!instagram.token?.LLToken ? (

@@ -1,7 +1,9 @@
 import { setReactsSlice } from "@/store/reactsSlice";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function ReactInfo({ react, index }: any) {
+  const [active, setActive] = useState(false);
   const reacts = useSelector((state: any) => state.reacts.reacts);
   const dispatch = useDispatch();
   const id = useSelector((state: any) => state.session.session?.user?.id);
@@ -106,8 +108,13 @@ export default function ReactInfo({ react, index }: any) {
       {/* buttons  */}
       <div className="grid grid-rows-2 gap-2 mt-2">
         <div className=" text-center">
-          <button className="bg-green-500 w-full rounded-md p-1 text-sm min-[600px]:text-lg">
-            Activate
+          <button
+            className={`${
+              active ? "bg-red-500" : "bg-green-500"
+            } w-full rounded-md p-1 text-sm min-[600px]:text-lg`}
+            onClick={() => setActive(!active)}
+          >
+            {active ? "Off" : "On"}
           </button>
         </div>
         <div className="grid grid-cols-2 gap-2 text-center mt-1">
