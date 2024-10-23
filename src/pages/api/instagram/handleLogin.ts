@@ -48,12 +48,12 @@ export default async function handler(
                       user_id: instaInfo.user_id,
                       username: instaInfo.username,
                     };
-                    const sendToken = await sendInstaInfo(id, instagram);
-                    if (sendToken) {
+                    const sendToSupa = await sendInstaInfo(id, instagram);
+                    if (sendToSupa) {
                       return res.status(200).json({
                         message: "token has been sent!",
                         LLToken,
-                        sendToken,
+                        sendToSupa,
                       });
                     }
                   } catch (error) {
