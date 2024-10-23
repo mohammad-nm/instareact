@@ -282,7 +282,7 @@ export default function AddNew({ session }: any) {
           <div className="mt-4 ">
             <div>Message:</div>
             <div className="h-28 mt-1">
-              <input
+              <textarea
                 className="h-full w-full bg-[#efefef] rounded-sm p-2 block "
                 placeholder="Type your message here:"
                 onChange={(e) => {

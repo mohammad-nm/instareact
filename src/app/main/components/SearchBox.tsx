@@ -4,7 +4,7 @@ export default function SearchBox() {
       <div className="flex items-center ml-16 min-[950px]:ml-48  ">
         <input
           type="text"
-          className="bg-[#0A0A0A] [box-shadow:#666666_0px_0px_0px_1px] text-[9px] placeholder-[#edededaf] w-40 h-7 min-[600px]:h-9 p-2 pl-4 rounded-xl min-[600px]:w-72 font-semibold"
+          className="bg-[#0A0A0A] [box-shadow:#666666_0px_0px_0px_1px] text-[9px] placeholder-[#edededaf] w-40 h-7 min-[600px]:h-9 p-2 pl-4 rounded-md min-[600px]:w-72 font-semibold"
           placeholder="search in reacts:"
         />
         <div className="-ml-7">

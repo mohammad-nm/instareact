@@ -29,7 +29,6 @@ export default function ReactInfo({ react, index }: any) {
       className="w-[160px] min-[600px]:w-80 max-[388px]:w-[90%] h-auto rounded-md p-4 bg-[#0A0A0A] box-content mx-auto [box-shadow:rgba(0,_0,_0,_0.25)_0px_0.0625em_0.0625em,_rgba(0,_0,_0,_0.25)_0px_0.125em_0.5em,_rgba(255,_255,_255,_0.1)_0px_0px_0px_1px_inset] break-inside-avoid mb-4 "
       key={index}
     >
-      {/* bg-[#cdcdcd] */}
       <div className="flex w-full ">
         <div className="w-3/5">
           <h2>
@@ -91,16 +90,16 @@ export default function ReactInfo({ react, index }: any) {
         </div>
       </div>
 
-      <div className="w-full">
+      <div className="w-full h-auto overflow-hidden">
         <div className="text-[.5rem] mt-2 ">Message:</div>
         <div
-          className="ml-1 text-[.6rem] font-semibold  text-ellipsis overflow-hidden whitespace-normal line-clamp-5 "
+          className="ml-1 text-[.6rem] font-semibold whitespace-normal line-clamp-[4]"
           dir="auto"
         >
           {react.message}
         </div>
       </div>
-      {/* buttons */}
+      {/* buttons  */}
       <div className="grid grid-rows-2 gap-2 mt-2">
         <div className=" text-center">
           <button className="bg-green-500 w-full rounded-md p-1">

@@ -7,14 +7,14 @@ export default function Navbar({ handleLogout }: any) {
 
   return (
     <div className="w-full h-11 flex">
-      <div className="flex">
+      <div className="flex  place-items-center">
         <div className="ml-4 text-3xl place-content-center min-[600px]:text-4xl min-[600px]:ml-6 min-[600px]:mt-2 font-semibold">
           InstaReact
         </div>
-        <div className="font-semibold text-3xl ml-2 min-[600px]:text-4xl">
-          .
+        <div className="font-semibold text-3xl ml-2 min-[600px]:text-4xl min-[600px]:mt-2">
+          •
         </div>
-        <div className="font-semibold w-56 text-xs  text-ellipsis overflow-hidden place-content-center ml-2 min-[600px]:text-sm min-[600px]:mt-2">
+        <div className="font-semibold min-[600px]:w-56 text-xs  text-ellipsis overflow-hidden ml-2 min-[600px]:text-sm min-[600px]:mt-2 w-24 mt-1">
           {useSelector((state: any) => state.session.session?.user?.email)}
         </div>
       </div>
