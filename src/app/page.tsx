@@ -34,7 +34,9 @@ export default function Home() {
       </div>
 
       <div className="md:col-span-3 bg-gray-300 border-2 border-black p-10 text-center text-xl">
-        privecy and policy
+        <a href="https://www.termsfeed.com/live/488dd180-31ba-41fd-b861-6c954f2f5e70">
+          Privecy and policy
+        </a>
       </div>
 
       <div className="bg-gray-300 border-2 border-black p-10 text-center text-xl md:hidden">
