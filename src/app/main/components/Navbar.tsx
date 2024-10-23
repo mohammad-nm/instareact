@@ -7,11 +7,16 @@ export default function Navbar({ handleLogout }: any) {
 
   return (
     <div className="w-full h-11 flex">
-      <div className="ml-4 text-3xl place-content-center min-[600px]:text-4xl min-[600px]:ml-6 min-[600px]:mt-2">
-        InstaReact
-      </div>
-      <div className="font-semibold w-56  text-ellipsis overflow-hidden place-content-center mx-auto">
-        {useSelector((state: any) => state.session.session?.user?.email)}
+      <div className="flex">
+        <div className="ml-4 text-3xl place-content-center min-[600px]:text-4xl min-[600px]:ml-6 min-[600px]:mt-2 font-semibold">
+          InstaReact
+        </div>
+        <div className="font-semibold text-3xl ml-2 min-[600px]:text-4xl">
+          .
+        </div>
+        <div className="font-semibold w-56 text-xs  text-ellipsis overflow-hidden place-content-center ml-2 min-[600px]:text-sm min-[600px]:mt-2">
+          {useSelector((state: any) => state.session.session?.user?.email)}
+        </div>
       </div>
       <div className="mr-4 ml-auto place-content-center mt-2 z-50">
         <button onClick={() => setSidebarIsOpen(!sidebarIsOpen)}>
