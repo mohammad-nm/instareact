@@ -33,18 +33,22 @@ export default function ReactInfo({ react, index }: any) {
         <div className="w-3/5">
           <h2>
             <div className="text-[.5rem] ">React to: </div>
-            <div className="text-[.6rem] font-semibold ">
+            <div className="text-[.6rem] font-semibold min-[600px]:text-sm flex">
               {react.reactTo.map((item: string, index: number) => (
-                <div key={index}>{item}</div>
+                <div key={index}>
+                  {item}
+                  {react.reactTo.length > index + 1 && ", "}
+                </div>
               ))}
             </div>
           </h2>
           <h2>
             <div className="text-[.5rem] mt-2 ">Look for: </div>
-            <div className="text-[.6rem] font-semibold">
+            <div className="text-[.6rem] font-semibold min-[600px]:text-sm flex">
               {react.lookFor.map((item: string, index: number) => (
                 <div key={index} className="mr-3">
                   {item}
+                  {react.lookFor.length > index + 1 && ", "}
                 </div>
               ))}
             </div>{" "}
@@ -93,7 +97,7 @@ export default function ReactInfo({ react, index }: any) {
       <div className="w-full h-auto overflow-hidden">
         <div className="text-[.5rem] mt-2 ">Message:</div>
         <div
-          className="ml-1 text-[.6rem] font-semibold whitespace-normal line-clamp-[4]"
+          className="ml-1 text-[.6rem] min-[600px]:text-sm font-semibold text-ellipsis overflow-hidden "
           dir="auto"
         >
           {react.message}
@@ -102,17 +106,19 @@ export default function ReactInfo({ react, index }: any) {
       {/* buttons  */}
       <div className="grid grid-rows-2 gap-2 mt-2">
         <div className=" text-center">
-          <button className="bg-green-500 w-full rounded-md p-1">
+          <button className="bg-green-500 w-full rounded-md p-1 text-sm min-[600px]:text-lg">
             Activate
           </button>
         </div>
         <div className="grid grid-cols-2 gap-2 text-center mt-1">
           <div className="col-span-1">
-            <button className="bg-[#1f1f1f] w-full rounded-md p-1">Edit</button>
+            <button className="bg-[#1f1f1f] w-full rounded-md p-1 text-sm min-[600px]:text-lg">
+              Edit
+            </button>
           </div>
           <div className="col-span-1">
             <button
-              className="p-1 bg-[#1f1f1f] w-full rounded-md"
+              className="p-1 bg-[#1f1f1f] w-full rounded-md text-sm min-[600px]:text-lg"
               onClick={() => {
                 handleDeleteReact();
               }}

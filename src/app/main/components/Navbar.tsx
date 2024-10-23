@@ -24,24 +24,24 @@ export default function Navbar({ handleLogout }: any) {
             width="21"
             height="14"
             viewBox="0 0 21 14"
-            fill="none"
+            fill="white"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M1 1H20.0024"
-              stroke={sidebarIsOpen ? "black" : "white"}
+              stroke={"white"}
               strokeWidth="2"
               strokeLinecap="round"
             />
             <path
               d="M1 7H20.0024"
-              stroke={sidebarIsOpen ? "black" : "white"}
+              stroke={"white"}
               strokeWidth="2"
               strokeLinecap="round"
             />
             <path
               d="M1 13H20.0024"
-              stroke={sidebarIsOpen ? "black" : "white"}
+              stroke={"white"}
               strokeWidth="2"
               strokeLinecap="round"
             />

@@ -69,7 +69,7 @@ export default function Profile() {
         ) : (
           <>
             <div
-              className="w-auto flex items-center"
+              className="w-auto flex items-center "
               onClick={() => setIsOpen(!isOpen)}
             >
               {/* "https://xsgames.co/randomusers/avatar.php?g=female" */}

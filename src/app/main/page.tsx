@@ -102,10 +102,10 @@ export default function Main() {
       className={`bg-[#000000f0]  text-white min-h-screen min-[500px]:tracking-wider`}
     >
       {/* 252525ea */}
-      <div>
+      <div className="">
         <Navbar handleLogout={handleLogout} />
       </div>
-      <div className="min-[780px]:flex min-[780px]:justify-between      min-[950px]:mt-8">
+      <div className="min-[780px]:flex min-[780px]:justify-between min-[950px]:mt-8">
         <div className="flex items-center  min-[920px]:ml-12  ">
           <Profile />
           <SearchBox />

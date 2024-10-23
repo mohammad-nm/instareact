@@ -2,19 +2,19 @@ import { useState } from "react";
 
 export default function SortBy() {
   const [isOpen, setIsOpen] = useState(false);
-  const [sorting, setSorting] = useState("all");
+  const [sorting, setSorting] = useState("All");
   return (
     <div className="flex h-auto items-center mt-6">
-      <div className="text-lg">Sort by:</div>
+      <div className="text-lg min-[600px]:text-3xl">Sort by:</div>
       <div className="">
         <button
-          className="ml-2 pl-2 pr-2 pt-1 pb-1 text-xs rounded-[4px] w-fit font-semibold flex text-white bg-[#0A0A0A] [box-shadow:#666666_0px_0px_0px_1px]"
+          className="ml-2 pl-2 pr-2 pt-1 pb-1 text-xs rounded-[4px] w-fit font-semibold flex text-white bg-[#0A0A0A] [box-shadow:#666666_0px_0px_0px_1px] min-[600px]:text-base items-center"
           onClick={() => {
             setIsOpen(!isOpen);
           }}
         >
           <span>{sorting}</span>
-          <div className="ml-2 items-center flex">
+          <div className="ml-2">
             <svg
               width="9"
               height="9"
