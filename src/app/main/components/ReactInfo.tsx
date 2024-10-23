@@ -97,7 +97,7 @@ export default function ReactInfo({ react, index }: any) {
       <div className="w-full h-auto overflow-hidden">
         <div className="text-[.5rem] mt-2 ">Message:</div>
         <div
-          className="ml-1 text-[.6rem] min-[600px]:text-sm font-semibold text-ellipsis overflow-hidden "
+          className="ml-1 text-[.6rem] min-[600px]:text-sm font-semibold text-ellipsis overflow-hidden min-[500px]:line-clamp-1 line-clamp-3"
           dir="auto"
         >
           {react.message}

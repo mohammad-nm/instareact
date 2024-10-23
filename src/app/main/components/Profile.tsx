@@ -73,7 +73,7 @@ export default function Profile() {
               onClick={() => setIsOpen(!isOpen)}
             >
               {/* "https://xsgames.co/randomusers/avatar.php?g=female" */}
-              <div>
+              <div className="border-solid border-2 border-[#8f8f8f] rounded-full">
                 <Image
                   src={
                     instagram.profile?.profile_picture_url
