@@ -3,7 +3,7 @@ import { useState } from "react";
 export default function Category() {
   const [category, setCategory] = useState("all");
   return (
-    <div className="h-auto mt-6 mr-6 ml-8">
+    <div className="h-auto mt-6 mr-6 ">
       <div className="flex rounded-[4px] bg-[#0a0a0a] [box-shadow:#666666_0px_0px_0px_1px] font-semibold pl-2 pr-2 p-1 text-xs text-white min-[600px]:text-base">
         <button>
           <div
