@@ -20,6 +20,6 @@ export default async function handler(
   } else if (req.method === "POST") {
     //handling notifs
     res.status(200);
-    console.log(JSON.stringify(req.body));
+    console.log(JSON.stringify(req.body.entry[0].messaging));
   }
 }
