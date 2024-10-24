@@ -13,7 +13,7 @@ interface NewReact {
   id: string;
   active: boolean;
 }
-export default function AddNew({ session }: any) {
+export default function AddNew() {
   const inputRef = useRef<HTMLInputElement>(null);
   const reacts = useSelector((state: any) => state.reacts.reacts);
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ export default function AddNew({ session }: any) {
     message: "",
     photos: [],
     id: v4(),
-    active: false,
+    active: true,
   });
   const handleValidation = () => {
     let valid = true;

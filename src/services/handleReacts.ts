@@ -59,3 +59,24 @@ export const deleteReact = async (reacts: [], reactId: string, id: string) => {
     return data;
   }
 };
+
+export const onOffReact = async (reacts: [], reactId: string, id: string) => {
+  const newReacts = reacts.map((react: any) => {
+    if (react.id === reactId) {
+      return { ...react, active: !react.active };
+    }
+    return react;
+  });
+  const { data, error } = await supabase
+    .from("profiles")
+    .update({
+      reacts: newReacts,
+    })
+    .eq("id", id)
+    .select("reacts");
+  if (error) {
+    console.log("error while deleteReact: ", error);
+  } else {
+    return data;
+  }
+};

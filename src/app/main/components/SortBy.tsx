@@ -1,8 +1,16 @@
-import { useState } from "react";
+import { setSortingSlice } from "@/store/sortingSlice";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function SortBy() {
   const [isOpen, setIsOpen] = useState(false);
   const [sorting, setSorting] = useState("All");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setSortingSlice(sorting));
+  }, [sorting, dispatch]);
+
   return (
     <div className="flex h-auto items-center mt-6">
       <div className="text-lg min-[600px]:text-3xl">Sort by:</div>

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function ReactInfo({ react, index }: any) {
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(react.active);
   const reacts = useSelector((state: any) => state.reacts.reacts);
   const dispatch = useDispatch();
   const id = useSelector((state: any) => state.session.session?.user?.id);
@@ -19,6 +19,25 @@ export default function ReactInfo({ react, index }: any) {
         const data = await res.json();
 
         dispatch(setReactsSlice(data[0].reacts));
+      } else {
+        console.error(res.statusText);
+      }
+    } catch (error) {
+      console.error("Error sending react:", error);
+    }
+  };
+  const handleOnOffReact = async () => {
+    try {
+      const res = await fetch("/api/reacts/onOffReact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reacts, reactId, id }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        dispatch(setReactsSlice(data[0].reacts));
+
+        setActive(!active);
       } else {
         console.error(res.statusText);
       }
@@ -110,11 +129,11 @@ export default function ReactInfo({ react, index }: any) {
         <div className=" text-center">
           <button
             className={`${
-              active ? "bg-red-500" : "bg-green-500"
+              !active ? "bg-red-500" : "bg-green-500"
             } w-full rounded-md p-1 text-sm min-[600px]:text-lg`}
-            onClick={() => setActive(!active)}
+            onClick={() => handleOnOffReact()}
           >
-            {active ? "Off" : "On"}
+            {!active ? "Off" : "On"}
           </button>
         </div>
         <div className="grid grid-cols-2 gap-2 text-center mt-1">

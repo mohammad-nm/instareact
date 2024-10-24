@@ -1,6 +1,4 @@
-import { useEffect } from "react";
 import ReactInfo from "./ReactInfo";
-
 import { useSelector } from "react-redux";
 
 interface ReactItem {
@@ -10,22 +8,27 @@ interface ReactItem {
   id: string;
   saved: boolean;
   photos: string[];
+  active: boolean;
 }
 
-export default function ReactList({ session }: any) {
+export default function ReactList() {
   const reacts = useSelector((state: any) => state.reacts.reacts);
-  // useEffect(() => {}, [reacts]);
-  // if (reacts === null)
-  //   return (
-  //     <div className="w-full flex ">
-  //       <div className="mx-auto text-2xl font-semibold mt-14">Loading... </div>
-  //     </div>
-  //   );
+  const sortingSlice = useSelector((state: any) => state.sorting.sorting);
+  const activeSlice = useSelector((state: any) => state.active.sorting);
+
   return (
     <div className="columns-[170px] min-[600px]:columns-[250px] p-3 mt-8 w-full">
       {reacts.length > 0 ? (
         reacts.map((react: ReactItem, index: number) => {
-          return <ReactInfo react={react} key={index} />;
+          const sorting =
+            sortingSlice === "All" || react.reactTo.includes(sortingSlice);
+          const active =
+            activeSlice === "All" || (activeSlice === "Active" && react.active);
+          if (sorting && active) {
+            return <ReactInfo react={react} key={index} />;
+          } else {
+            return null;
+          }
         })
       ) : (
         <div className=" mt-4 text-xl min-[600px]:text-3xl font-semibold ">
