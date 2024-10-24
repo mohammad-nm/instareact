@@ -121,10 +121,10 @@ export default function Main() {
         </div>
       </div>
       <div className="flex justify-center">
-        <ReactList session={session} />
+        <ReactList />
       </div>
       <div className="flex justify-center min-[450px]:justify-end">
-        <AddNew session={session} />
+        <AddNew />
       </div>
     </div>
   );
