@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 interface Profile {
   user_id: string;
@@ -14,14 +14,29 @@ export default function Profile() {
   const clientID = process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_ID;
   const redirectUri = process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI;
   const userId = useSelector((state: any) => state.session.session?.user?.id);
-
+  const handleLogOut = async () => {
+    try {
+      const response = await fetch("api/instagram/handleLogout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId }),
+      });
+      if (!response.ok) {
+        console.error("Failed to log out:", response.statusText);
+        return;
+      }
+      console.log("Logout successfully:", response);
+    } catch (error) {
+      console.log("error while logging out", error);
+    }
+  };
   return (
     <div>
       <button
         className="mt-4 ml-4  p-3 rounded-lg text-white bg-[#0A0A0A] [box-shadow:#666666_0px_0px_0px_1px]"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {!instagram.token?.LLToken ? (
+        {!instagram?.token?.LLToken ? (
           <a
             className="flex items-center"
             href={`https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${clientID}&redirect_uri=${redirectUri}&response_type=code&scope=instagram_business_basic%2Cinstagram_business_manage_messages%2Cinstagram_business_manage_comments&state=${userId}`}
@@ -94,7 +109,9 @@ export default function Profile() {
       </button>
       {isOpen && (
         <button className="bg-[#0A0A0A] [box-shadow:#666666_0px_0px_0px_1px] rounded-lg ml-4 font-semibold p-3 mt-2 fixed block">
-          <div className="w-fit text-red-400 ">LogOut</div>
+          <div className="w-fit text-red-400 " onClick={() => handleLogOut()}>
+            LogOut
+          </div>
         </button>
       )}
     </div>
