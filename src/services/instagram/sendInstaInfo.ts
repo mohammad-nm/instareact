@@ -12,21 +12,8 @@ export const sendInstaInfo = async (id: string, instagram: instagram) => {
   const { data, error } = await supabase
     .from("profiles")
     .update({
-      instagram: {
-        supaID: id,
-        token: {
-          LLToken: instagram.access_token,
-          when: new Date().toISOString(),
-          expires_in: instagram.expires_in,
-          token_type: instagram.token_type,
-        },
-        profile: {
-          account_type: instagram.account_type,
-          profile_picture_url: instagram.profile_picture_url,
-          user_id: instagram.user_id,
-          username: instagram.username,
-        },
-      },
+      supaID: id,
+      instagram,
     })
     .eq("id", id)
     .select("instagram");

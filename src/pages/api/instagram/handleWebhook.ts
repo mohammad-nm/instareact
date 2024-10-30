@@ -1,4 +1,5 @@
 import { redis } from "@/utils/redisClient";
+import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
 export default async function handler(
   req: NextApiRequest,
@@ -26,10 +27,7 @@ export default async function handler(
       const recipentID = req.body.entry[0].id;
       const senderID = req.body.entry[0].messaging[0].sender.id;
       const messageText = req.body.entry[0].messaging[0].message.text;
-      const userinfo = await redis.get(`userInfo:${recipentID}`);
-      if (userinfo === null) {
-      }
-
+      const userinfo = await axios.post("/api/getUserInfo", { recipentID });
       const response = await fetch(
         `https://graph.instagram.com/v21.0/${recipentID}/messages`,
         {

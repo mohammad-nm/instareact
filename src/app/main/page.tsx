@@ -14,11 +14,12 @@ import { useRouter } from "next/navigation";
 import getSessionCookie from "@/services/sessionCookie/getSessionCookie";
 import { clearReactsSlice, setReactsSlice } from "@/store/reactsSlice";
 import { clearInstaSlice, setInstaSlice } from "@/store/instaSlice";
+import axios from "axios";
 
 export default function Main() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const [session, setSession] = useState(null);
+
   const [id, setId] = useState(null);
   useEffect(() => {
     const fetchSession = async () => {
@@ -26,7 +27,6 @@ export default function Main() {
       if (cookie === null) {
         handleLogout();
       } else {
-        setSession(JSON.parse(cookie));
         setId(JSON.parse(cookie).user.id);
 
         dispatch(setSessionSlice(JSON.parse(cookie)));
@@ -34,22 +34,29 @@ export default function Main() {
     };
 
     fetchSession();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    const res = async () => {
+      console.log("Sending request to /api/redis");
+      const data = await axios.post("/api/redis", {
+        command: "set",
+        key: "test",
+        value: "test.test",
+      });
+      console.log(data);
+    };
+    res();
   }, []);
   useEffect(() => {
     const fetchReacts = async () => {
       if (!id) return;
 
       try {
-        const response = await fetch("/api/reacts/getReacts", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id }),
-        });
+        const response = await axios.post("/api/reacts/getReacts", { id });
 
-        if (response.ok) {
-          const data = await response.json();
+        if (response.status === 200) {
+          const data = response.data;
 
           dispatch(setReactsSlice(data));
         } else {
@@ -74,7 +81,7 @@ export default function Main() {
           const data = await response.json();
           dispatch(setInstaSlice(data.instagram));
         } else {
-          console.log("error");
+          console.log("error in insta fetching");
         }
       } catch (error) {
         console.log("error while fetching insta info:", error);

@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getSLToken } from "../../../services/instagram/getSLToken";
 import { getLLToken } from "../../../services/instagram/getLLToken";
 import { sendInstaInfo } from "../../../services/instagram/sendInstaInfo";
-import getProfile from "@/services/instagram/getProfile";
+import getProfile from "../../../services/instagram/getProfile";
 
 export default async function handler(
   req: NextApiRequest,
@@ -52,8 +52,6 @@ export default async function handler(
                     if (sendToSupa) {
                       return res.status(200).json({
                         message: "token has been sent!",
-                        LLToken,
-                        sendToSupa,
                       });
                     }
                   } catch (error) {

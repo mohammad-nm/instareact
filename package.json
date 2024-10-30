@@ -12,6 +12,7 @@
     "@reduxjs/toolkit": "^2.2.7",
     "@supabase/supabase-js": "^2.45.3",
     "@tailwindcss/line-clamp": "^0.4.4",
+    "axios": "^1.7.7",
     "bcrypt": "^5.1.1",
     "cookie": "^0.6.0",
     "ioredis": "^5.4.1",
