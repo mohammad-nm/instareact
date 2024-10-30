@@ -11,6 +11,7 @@ export default function Profile() {
   const [isOpen, setIsOpen] = useState(false);
   const [profile, setProfile] = useState<Profile>();
   const instagram = useSelector((state: any) => state.insta.insta);
+
   const clientID = process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_ID;
   const redirectUri = process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI;
   const userId = useSelector((state: any) => state.session.session?.user?.id);
@@ -36,7 +37,7 @@ export default function Profile() {
         className="mt-4 ml-4  p-3 rounded-lg text-white bg-[#0A0A0A] [box-shadow:#666666_0px_0px_0px_1px]"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {!instagram?.token?.LLToken ? (
+        {!instagram?.instagram?.access_token ? (
           <a
             className="flex items-center"
             href={`https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${clientID}&redirect_uri=${redirectUri}&response_type=code&scope=instagram_business_basic%2Cinstagram_business_manage_messages%2Cinstagram_business_manage_comments&state=${userId}`}
@@ -70,8 +71,8 @@ export default function Profile() {
               <div className="border-solid border-2 border-[#8f8f8f] rounded-full">
                 <Image
                   src={
-                    instagram.profile?.profile_picture_url
-                      ? instagram.profile?.profile_picture_url
+                    instagram.instagram?.profile_picture_url
+                      ? instagram.instagram?.profile_picture_url
                       : ""
                   }
                   width={30}
@@ -83,8 +84,8 @@ export default function Profile() {
               <div className="ml-4">
                 <div className="text-center text-[1rem] font-semibold">
                   <div>
-                    {instagram.profile
-                      ? instagram.profile.username
+                    {instagram.instagram
+                      ? instagram.instagram.username
                       : "Loading..."}
                   </div>
                 </div>

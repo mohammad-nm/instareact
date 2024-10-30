@@ -9,7 +9,7 @@ export default async function handler(
 
   if (LLToken) {
     const data = await getProfile(LLToken);
-    console.log("dataaaa:", data);
+
     if (data) {
       res.status(200).json(data);
     } else res.status(800).json({ data: data });
