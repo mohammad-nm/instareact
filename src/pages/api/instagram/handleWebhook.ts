@@ -45,10 +45,11 @@ export default async function handler(
             },
             body: JSON.stringify({
               recipant: { id: senderID },
-              message: { text: messageText },
+              message: { text: message },
             }),
           }
         );
+        console.log("Message sent:", await response.json());
       }
     }
     //comments
