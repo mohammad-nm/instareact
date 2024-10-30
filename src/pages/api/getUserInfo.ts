@@ -14,17 +14,21 @@ export default async function handler(
       .json({ message: "id not provided", id: req.body.id });
   }
   try {
-    const id = req.body.id;
+    const id = req.body.id.toString();
+    console.log(id);
     const { data, error } = await supabase
       .from("profiles")
       .select("instagram, reacts")
-      .eq("instagram->profile->user_id", id);
+      .eq("instagram->instagram->>user_id::text", id);
     if (error) {
       console.error("Supabase query error:", error);
       return res.status(500).json({ message: "Failed to fetch data", error });
     }
     if (data.length === 0) {
       return res.status(404).json({ message: "No matching data found" });
+    }
+    if (data.length > 1) {
+      return;
     }
     return res.status(200).json({ data: data });
   } catch (error) {

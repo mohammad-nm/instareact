@@ -27,21 +27,29 @@ export default async function handler(
       const recipentID = req.body.entry[0].id;
       const senderID = req.body.entry[0].messaging[0].sender.id;
       const messageText = req.body.entry[0].messaging[0].message.text;
-      const userinfo = await axios.post("/api/getUserInfo", { recipentID });
-      const response = await fetch(
-        `https://graph.instagram.com/v21.0/${recipentID}/messages`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer #####access token#####`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            recipant: { id: senderID },
-            message: { text: messageText },
-          }),
-        }
+      const userInfo = await axios.post("/api/getUserInfo", { recipentID });
+      const access_token = userInfo.data[0].instagram.access_token;
+      const reacts = userInfo.data[0].reacts;
+      const foundReact = reacts.find((item: any) =>
+        item.lookFor.includes(messageText)
       );
+      const message = foundReact ? foundReact.message : null;
+      if (message) {
+        const response = await fetch(
+          `https://graph.instagram.com/v21.0/${recipentID}/messages`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              recipant: { id: senderID },
+              message: { text: messageText },
+            }),
+          }
+        );
+      }
     }
     //comments
     if (req.body.entry[0].changes) {

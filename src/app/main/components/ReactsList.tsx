@@ -16,7 +16,7 @@ export default function ReactList() {
   const reacts = useSelector((state: any) => state.reacts.reacts);
   const sortingSlice = useSelector((state: any) => state.sorting.sorting);
   const activeSlice = useSelector((state: any) => state.active.sorting);
-  const handle = async (id: number) => {
+  const handle = async (id: string) => {
     try {
       const response = await axios.post("/api/getUserInfo", { id });
       console.log(response.data);
@@ -43,7 +43,6 @@ export default function ReactList() {
           No Reacts! Add new reacts to show here!
         </div>
       )}
-      <button onClick={() => handle(17841469815201091)}>AAAAAAAAAAA</button>
     </div>
   );
 }
