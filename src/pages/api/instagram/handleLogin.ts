@@ -51,9 +51,7 @@ export default async function handler(
                     };
                     const sendToSupa = await sendInstaInfo(id, instagram);
                     if (sendToSupa) {
-                      res.status(200).json({
-                        message: "token has been sent!",
-                      });
+                      redirect("https://instareact-beta.vercel.app/main");
                     }
                   } catch (error) {
                     return res.status(400).json({
