@@ -3,6 +3,7 @@ import { getSLToken } from "../../../services/instagram/getSLToken";
 import { getLLToken } from "../../../services/instagram/getLLToken";
 import { sendInstaInfo } from "../../../services/instagram/sendInstaInfo";
 import getProfile from "../../../services/instagram/getProfile";
+import { redirect } from "next/navigation";
 
 export default async function handler(
   req: NextApiRequest,
@@ -50,7 +51,7 @@ export default async function handler(
                     };
                     const sendToSupa = await sendInstaInfo(id, instagram);
                     if (sendToSupa) {
-                      return res.status(200).json({
+                      res.status(200).json({
                         message: "token has been sent!",
                       });
                     }
