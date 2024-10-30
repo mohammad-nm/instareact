@@ -27,7 +27,10 @@ export default async function handler(
       const recipentID = req.body.entry[0].id;
       const senderID = req.body.entry[0].messaging[0].sender.id;
       const messageText = req.body.entry[0].messaging[0].message.text;
-      const userInfo = await axios.post("/api/getUserInfo", { recipentID });
+      const userInfo = await axios.post(
+        "https://instareact-beta.vercel.app/api/getUserInfo",
+        { recipentID }
+      );
       const access_token = userInfo.data[0].instagram.access_token;
       const reacts = userInfo.data[0].reacts;
       const foundReact = reacts.find((item: any) =>
