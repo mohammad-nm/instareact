@@ -12,8 +12,10 @@ export const sendInstaInfo = async (id: string, instagram: instagram) => {
   const { data, error } = await supabase
     .from("profiles")
     .update({
-      supaID: id,
-      instagram,
+      instagram: {
+        supaID: id,
+        instagram,
+      },
     })
     .eq("id", id)
     .select("instagram");
