@@ -1,9 +1,12 @@
 import { redis } from "@/utils/redisClient";
 import axios, { AxiosResponse } from "axios";
-import { error } from "console";
 import { NextApiRequest, NextApiResponse } from "next";
 
-// Add this interface at the top of the file
+interface InstagramMessageResponse {
+  message_id: string;
+  recipient_id: string;
+}
+
 interface React {
   lookFor: string[];
   active: boolean;
@@ -14,7 +17,30 @@ interface React {
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
-) {
+): Promise<void> {
+  async function sendMessage(
+    recipentID: string,
+    senderID: string,
+    message: string,
+    access_token: string
+  ) {
+    console.log("starting to send the message!");
+    const response: AxiosResponse<InstagramMessageResponse> = await axios.post(
+      `https://graph.instagram.com/v21.0/${recipentID}/messages`,
+      {
+        recipient: { id: senderID },
+        message: { text: message },
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log("Message sent:", response);
+    return response;
+  }
   if (req.method === "GET") {
     //handling webhook handler verification
     const {
@@ -70,32 +96,18 @@ export default async function handler(
 
         const message: string = foundReact.message;
         console.log("message:", message);
-        try {
-          interface InstagramMessageResponse {
-            message_id: string;
-            recipient_id: string;
-          }
-          console.log("starting to send the message!");
-          const response: AxiosResponse<InstagramMessageResponse> =
-            await axios.post(
-              `https://graph.instagram.com/v21.0/${recipentID}/messages`,
-              {
-                recipient: { id: senderID },
-                message: { text: message },
-              },
-              {
-                headers: {
-                  Authorization: `Bearer ${access_token}`,
-                  "Content-Type": "application/json",
-                },
-              }
-            );
-          console.log("Message sent:", response);
-          res.status(200).json({ message: "Message sent!" });
-        } catch (error) {
-          console.log("error:", error);
-          return res.status(400).json({ message: "error sending message!" });
-        }
+        const send = await sendMessage(
+          recipentID,
+          senderID,
+          message,
+          access_token
+        );
+        console.log(send);
+        res.status(200).json({ message: "Message sent!", send: send });
+        // } catch (error) {
+        //   console.log("error:", error);
+        //   return res.status(400).json({ message: "error sending message!" });
+        // }
       }
 
       // Check if comment exist

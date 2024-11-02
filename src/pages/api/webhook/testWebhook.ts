@@ -21,7 +21,7 @@ const testWebhookPost = async () => {
                 },
                 timestamp: Date.now(),
                 message: {
-                  mid: "test_message_id",
+                  mid: "",
                   text: "test", // Using the same test message from your sample data
                 },
               },
