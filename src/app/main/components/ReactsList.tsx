@@ -16,14 +16,7 @@ export default function ReactList() {
   const reacts = useSelector((state: any) => state.reacts.reacts);
   const sortingSlice = useSelector((state: any) => state.sorting.sorting);
   const activeSlice = useSelector((state: any) => state.active.sorting);
-  const handle = async (id: string) => {
-    try {
-      const response = await axios.post("/api/getUserInfo", { id });
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error fetching user info:", error);
-    }
-  };
+
   return (
     <div className="columns-[170px] min-[600px]:columns-[250px] p-3 mt-8 w-full">
       {reacts.length > 0 ? (
