@@ -68,7 +68,7 @@ export default async function handler(
         const senderID: string = req.body.entry[0].messaging[0].sender.id;
         const messageText: string = req.body.entry[0].messaging[0].message.text;
         const userInfo: AxiosResponse = await axios.post(
-          "https://instareact-beta.vercel.app/api/getUserInfo",
+          "https://instareact-beta.vercel.app/api/instagram/getUserInfo",
           { id: recipentID }
         );
         const data: {
@@ -78,7 +78,6 @@ export default async function handler(
           reacts: React[];
         } = userInfo.data.data[0];
 
-        console.log("data:", data);
         const access_token: string = data.instagram.instagram.access_token;
         const reacts: React[] = data.reacts;
         const foundReact: React | undefined = reacts.find((item: React) => {
@@ -92,7 +91,6 @@ export default async function handler(
         if (!foundReact?.lookFor) {
           return res.status(400).json({ message: "No React found!" });
         }
-        console.log("founded reactTTTTTTTTTTTTTTTTTTTTTT:", foundReact);
 
         const message: string = foundReact.message;
         console.log("message:", message);
@@ -102,7 +100,7 @@ export default async function handler(
           message,
           access_token
         );
-        console.log(send);
+        console.log("send:", send);
         res.status(200).json({ message: "Message sent!", send: send });
         // } catch (error) {
         //   console.log("error:", error);

@@ -11,7 +11,6 @@ export default async function handler(
     }
     const { command, key, value } = await req.body;
     if (!command || !key || !value) {
-      console.log(command, key, value);
       return res.status(400).json({
         message: "command or key or value not provided!",
         data: { command, key, value },
@@ -39,7 +38,6 @@ export default async function handler(
     }
     return res.status(200).json({ result });
   } catch (error) {
-    console.error("Redis error:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 }
