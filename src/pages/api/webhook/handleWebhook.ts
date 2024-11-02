@@ -38,7 +38,7 @@ export default async function handler(
       }
       // Check if message exists
       if (req.body.entry[0].messaging) {
-        const recipentID: string = await req.body.entry[0].id;
+        const recipentID: string = req.body.entry[0].id;
         const senderID: string = req.body.entry[0].messaging[0].sender.id;
         const messageText: string = req.body.entry[0].messaging[0].message.text;
         const userInfo: AxiosResponse = await axios.post(
@@ -63,34 +63,42 @@ export default async function handler(
           );
         });
 
-        if (!foundReact) {
+        if (!foundReact?.lookFor) {
           return res.status(400).json({ message: "No React found!" });
         }
         console.log("founded reactTTTTTTTTTTTTTTTTTTTTTT:", foundReact);
 
         const message: string = foundReact.message;
+        console.log("message:", message);
         try {
-          const response: AxiosResponse<any, any> = await axios.post(
-            `https://graph.instagram.com/v21.0/${recipentID}/messages`,
-            {
-              recipient: { id: senderID },
-              message: { text: message },
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${access_token}`,
-                "Content-Type": "application/json",
+          interface InstagramMessageResponse {
+            message_id: string;
+            recipient_id: string;
+          }
+          console.log("starting to send the message!");
+          const response: AxiosResponse<InstagramMessageResponse> =
+            await axios.post(
+              `https://graph.instagram.com/v21.0/${recipentID}/messages`,
+              {
+                recipient: { id: senderID },
+                message: { text: message },
               },
-            }
-          );
-          console.log("Message sent:", response.data);
-          res;
+              {
+                headers: {
+                  Authorization: `Bearer ${access_token}`,
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+          console.log("Message sent:", response);
+          res.status(200).json({ message: "Message sent!" });
         } catch (error) {
+          console.log("error:", error);
           return res.status(400).json({ message: "error sending message!" });
         }
       }
 
-      // Check if changes exist
+      // Check if comment exist
       if (req.body.entry[0].changes) {
         const recipentID = req.body.entry[0].id;
         const senderID = req.body.entry[0].changes[0].value.from.id;
