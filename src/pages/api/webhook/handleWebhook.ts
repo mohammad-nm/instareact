@@ -18,28 +18,50 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
+  const userInfo: AxiosResponse = await axios.post(
+    "https://instareact-beta.vercel.app/api/instagram/getUserInfo",
+    { id: req.body.entry[0].id }
+  );
+  const data: {
+    instagram: {
+      instagram: { access_token: string };
+    };
+    reacts: React[];
+  } = userInfo.data.data[0];
+  const access_token: string = data.instagram.instagram.access_token;
+  const reacts: React[] = data.reacts;
   async function sendMessage(
     recipentID: string,
     senderID: string,
     message: string,
-    access_token: string
+    access_token: string,
+    retryCount: number = 3
   ) {
-    console.log("starting to send the message!");
-    const response: AxiosResponse<InstagramMessageResponse> = await axios.post(
-      `https://graph.instagram.com/v21.0/${recipentID}/messages`,
-      {
-        recipient: { id: senderID },
-        message: { text: message },
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-          "Content-Type": "application/json",
-        },
+    let attempt = 0;
+    while (attempt < retryCount) {
+      try {
+        const response: AxiosResponse<InstagramMessageResponse> =
+          await axios.post(
+            `https://graph.instagram.com/v21.0/${recipentID}/messages`,
+            {
+              recipient: { id: senderID },
+              message: { text: message },
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${access_token}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+        console.log("Message sent:", response);
+        return response;
+      } catch (error) {
+        console.log(`Attempt ${attempt + 1} failed:`, error);
+        if (attempt === retryCount - 1) throw error;
+        attempt++;
       }
-    );
-    console.log("Message sent:", response);
-    return response;
+    }
   }
   if (req.method === "GET") {
     //handling webhook handler verification
@@ -67,19 +89,7 @@ export default async function handler(
         const recipentID: string = req.body.entry[0].id;
         const senderID: string = req.body.entry[0].messaging[0].sender.id;
         const messageText: string = req.body.entry[0].messaging[0].message.text;
-        const userInfo: AxiosResponse = await axios.post(
-          "https://instareact-beta.vercel.app/api/instagram/getUserInfo",
-          { id: recipentID }
-        );
-        const data: {
-          instagram: {
-            instagram: { access_token: string };
-          };
-          reacts: React[];
-        } = userInfo.data.data[0];
 
-        const access_token: string = data.instagram.instagram.access_token;
-        const reacts: React[] = data.reacts;
         const foundReact: React | undefined = reacts.find((item: React) => {
           return (
             item.lookFor.includes(messageText) &&
@@ -93,27 +103,46 @@ export default async function handler(
         }
 
         const message: string = foundReact.message;
-        console.log("message:", message);
+
         const send = await sendMessage(
           recipentID,
           senderID,
           message,
-          access_token
+          access_token,
+          50
         );
-        console.log("send:", send);
-        res.status(200).json({ message: "Message sent!", send: send });
-        // } catch (error) {
-        //   console.log("error:", error);
-        //   return res.status(400).json({ message: "error sending message!" });
-        // }
+
+        res.status(200).json({ message: "Message sent!" });
       }
 
       // Check if comment exist
       if (req.body.entry[0].changes) {
-        const recipentID = req.body.entry[0].id;
-        const senderID = req.body.entry[0].changes[0].value.from.id;
-        const messageText = req.body.entry[0].changes[0].value.text;
-        // Handle comments logic here
+        const recipentID: string = req.body.entry[0].id;
+        const senderID: string = req.body.entry[0].changes[0].value.from.id;
+        const messageText: string = req.body.entry[0].changes[0].value.text;
+
+        const foundReact: React | undefined = reacts.find((item: React) => {
+          return (
+            item.lookFor.includes(messageText) &&
+            item.active &&
+            item.reactTo.includes("DM")
+          );
+        });
+
+        if (!foundReact?.lookFor) {
+          return res.status(400).json({ message: "No React found!" });
+        }
+
+        const message: string = foundReact.message;
+        const send = await sendMessage(
+          recipentID,
+          senderID,
+          message,
+          access_token,
+          50
+        );
+
+        res.status(200).json({ message: "Message sent!" });
       }
 
       return res.status(200).json({ message: "Received!" });
