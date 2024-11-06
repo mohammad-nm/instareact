@@ -9,5 +9,6 @@ export default async function setCookieSession(session: string) {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     maxAge: 864000,
+    sameSite: "strict",
   });
 }

@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginAsync } from "../../store/sessionSlice";
 import { validateEmail, validatePassword } from "@/services/formValidation";
 import { useRouter } from "next/navigation";
 import setCookieSession from "@/services/sessionCookie/setSessionCookie";
+import getSessionCookie from "@/services/sessionCookie/getSessionCookie";
 export default function Login() {
   const [login, setLogin] = useState(true);
   const [email, setEmail] = useState("");
@@ -13,6 +14,15 @@ export default function Login() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  useEffect(() => {
+    async function fetchCookie() {
+      const cookie: string | null = await getSessionCookie();
+      if (cookie) {
+        router.push("/main");
+      }
+    }
+    fetchCookie();
+  }, []);
 
   const handleSignUp = async () => {
     setIsLoading(true);
@@ -82,8 +92,9 @@ export default function Login() {
       const data = await res.json();
 
       if (res.ok) {
-        loginAsync(data.data.data.session);
-        await setCookieSession(JSON.stringify(data.data.data.session));
+        const session: string = JSON.stringify(data.data.data.session);
+        loginAsync(session);
+        await setCookieSession(session);
         router.push("/main");
       }
     } catch (error: any) {

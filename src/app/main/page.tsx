@@ -91,17 +91,24 @@ export default function Main(): JSX.Element {
     fetchInsta();
   }, [id, dispatch]);
   const handleLogout = async () => {
-    const response = await fetch("/api/auth/logout", {
-      method: "POST",
-    });
+    try {
+      const response = await fetch("/api/auth/logout", {
+        method: "POST",
+      });
 
-    if (response.ok) {
-      dispatch(clearSession());
-      dispatch(clearReactsSlice());
-      dispatch(clearInstaSlice());
-      router.push("/login");
-    } else {
-      console.error("Logout failed");
+      if (response.ok) {
+        await Promise.all([
+          dispatch(clearSession()),
+          dispatch(clearReactsSlice()),
+          dispatch(clearInstaSlice()),
+        ]);
+        router.push("/login");
+      } else {
+        const errorText = await response.text();
+        console.error("Logout failed:", response.status, errorText);
+      }
+    } catch (error) {
+      console.error("Network or other error while logging out:", error);
     }
   };
 
