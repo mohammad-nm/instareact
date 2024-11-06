@@ -182,6 +182,7 @@ export default function Login() {
             </div>
             {/* Login with google*/}
             <div className="mt-10 mb-8">Login with google</div>
+            <div className="mt-2 mb-8">Login with github</div>
           </div>
         </div>
       </div>

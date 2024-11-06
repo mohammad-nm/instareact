@@ -16,14 +16,14 @@ import { clearReactsSlice, setReactsSlice } from "@/store/reactsSlice";
 import { clearInstaSlice, setInstaSlice } from "@/store/instaSlice";
 import axios from "axios";
 
-export default function Main() {
+export default function Main(): JSX.Element {
   const router = useRouter();
   const dispatch = useDispatch();
 
   const [id, setId] = useState(null);
   useEffect(() => {
     const fetchSession = async () => {
-      const cookie = await getSessionCookie();
+      const cookie: string | null = await getSessionCookie();
       if (cookie === null) {
         handleLogout();
       } else {
@@ -109,8 +109,7 @@ export default function Main() {
     <div
       className={`bg-[#101010]  text-white min-h-screen min-[500px]:tracking-wider`}
     >
-      {/* 252525ea */}
-      <div className="">
+      <div>
         <Navbar handleLogout={handleLogout} />
       </div>
       <div className="min-[780px]:flex min-[780px]:justify-between min-[950px]:mt-8">

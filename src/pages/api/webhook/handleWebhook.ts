@@ -125,7 +125,7 @@ export default async function handler(
           return (
             item.lookFor.includes(messageText) &&
             item.active &&
-            item.reactTo.includes("DM")
+            item.reactTo.includes("Comments")
           );
         });
 
