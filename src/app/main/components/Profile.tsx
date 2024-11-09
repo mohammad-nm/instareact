@@ -13,6 +13,7 @@ export default function Profile() {
   const [isOpen, setIsOpen] = useState(false);
   const [profile, setProfile] = useState<Profile>();
   const instagram = useSelector((state: any) => state.insta.insta);
+  console.log(instagram);
   const dispatch = useDispatch();
   const clientID = process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_ID;
   const redirectUri = process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI;
@@ -37,7 +38,7 @@ export default function Profile() {
         className="mt-4 ml-4  p-3 rounded-lg text-white bg-[#0A0A0A] [box-shadow:#666666_0px_0px_0px_1px]"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {!instagram?.instagram?.access_token ? (
+        {!instagram.supaID ? (
           <a
             className="flex items-center"
             href={`https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${clientID}&redirect_uri=${redirectUri}&response_type=code&scope=instagram_business_basic%2Cinstagram_business_manage_messages%2Cinstagram_business_manage_comments&state=${id}`}
