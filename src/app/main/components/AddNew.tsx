@@ -17,7 +17,7 @@ export default function AddNew() {
   const inputRef = useRef<HTMLInputElement>(null);
   const reacts = useSelector((state: any) => state.reacts.reacts);
   const dispatch = useDispatch();
-  const id = useSelector((state: any) => state.session.session?.user?.id);
+  const id = useSelector((state: any) => state.session.session);
   const [isOpen, setIsOpen] = useState(false);
   const [validationError, setValidationError] = useState({
     reactTo: "",

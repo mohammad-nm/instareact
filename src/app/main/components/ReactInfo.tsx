@@ -6,7 +6,7 @@ export default function ReactInfo({ react, index }: any) {
   const [active, setActive] = useState(react.active);
   const reacts = useSelector((state: any) => state.reacts.reacts);
   const dispatch = useDispatch();
-  const id = useSelector((state: any) => state.session.session?.user?.id);
+  const id = useSelector((state: any) => state.session.session);
   const reactId = react.id;
   const handleDeleteReact = async () => {
     try {

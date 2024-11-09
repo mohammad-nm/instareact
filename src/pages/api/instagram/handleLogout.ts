@@ -1,6 +1,9 @@
 import { logout } from "@/services/instagram/logout";
 import { NextApiRequest, NextApiResponse } from "next";
-export async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method Not Allowed" });
   }
@@ -8,11 +11,11 @@ export async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (!id) {
     return res.status(400).json({ error: "User ID is required" });
   }
-  console.log("iDDDDDDDDDDDDDDDDDD", id);
+
   if (req.method === "POST") {
     try {
       const response = await logout(id);
-      if (response) {
+      if (response.success === true) {
         return res
           .status(200)
           .json({ message: "Logout successful", data: response });

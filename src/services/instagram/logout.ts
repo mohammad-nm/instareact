@@ -1,5 +1,6 @@
 import { supabase } from "../../utils/supabaseClient";
 export const logout = async (id: string) => {
+  console.log("id", id);
   const { data, error } = await supabase
     .from("profiles")
     .update({

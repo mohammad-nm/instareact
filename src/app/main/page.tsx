@@ -27,7 +27,7 @@ export default function Main(): JSX.Element {
       if (cookie === null) {
         handleLogout();
       } else {
-        setId(JSON.parse(cookie).user.id);
+        setId(JSON.parse(cookie));
 
         dispatch(setSessionSlice(JSON.parse(cookie)));
       }
@@ -69,7 +69,6 @@ export default function Main(): JSX.Element {
         if (response.ok) {
           const data = await response.json();
           dispatch(setInstaSlice(data.instagram));
-          console.log(data);
         } else {
           console.log("error in insta fetching");
         }
@@ -103,7 +102,7 @@ export default function Main(): JSX.Element {
 
   return (
     <div
-      className={`bg-[#101010]  text-white min-h-screen min-[500px]:tracking-wider`}
+      className={`bg-[#101010]  text-white h-screen min-[500px]:tracking-wider `}
     >
       <div>
         <Navbar handleLogout={handleLogout} />

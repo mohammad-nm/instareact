@@ -22,7 +22,7 @@ export default function Login() {
       }
     }
     fetchCookie();
-  }, []);
+  }, [router]);
 
   const handleSignUp = async () => {
     setIsLoading(true);
@@ -92,8 +92,8 @@ export default function Login() {
       const data = await res.json();
 
       if (res.ok) {
-        const session: string = JSON.stringify(data.data.data.session);
-        console.log("session", data.data.data.session.user.id);
+        const session: string = JSON.stringify(data.data.data.session.user.id);
+        console.log("session", session);
         loginAsync(session);
         await setCookieSession(session);
         router.push("/main");

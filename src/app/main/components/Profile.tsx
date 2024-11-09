@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { setInstaSlice } from "@/store/instaSlice";
 interface Profile {
   user_id: string;
   username: string;
@@ -11,22 +13,20 @@ export default function Profile() {
   const [isOpen, setIsOpen] = useState(false);
   const [profile, setProfile] = useState<Profile>();
   const instagram = useSelector((state: any) => state.insta.insta);
-
+  const dispatch = useDispatch();
   const clientID = process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_ID;
   const redirectUri = process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI;
-  const userId = useSelector((state: any) => state.session.session?.user?.id);
+  const id = useSelector((state: any) => state.session.session);
   const handleLogOut = async () => {
     try {
-      const response = await fetch("api/instagram/handleLogout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId }),
+      const response = await axios.post("api/instagram/handleLogout", {
+        id,
       });
-      if (!response.ok) {
+      if (response.status !== 200) {
         console.error("Failed to log out:", response.statusText);
-        return;
       }
       console.log("Logout successfully:", response);
+      dispatch(setInstaSlice(null));
     } catch (error) {
       console.log("error while logging out", error);
     }
@@ -40,7 +40,7 @@ export default function Profile() {
         {!instagram?.instagram?.access_token ? (
           <a
             className="flex items-center"
-            href={`https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${clientID}&redirect_uri=${redirectUri}&response_type=code&scope=instagram_business_basic%2Cinstagram_business_manage_messages%2Cinstagram_business_manage_comments&state=${userId}`}
+            href={`https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${clientID}&redirect_uri=${redirectUri}&response_type=code&scope=instagram_business_basic%2Cinstagram_business_manage_messages%2Cinstagram_business_manage_comments&state=${id}`}
             target="_blank"
           >
             <div className="ml-2">
