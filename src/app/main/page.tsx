@@ -36,18 +36,7 @@ export default function Main(): JSX.Element {
     fetchSession();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  useEffect(() => {
-    const res = async () => {
-      console.log("Sending request to /api/redis");
-      const data = await axios.post("/api/redis", {
-        command: "set",
-        key: "test",
-        value: "test.test",
-      });
-      console.log(data);
-    };
-    res();
-  }, []);
+
   useEffect(() => {
     const fetchReacts = async () => {
       if (!id) return;

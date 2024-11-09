@@ -22,9 +22,6 @@ export default async function handler(
         result = await redis.get(key);
         break;
       case "set":
-        if (!value) {
-          return res.status(400).json({ error: "Value is not provided" });
-        }
         result = await redis.set(key, value);
         break;
       case "del":

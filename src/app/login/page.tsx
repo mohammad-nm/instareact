@@ -93,6 +93,7 @@ export default function Login() {
 
       if (res.ok) {
         const session: string = JSON.stringify(data.data.data.session);
+        console.log("session", data.data.data.session.user.id);
         loginAsync(session);
         await setCookieSession(session);
         router.push("/main");
