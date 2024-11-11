@@ -15,6 +15,7 @@ import getSessionCookie from "@/services/sessionCookie/getSessionCookie";
 import { clearReactsSlice, setReactsSlice } from "@/store/reactsSlice";
 import { clearInstaSlice, setInstaSlice } from "@/store/instaSlice";
 import axios from "axios";
+import clearSessionCookie from "@/services/sessionCookie/clearSessionCookie";
 
 export default function Main(): JSX.Element {
   const router = useRouter();
@@ -84,6 +85,7 @@ export default function Main(): JSX.Element {
 
       if (response.ok) {
         await Promise.all([
+          clearSessionCookie(),
           dispatch(clearSession()),
           dispatch(clearReactsSlice()),
           dispatch(clearInstaSlice()),
