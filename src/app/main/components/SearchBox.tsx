@@ -1,7 +1,7 @@
 export default function SearchBox() {
   return (
     <div className="mr-8 ml-auto mt-4  ">
-      <div className="flex items-center ml-16 min-[950px]:ml-48  ">
+      <div className="flex items-center ml-12 min-[950px]:ml-48  ">
         <input
           type="text"
           className="bg-[#0A0A0A] [box-shadow:#666666_0px_0px_0px_1px] text-[9px] placeholder-[#edededaf] w-40 h-7 min-[600px]:h-11 p-2 pl-4 rounded-md min-[600px]:w-72 font-semibold min-[600px]:text-base"
