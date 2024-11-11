@@ -22,7 +22,7 @@ export default function Login() {
       }
     }
     fetchCookie();
-  }, []);
+  }, [router]);
 
   const handleSignUp = async () => {
     setIsLoading(true);
