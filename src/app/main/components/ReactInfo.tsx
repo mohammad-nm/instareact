@@ -75,42 +75,12 @@ export default function ReactInfo({ react, index, id }: any) {
             </div>{" "}
           </h2>
         </div>
-        <div className="w-2/5 justify-center flex">
-          <div className="">
-            <svg
-              width="55"
-              height="49"
-              viewBox="0 0 55 49"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect
-                x="0.800049"
-                y="15.0739"
-                width="35.4158"
-                height="35.4158"
-                rx="5"
-                transform="rotate(-20 0.800049 15.0739)"
-                fill="#39CFFF"
-              />
-              <rect
-                x="20.591"
-                y="0.599991"
-                width="35.4158"
-                height="35.4158"
-                rx="5"
-                transform="rotate(15 20.591 0.599991)"
-                fill="#9C39FF"
-              />
-              <rect
-                x="10.2443"
-                y="11.2247"
-                width="35.4158"
-                height="35.4158"
-                rx="5"
-                fill="#FF3939"
-              />
-            </svg>
+        <div className="w-2/5">
+          <div className="grid grid-cols-2 grid-rows-2 min-[600px]:grid-cols-3 gap-2 overflow-hidden max-h-[60px] ">
+            <div className="w-8 h-8 bg-gray-500 rounded-lg col-span-1 row-span-1"></div>
+            <div className="w-8 h-8 bg-gray-500 rounded-lg col-span-1 row-span-1"></div>
+            <div className="w-8 h-8 bg-gray-500 rounded-lg col-span-1 row-span-1"></div>
+            <div className="w-8 h-8 bg-gray-500 rounded-lg col-span-1 row-span-1"></div>
           </div>
         </div>
       </div>

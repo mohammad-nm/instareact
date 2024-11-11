@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { validateEmail, validatePassword } from "@/services/formValidation";
 import { useRouter } from "next/navigation";
 import setCookieSession from "@/services/sessionCookie/setSessionCookie";
+import getSessionCookie from "@/services/sessionCookie/getSessionCookie";
 
 export default function Login() {
   const [login, setLogin] = useState(true);
@@ -13,6 +14,15 @@ export default function Login() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  useEffect(() => {
+    async function fetchCookie() {
+      const cookie: string | null = await getSessionCookie();
+      if (cookie) {
+        router.push("/main");
+      }
+    }
+    fetchCookie();
+  }, [router]);
 
   const handleSignUp = async () => {
     setIsLoading(true);
