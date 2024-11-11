@@ -22,9 +22,32 @@ export default function Main(): JSX.Element {
   const dispatch = useDispatch();
 
   const [id, setId] = useState<string | null>(null);
+  const handleLogout = async () => {
+    try {
+      const response = await fetch("/api/auth/logout", {
+        method: "POST",
+      });
+
+      if (response.ok) {
+        await Promise.all([
+          clearSessionCookie(),
+          dispatch(clearSession()),
+          dispatch(clearReactsSlice()),
+          dispatch(clearInstaSlice()),
+        ]);
+        router.push("/login");
+      } else {
+        const errorText = await response.text();
+        console.error("Logout failed:", response.status, errorText);
+      }
+    } catch (error) {
+      console.error("Network or other error while logging out:", error);
+    }
+  };
   useEffect(() => {
     const fetchSession = async () => {
       const cookie: string | null = await getSessionCookie();
+      console.log("cookie", cookie);
       if (cookie === null) {
         handleLogout();
       }
@@ -33,8 +56,8 @@ export default function Main(): JSX.Element {
     };
 
     fetchSession();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const fetchReacts = async () => {
@@ -77,28 +100,6 @@ export default function Main(): JSX.Element {
     };
     fetchInsta();
   }, [id, dispatch]);
-  const handleLogout = async () => {
-    try {
-      const response = await fetch("/api/auth/logout", {
-        method: "POST",
-      });
-
-      if (response.ok) {
-        await Promise.all([
-          clearSessionCookie(),
-          dispatch(clearSession()),
-          dispatch(clearReactsSlice()),
-          dispatch(clearInstaSlice()),
-        ]);
-        router.push("/login");
-      } else {
-        const errorText = await response.text();
-        console.error("Logout failed:", response.status, errorText);
-      }
-    } catch (error) {
-      console.error("Network or other error while logging out:", error);
-    }
-  };
 
   return (
     <div
