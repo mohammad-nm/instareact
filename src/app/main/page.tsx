@@ -21,40 +21,27 @@ export default function Main(): JSX.Element {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const [id, setId] = useState<string | null>(null);
+  const [id, setId] = useState<string>();
   const handleLogout = async () => {
     try {
-      const response = await axios.post("/api/auth/logout");
+      await clearSessionCookie();
 
-      if (response.status === 200) {
-        await Promise.all([
-          clearSessionCookie(),
-          dispatch(clearSession()),
-          dispatch(clearReactsSlice()),
-          dispatch(clearInstaSlice()),
-        ]);
-        router.push("/login");
-      } else {
-        console.error("Logout failed:", response.status, response.statusText);
-      }
+      dispatch(clearReactsSlice());
+
+      router.push("/login");
     } catch (error) {
       console.error("Network or other error while logging out:", error);
     }
   };
   useEffect(() => {
     const fetchSession = async () => {
-      const cookie: string | null = await getSessionCookie();
-      console.log("cookie", cookie);
-      if (cookie === null) {
-        handleLogout();
-      }
-      setId(cookie);
-      dispatch(setSessionSlice(cookie));
+      const id: string | null = await getSessionCookie();
+      if (!id) return;
+      setId(id);
     };
 
     fetchSession();
-  }, []);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
 
   useEffect(() => {
     const fetchReacts = async () => {
@@ -107,7 +94,7 @@ export default function Main(): JSX.Element {
       </div>
       <div className="min-[780px]:flex min-[780px]:justify-between min-[950px]:mt-8">
         <div className="flex items-center  min-[920px]:ml-12  ">
-          <Profile />
+          <Profile id={id} />
           <SearchBox />
         </div>
         <div className="flex justify-between h-auto items-center">
@@ -121,10 +108,10 @@ export default function Main(): JSX.Element {
         </div>
       </div>
       <div className="flex justify-center">
-        <ReactList />
+        <ReactList id={id} />
       </div>
       <div className="flex justify-center min-[450px]:justify-end">
-        <AddNew />
+        <AddNew ID={id} />
       </div>
     </div>
   );

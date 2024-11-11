@@ -7,6 +7,7 @@ export const fetchFromSupa = async (id: string) => {
     .single();
   if (error) {
     console.log("error while fetching reacts:", error);
+    return;
   } else {
     return data;
   }

@@ -12,7 +12,7 @@ interface ReactItem {
   active: boolean;
 }
 
-export default function ReactList() {
+export default function ReactList({ id }: any) {
   const reacts = useSelector((state: any) => state.reacts.reacts);
   const sortingSlice = useSelector((state: any) => state.sorting.sorting);
   const activeSlice = useSelector((state: any) => state.active.sorting);
@@ -26,7 +26,7 @@ export default function ReactList() {
           const active =
             activeSlice === "All" || (activeSlice === "Active" && react.active);
           if (sorting && active) {
-            return <ReactInfo react={react} key={index} />;
+            return <ReactInfo react={react} key={index} id={id} />;
           } else {
             return null;
           }

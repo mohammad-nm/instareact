@@ -4,7 +4,7 @@ import { setReactsSlice } from "@/store/reactsSlice";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 } from "uuid";
-
+import axios from "axios";
 interface NewReact {
   reactTo: string[];
   lookFor: string[];
@@ -13,11 +13,11 @@ interface NewReact {
   id: string;
   active: boolean;
 }
-export default function AddNew() {
+export default function AddNew({ ID }: any) {
   const inputRef = useRef<HTMLInputElement>(null);
   const reacts = useSelector((state: any) => state.reacts.reacts);
   const dispatch = useDispatch();
-  const id = useSelector((state: any) => state.session.session);
+  // const id = useSelector((state: any) => state.session.session);
   const [isOpen, setIsOpen] = useState(false);
   const [validationError, setValidationError] = useState({
     reactTo: "",
@@ -68,13 +68,13 @@ export default function AddNew() {
     const validated = handleValidation();
     if (validated) {
       try {
-        const res = await fetch("/api/reacts/sendReacts", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id, newReact, reacts }),
+        const res = await axios.post("/api/reacts/sendReacts", {
+          id: ID,
+          newReact,
+          reacts,
         });
-        if (res.ok) {
-          const data = await res.json();
+        if (res.status === 200) {
+          const data = res.data;
           dispatch(setReactsSlice(data[0].reacts));
           setNewReact({
             reactTo: [],

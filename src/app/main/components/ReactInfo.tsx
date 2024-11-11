@@ -2,11 +2,11 @@ import { setReactsSlice } from "@/store/reactsSlice";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-export default function ReactInfo({ react, index }: any) {
+export default function ReactInfo({ react, index, id }: any) {
   const [active, setActive] = useState(react.active);
   const reacts = useSelector((state: any) => state.reacts.reacts);
   const dispatch = useDispatch();
-  const id = useSelector((state: any) => state.session.session);
+  // const id = useSelector((state: any) => state.session.session);
   const reactId = react.id;
   const handleDeleteReact = async () => {
     try {

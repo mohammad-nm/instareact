@@ -28,13 +28,9 @@ export const sendReact = async (
 ) => {
   const { data, error } = await supabase
     .from("profiles")
-    .update(
-      // reacts ? { reacts: [...reacts, newReact] } : { reacts: [newReact] }
-      {
-        reacts:
-          reacts && reacts.length > 0 ? [...reacts, newReact] : [newReact],
-      }
-    )
+    .update({
+      reacts: reacts && reacts.length > 0 ? [...reacts, newReact] : [newReact],
+    })
     .eq("id", id)
     .select("reacts");
   if (error) {

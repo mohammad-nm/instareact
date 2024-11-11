@@ -9,9 +9,9 @@ export default async function handler(
     if (req.method === "POST") {
       const data = await fetchFromSupa(id as string);
       if (data) {
-        res.status(200).json(data);
+        return res.status(200).json(data);
       } else {
-        res.status(400).json(data);
+        return res.status(400).json(data);
       }
     }
   }

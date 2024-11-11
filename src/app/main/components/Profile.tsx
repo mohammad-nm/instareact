@@ -3,21 +3,15 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setInstaSlice } from "@/store/instaSlice";
-// interface Profile {
-//   user_id: string;
-//   username: string;
-//   profile_picture_url: string;
-//   account_type: string;
-// }
-export default function Profile() {
+
+export default function Profile({ id }: any) {
   const [isOpen, setIsOpen] = useState(false);
-  // const [profile, setProfile] = useState<Profile>();
   const instagram = useSelector((state: any) => state.insta.insta);
 
   const dispatch = useDispatch();
   const clientID = process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_ID;
   const redirectUri = process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI;
-  const id = useSelector((state: any) => state.session.session);
+  // const id = useSelector((state: any) => state.session.session);
   const handleLogOut = async () => {
     try {
       const response = await axios.post("api/instagram/handleLogout", {
@@ -38,7 +32,7 @@ export default function Profile() {
         className="mt-4 ml-4  p-3 rounded-lg text-white bg-[#0A0A0A] [box-shadow:#666666_0px_0px_0px_1px]"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {!instagram.supaID ? (
+        {!instagram?.supaID ? (
           <a
             className="flex items-center"
             href={`https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${clientID}&redirect_uri=${redirectUri}&response_type=code&scope=instagram_business_basic%2Cinstagram_business_manage_messages%2Cinstagram_business_manage_comments&state=${id}`}
@@ -68,7 +62,6 @@ export default function Profile() {
               className="w-auto flex items-center "
               onClick={() => setIsOpen(!isOpen)}
             >
-              {/* "https://xsgames.co/randomusers/avatar.php?g=female" */}
               <div className="border-solid border-2 border-[#8f8f8f] rounded-full">
                 <Image
                   src={
