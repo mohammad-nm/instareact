@@ -20,17 +20,15 @@ export default function Main(): JSX.Element {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const [id, setId] = useState(null);
+  const [id, setId] = useState<string | null>(null);
   useEffect(() => {
     const fetchSession = async () => {
       const cookie: string | null = await getSessionCookie();
       if (cookie === null) {
         handleLogout();
-      } else {
-        setId(JSON.parse(cookie));
-
-        dispatch(setSessionSlice(JSON.parse(cookie)));
       }
+      setId(cookie);
+      dispatch(setSessionSlice(cookie));
     };
 
     fetchSession();

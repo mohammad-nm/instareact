@@ -3,17 +3,17 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setInstaSlice } from "@/store/instaSlice";
-interface Profile {
-  user_id: string;
-  username: string;
-  profile_picture_url: string;
-  account_type: string;
-}
+// interface Profile {
+//   user_id: string;
+//   username: string;
+//   profile_picture_url: string;
+//   account_type: string;
+// }
 export default function Profile() {
   const [isOpen, setIsOpen] = useState(false);
-  const [profile, setProfile] = useState<Profile>();
+  // const [profile, setProfile] = useState<Profile>();
   const instagram = useSelector((state: any) => state.insta.insta);
-  console.log(instagram);
+
   const dispatch = useDispatch();
   const clientID = process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_ID;
   const redirectUri = process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI;
