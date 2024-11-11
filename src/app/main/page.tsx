@@ -24,11 +24,9 @@ export default function Main(): JSX.Element {
   const [id, setId] = useState<string | null>(null);
   const handleLogout = async () => {
     try {
-      const response = await fetch("/api/auth/logout", {
-        method: "POST",
-      });
+      const response = await axios.post("/api/auth/logout");
 
-      if (response.ok) {
+      if (response.status === 200) {
         await Promise.all([
           clearSessionCookie(),
           dispatch(clearSession()),
@@ -37,8 +35,7 @@ export default function Main(): JSX.Element {
         ]);
         router.push("/login");
       } else {
-        const errorText = await response.text();
-        console.error("Logout failed:", response.status, errorText);
+        console.error("Logout failed:", response.status, response.statusText);
       }
     } catch (error) {
       console.error("Network or other error while logging out:", error);
