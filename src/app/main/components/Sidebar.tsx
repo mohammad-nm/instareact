@@ -15,7 +15,7 @@ export default function Sidebar() {
     return router.push("/login");
   };
   return (
-    <div className="h-full w-[150px] fixed right-2 top-2 min-[550px]:w-[270px]">
+    <div className="h-full w-[180px] fixed right-2 top-2 min-[550px]:w-[270px]">
       <div className="w-full h-auto rounded-md justify-center text-[#ededed] bg-[#0A0A0A] [box-shadow:#666666_0px_0px_0px_1px] ">
         <div className="text-xl ml-3 font-semibold min-[550px]:text-2xl pt-2">
           InstaReact

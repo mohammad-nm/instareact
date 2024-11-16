@@ -44,10 +44,10 @@ export default function ReactInfo({ react, id, reacts }: any) {
         </div>
         <div className="w-2/5">
           <div className="grid grid-cols-2 grid-rows-2 min-[600px]:grid-cols-3 gap-2 overflow-hidden max-h-[60px] ">
-            <div className="w-8 h-8 bg-gray-500 rounded-lg col-span-1 row-span-1"></div>
-            <div className="w-8 h-8 bg-gray-500 rounded-lg col-span-1 row-span-1"></div>
-            <div className="w-8 h-8 bg-gray-500 rounded-lg col-span-1 row-span-1"></div>
-            <div className="w-8 h-8 bg-gray-500 rounded-lg col-span-1 row-span-1"></div>
+            <div className="min-[420px]:w-8 min-[420px]:h-8 w-6 h-6 bg-gray-500 rounded-lg col-span-1 row-span-1"></div>
+            <div className="min-[420px]:w-8 min-[420px]:h-8 w-6 h-6 bg-gray-500 rounded-lg col-span-1 row-span-1"></div>
+            <div className="min-[420px]:w-8 min-[420px]:h-8 w-6 h-6 bg-gray-500 rounded-lg col-span-1 row-span-1"></div>
+            <div className="min-[420px]:w-8 min-[420px]:h-8 w-6 h-6 bg-gray-500 rounded-lg col-span-1 row-span-1"></div>
           </div>
         </div>
       </div>
