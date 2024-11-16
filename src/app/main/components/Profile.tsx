@@ -5,7 +5,7 @@ import InstaLoginBtn from "./InstaLoginBtn";
 export default async function Profile({ id }: { id: string }) {
   if (!id) return null;
   const response = await axios.post(
-    "http://localhost:3000/api/instagram/fetchInfo",
+    "https://instareact-beta.vercel.app/api/instagram/fetchInfo",
     { id }
   );
   if (response.status !== 200) return null;
