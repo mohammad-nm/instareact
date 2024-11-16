@@ -10,10 +10,7 @@ export default function ReactList({ id }: { id: string }) {
   useEffect(() => {
     async function fetchReacts() {
       if (id === undefined || null) return;
-      const response = await axios.post(
-        "http://localhost:3000/api/reacts/getReacts",
-        { id }
-      );
+      const response = await axios.post("/api/reacts/getReacts", { id });
       if (response.status !== 200) return;
       const reacts = response.data;
       dispatch(setReactsSlice(reacts));
