@@ -1,7 +1,11 @@
 "use server";
+// import { cookies } from "next/headers";
 export default async function InstaLoginBtn({ id }: { id: string }) {
+  // const cookieStore = await cookies();
   const clientID = process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_ID;
   const redirectUri = process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI;
+  // const id = cookieStore.get("sessionCookie");
+
   return (
     <a
       className="flex items-center"

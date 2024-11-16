@@ -1,3 +1,4 @@
+"use client";
 import { setActiveSlice } from "@/store/activeSlice";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";

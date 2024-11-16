@@ -1,3 +1,4 @@
+"use client";
 import { setSortingSlice } from "@/store/sortingSlice";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";

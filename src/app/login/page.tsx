@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { validateEmail, validatePassword } from "@/services/formValidation";
 import { useRouter } from "next/navigation";
 import setCookieSession from "@/services/sessionCookie/setSessionCookie";
-import getSessionCookie from "@/services/sessionCookie/getSessionCookie";
+
+import GoogleSignin from "./components/GoogleSignin";
 
 export default function Login() {
   const [login, setLogin] = useState(true);
@@ -14,15 +15,6 @@ export default function Login() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  useEffect(() => {
-    async function fetchCookie() {
-      const cookie: string | null = await getSessionCookie();
-      if (cookie) {
-        router.push("/main");
-      }
-    }
-    fetchCookie();
-  }, [router]);
 
   const handleSignUp = async () => {
     setIsLoading(true);
@@ -93,8 +85,7 @@ export default function Login() {
 
       if (res.ok) {
         const session: string = JSON.stringify(data.data.data.session.user.id);
-        // console.log("session", session);
-        // loginAsync(session);
+
         await setCookieSession(session);
         router.push("/main");
       }
@@ -177,7 +168,7 @@ export default function Login() {
                   Forgot password?
                 </a>
                 <button
-                  className="mt-5  bg-[#DEDEDE] w-36 h-8 rounded-xl"
+                  className="mt-5  bg-[#000000] text-white w-36 h-8 rounded-lg"
                   onClick={(e) => {
                     e.preventDefault();
                     if (login) {
@@ -192,8 +183,8 @@ export default function Login() {
                 </button>
               </form>
             </div>
-            {/* Login with google*/}
-            <div className="mt-10 mb-8">Login with google</div>
+            <GoogleSignin />
+
             <div className="mt-2 mb-8">Login with github</div>
           </div>
         </div>

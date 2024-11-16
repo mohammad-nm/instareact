@@ -54,3 +54,15 @@ export const signOut = async () => {
     throw error;
   }
 };
+
+//google sign in
+export const handleGoogleResponse = async (response: any) => {
+  const { data, error } = await supabase.auth.signInWithIdToken({
+    provider: "google",
+    token: response,
+  });
+  if (error) {
+    return null;
+  }
+  return data;
+};

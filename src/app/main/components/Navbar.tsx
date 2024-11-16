@@ -1,7 +1,8 @@
+"use client";
 import { useState } from "react";
 import Sidebar from "./Sidebar";
 
-export default function Navbar({ handleLogout }: any) {
+export default function Navbar() {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
 
   return (
@@ -41,7 +42,7 @@ export default function Navbar({ handleLogout }: any) {
           </svg>
         </button>
       </div>
-      {sidebarIsOpen ? <Sidebar handleLogOut={handleLogout} /> : null}
+      {sidebarIsOpen ? <Sidebar /> : null}
     </div>
   );
 }
