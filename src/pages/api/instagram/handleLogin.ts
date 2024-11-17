@@ -26,10 +26,6 @@ export default async function handler(
 
   const LLToken = await getLLToken(SLToken.access_token as string);
   if (!LLToken.access_token) {
-    res.status(400).json({
-      messsage: "didnt get the LLToken!",
-      LLToken,
-    });
     const instaInfo = await getProfile(SLToken.access_token);
     if (!instaInfo.user_id) {
       return res.status(400).json({
