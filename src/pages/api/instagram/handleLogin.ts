@@ -31,13 +31,46 @@ export default async function handler(
             const LLToken = await getLLToken(SLToken.access_token as string);
 
             if (!LLToken.access_token) {
-              return res
-                .status(400)
-                .json({
-                  messsage: "didnt get the LLToken!",
-                  LLToken,
-                  sl: SLToken,
+              try {
+                const instaInfo = await getProfile(LLToken.access_token);
+                if (instaInfo.user_id) {
+                  try {
+                    const instagram = {
+                      access_token: LLToken.access_token,
+                      expires_in: LLToken.expires_in,
+                      token_type: LLToken.token_type,
+                      account_type: instaInfo.account_type,
+                      profile_picture_url: instaInfo.profile_picture_url,
+                      user_id: instaInfo.user_id,
+                      username: instaInfo.username,
+                    };
+                    const sendToSupa = await sendInstaInfo(id, instagram);
+                    if (sendToSupa) {
+                      res.writeHead(302, {
+                        Location: "https://instareact-beta.vercel.app/main",
+                      });
+                      res.end();
+                    }
+                  } catch (error) {
+                    return res.status(400).json({
+                      message: "error in sendtoken",
+                      error: error,
+                    });
+                  }
+                }
+              } catch (error) {
+                return res.status(400).json({
+                  message: "error in instaInfo",
+                  error: error,
                 });
+              }
+              // return res
+              //   .status(400)
+              //   .json({
+              //     messsage: "didnt get the LLToken!",
+              //     LLToken,
+
+              //   });
             }
             if (LLToken.access_token) {
               try {
