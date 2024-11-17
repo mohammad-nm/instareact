@@ -32,7 +32,7 @@ export default async function handler(
 
             if (!LLToken.access_token) {
               try {
-                const instaInfo = await getProfile(LLToken.access_token);
+                const instaInfo = await getProfile(SLToken.access_token);
                 if (instaInfo.user_id) {
                   try {
                     const instagram = {
