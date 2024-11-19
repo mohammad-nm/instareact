@@ -33,7 +33,7 @@ export default function Home() {
         <div className="font-medium text-lg">
           Made by:{" "}
           <a
-            href="https://github.com/mohammad-nm/instareact"
+            href="https://github.com/mohammad-nm"
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-500 hover:underline"
@@ -42,7 +42,7 @@ export default function Home() {
           </a>{" "}
           |{" "}
           <a
-            href="www.linkedin.com/in/mohammad-nickmagham"
+            href="https://linkedin.com/in/mohammad-nickmagham"
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-500 hover:underline"
