@@ -50,7 +50,7 @@ export default async function handler(
       res.writeHead(302, {
         Location: "https://instareact-beta.vercel.app/main",
       });
-      res.end();
+      return res.end();
     }
     if (!sendToSupa) {
       return res.status(400).json({

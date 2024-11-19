@@ -27,9 +27,9 @@ export default async function handler(
     if (data.length === 0) {
       return res.status(404).json({ message: "No matching data found" });
     }
-    if (data.length > 1) {
-      return;
-    }
+    // if (data.length > 1) {
+    //   return;
+    // }
     return res.status(200).json({ data: data });
   } catch (error) {
     return res.status(400).json({ error: error });
