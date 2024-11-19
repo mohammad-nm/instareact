@@ -27,9 +27,15 @@ export default async function handler(
       instagram: { access_token: string };
     };
     reacts: React[];
-  } = userInfo.data.data[0] + userInfo.data.data[1];
+  } = userInfo.data.data[0];
+  const reacts: React[] = userInfo.data.data.reduce(
+    (acc: React[], user: { reacts: React[] }) => {
+      return [...acc, ...user.reacts];
+    },
+    []
+  );
   const access_token: string = data.instagram.instagram.access_token;
-  const reacts: React[] = data.reacts;
+  // const reacts: React[] = data.reacts;
   async function sendMessage(
     recipentID: string,
     senderID: string,
