@@ -15,7 +15,7 @@ export default async function Main() {
   if (id === undefined) return;
   return (
     <div
-      className={`bg-[#101010]  text-white h-screen min-[500px]:tracking-wider `}
+      className={`bg-[#101010]  text-white min-h-screen min-[500px]:tracking-wider `}
     >
       <div>
         <Navbar />
