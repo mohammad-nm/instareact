@@ -31,7 +31,7 @@ export default async function handler(
     // if (data.length > 1) {
     //   return;
     // }
-    return res.status(200).json({ data: data });
+    return res.status(200).json({ data: JSON.stringify(data) });
   } catch (error) {
     return res.status(400).json({ error: error });
   }
