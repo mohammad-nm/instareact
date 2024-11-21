@@ -145,7 +145,7 @@ export default async function handler(
           50
         );
 
-        res.status(200).json({ message: "Message sent!" });
+        return res.status(200).json({ message: "Message sent!" });
       }
 
       // Check if comment exist
@@ -175,7 +175,7 @@ export default async function handler(
           50
         );
 
-        res.status(200).json({ message: "Message sent!" });
+        return res.status(200).json({ message: "Message sent!" });
       }
 
       return res.status(200).json({ message: "Received!" });

@@ -22,7 +22,7 @@ export default async function handler(
         result = await redis.get(key);
         break;
       case "set":
-        result = await redis.set(key, value);
+        result = await redis.set(key, value, "EX", 3600);
         break;
       case "del":
         result = await redis.del(key);
@@ -33,7 +33,7 @@ export default async function handler(
       default:
         return res.status(400).json({ error: "Command not correct" });
     }
-    console.log("result:", result);
+    // console.log("result:", result);
     return res.status(200).json({ result });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
