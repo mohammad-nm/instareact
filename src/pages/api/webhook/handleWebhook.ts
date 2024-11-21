@@ -23,7 +23,7 @@ export default async function handler(
       "https://instareact-beta.vercel.app/api/redis",
       { command: "get", key: req.body.entry[0].id }
     );
-    console.log(redisData.data.result);
+    console.log(JSON.parse(redisData.data.result));
     if (redisData.data.result) {
       return redisData.data.result;
     }

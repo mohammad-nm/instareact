@@ -15,7 +15,7 @@ export default async function handler(
   }
   try {
     const id = req.body.id.toString();
-    console.log(id);
+
     const { data, error } = await supabase
       .from("profiles")
       .select("instagram, reacts")
