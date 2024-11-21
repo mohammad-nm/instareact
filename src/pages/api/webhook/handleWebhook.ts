@@ -23,24 +23,25 @@ export default async function handler(
       "https://instareact-beta.vercel.app/api/redis",
       { command: "get", key: req.body.entry[0].id }
     );
+    console.log(redisData.data.result);
     if (redisData.data.result) {
-      return redisData;
+      return redisData.data.result;
     }
     const supaData = await axios.post(
       "https://instareact-beta.vercel.app/api/instagram/getUserInfo",
       { id: req.body.entry[0].id }
     );
-
+    console.log(supaData.data);
     const sendToRedis = await axios.post(
       "https://instareact-beta.vercel.app/api/redis",
       {
         command: "set",
         key: req.body.entry[0].id,
-        value: supaData,
+        value: supaData.data,
       }
     );
     console.log(sendToRedis.data);
-    return supaData;
+    return supaData.data;
   };
   const userInfo = await getUserInfo();
   if (!userInfo) {
