@@ -23,7 +23,7 @@ export default async function handler(
       "https://instareact-beta.vercel.app/api/redis",
       { command: "get", key: req.body.entry[0].id }
     );
-    console.log(redisData);
+    console.log(redisData.data);
     if (redisData) {
       return redisData;
     }
@@ -32,7 +32,7 @@ export default async function handler(
       { id: req.body.entry[0].id }
     );
 
-    console.log(supaData);
+    console.log(supaData.data);
     const sendToRedis = await axios.post(
       "https://instareact-beta.vercel.app/api/redis",
       {
@@ -41,7 +41,7 @@ export default async function handler(
         value: supaData,
       }
     );
-    console.log(sendToRedis);
+    console.log(sendToRedis.data);
     return supaData;
   };
   const userInfo = await getUserInfo();
