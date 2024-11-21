@@ -10,9 +10,9 @@ export default async function handler(
       res.status(405).end(`Method ${req.method} Not Alowed`);
     }
     const { command, key, value } = await req.body;
-    if (!command || !key || !value) {
+    if (!command) {
       return res.status(400).json({
-        message: "command or key or value not provided!",
+        message: "command not provided!",
         data: { command, key, value },
       });
     }
