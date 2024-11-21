@@ -24,7 +24,7 @@ export default async function handler(
       { command: "get", key: req.body.entry[0].id }
     );
     const redisData = JSON.parse(getRedisData.data.result);
-    console.log("redis data:", typeof redisData, redisData);
+
     if (redisData) {
       return redisData;
     }
@@ -32,7 +32,7 @@ export default async function handler(
       "https://instareact-beta.vercel.app/api/instagram/getUserInfo",
       { id: req.body.entry[0].id }
     );
-    console.log("supa data:", supaData.data.data);
+
     const sendToRedis = await axios.post(
       "https://instareact-beta.vercel.app/api/redis",
       {
@@ -41,7 +41,7 @@ export default async function handler(
         value: supaData.data.data as string,
       }
     );
-    console.log("send to redis:", sendToRedis.data);
+
     return JSON.parse(supaData.data.data);
   };
   const userInfo = await getUserInfo();
