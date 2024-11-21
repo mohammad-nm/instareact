@@ -19,18 +19,15 @@ export default async function handler(
   res: NextApiResponse
 ): Promise<void> {
   const getUserInfo = async () => {
-    const redisData = await axios.post(
+    const getRedisData = await axios.post(
       "https://instareact-beta.vercel.app/api/redis",
       { command: "get", key: req.body.entry[0].id }
     );
-    console.log(
-      "redis data:",
-      redisData.data.result,
-      JSON.parse(redisData.data.result)
-    );
-    if (JSON.parse(redisData.data).result) {
-      return JSON.parse(redisData.data.result);
-    }
+    const redisData = getRedisData.data.result;
+    console.log("redis data:", typeof redisData, redisData);
+    // if (redisData) {
+    //   return JSON.parse(redisData);
+    // }
     const supaData = await axios.post(
       "https://instareact-beta.vercel.app/api/instagram/getUserInfo",
       { id: req.body.entry[0].id }
