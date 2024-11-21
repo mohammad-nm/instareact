@@ -31,17 +31,17 @@ export default async function handler(
       "https://instareact-beta.vercel.app/api/instagram/getUserInfo",
       { id: req.body.entry[0].id }
     );
-    console.log("supa data:", supaData.data.data);
+    console.log("supa data:", supaData);
     const sendToRedis = await axios.post(
       "https://instareact-beta.vercel.app/api/redis",
       {
         command: "set",
         key: req.body.entry[0].id,
-        value: JSON.stringify(supaData.data.data),
+        value: JSON.stringify(supaData),
       }
     );
     console.log("send to redis:", sendToRedis.data);
-    return supaData.data.data;
+    return supaData;
   };
   const userInfo = await getUserInfo();
   if (!userInfo) {
