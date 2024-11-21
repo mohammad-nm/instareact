@@ -37,11 +37,11 @@ export default async function handler(
       {
         command: "set",
         key: req.body.entry[0].id,
-        value: supaData.data,
+        value: supaData.data.data,
       }
     );
     console.log(sendToRedis.data);
-    return supaData.data;
+    return supaData.data.data;
   };
   const userInfo = await getUserInfo();
   if (!userInfo) {
