@@ -1,6 +1,6 @@
 export default function SearchBox() {
   return (
-    <div className="mr-8 ml-auto mt-4  ">
+    <div className="mr-8 ml-auto mt-4">
       <div className="flex items-center ml-12 min-[950px]:ml-48  ">
         <input
           type="text"

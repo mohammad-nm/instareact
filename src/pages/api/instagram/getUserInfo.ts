@@ -27,6 +27,7 @@ export default async function handler(
     if (data.length === 0) {
       return res.status(404).json({ message: "No matching data found" });
     }
+    //temporary beacause of instagram restriction
     // if (data.length > 1) {
     //   return;
     // }

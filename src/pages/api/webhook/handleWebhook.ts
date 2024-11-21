@@ -18,16 +18,37 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
-  const userInfo: AxiosResponse = await axios.post(
-    "https://instareact-beta.vercel.app/api/instagram/getUserInfo",
-    { id: req.body.entry[0].id }
-  );
+  const getUserInfo = async () => {
+    const redisData = await axios.post(
+      "https://instareact-beta.vercel.app/api/redis",
+      { command: "get", key: req.body.entry[0].id }
+    );
+    if (redisData) {
+      return redisData;
+    }
+    const supaData = await axios.post(
+      "https://instareact-beta.vercel.app/api/instagram/getUserInfo",
+      { id: req.body.entry[0].id }
+    );
+    await axios.post("https://instareact-beta.vercel.app/api/redis", {
+      command: "set",
+      key: req.body.entry[0].id,
+      value: supaData,
+    });
+    return supaData;
+  };
+  const userInfo = await getUserInfo();
+  if (!userInfo) {
+    return;
+  }
   const data: {
     instagram: {
       instagram: { access_token: string };
     };
     reacts: React[];
   } = userInfo.data.data[0];
+  // const reacts: React[] = data.reacts;
+  //temporary because of instagram restriction
   const reacts: React[] = userInfo.data.data.reduce(
     (acc: React[], user: { reacts: React[] }) => {
       return [...acc, ...user.reacts];
@@ -35,7 +56,6 @@ export default async function handler(
     []
   );
   const access_token: string = data.instagram.instagram.access_token;
-  // const reacts: React[] = data.reacts;
   async function sendMessage(
     recipentID: string,
     senderID: string,
