@@ -23,14 +23,10 @@ export default async function handler(
       "https://instareact-beta.vercel.app/api/redis",
       { command: "get", key: req.body.entry[0].id }
     );
-    console.log(
-      "redis data:",
-      JSON.stringify(redisData.data.result),
-      redisData.data
-    );
-    if (redisData.data.result) {
-      return redisData.data.result;
-    }
+    console.log("redis data:", redisData.data.result, redisData.data);
+    // if (redisData.data.result) {
+    //   return redisData.data.result;
+    // }
     const supaData = await axios.post(
       "https://instareact-beta.vercel.app/api/instagram/getUserInfo",
       { id: req.body.entry[0].id }
