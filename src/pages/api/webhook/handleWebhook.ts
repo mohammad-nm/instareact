@@ -31,17 +31,17 @@ export default async function handler(
       "https://instareact-beta.vercel.app/api/instagram/getUserInfo",
       { id: req.body.entry[0].id }
     );
-    console.log("supa data:", supaData.data);
+    console.log("supa data:", supaData.data.data);
     const sendToRedis = await axios.post(
       "https://instareact-beta.vercel.app/api/redis",
       {
         command: "set",
         key: req.body.entry[0].id,
-        value: supaData,
+        value: supaData.data.data,
       }
     );
     console.log("send to redis:", sendToRedis.data);
-    return supaData;
+    return supaData.data.data;
   };
   const userInfo = await getUserInfo();
   if (!userInfo) {
@@ -52,10 +52,10 @@ export default async function handler(
       instagram: { access_token: string };
     };
     reacts: React[];
-  } = userInfo.data.data[0];
+  } = userInfo[0];
   // const reacts: React[] = data.reacts;
   //temporary because of instagram restriction
-  const reacts: React[] = userInfo.data.data.reduce(
+  const reacts: React[] = userInfo.reduce(
     (acc: React[], user: { reacts: React[] }) => {
       return [...acc, ...user.reacts];
     },
