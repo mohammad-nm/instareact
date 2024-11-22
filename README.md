@@ -19,7 +19,7 @@
   </div>
 
   <div>
-    <p>All features, design, and development were created independently. While it may not be highly polished, it’s fully functional and <em>“Good Enough Certified”!</em></p>
+    <p>All features, design, and development were created independently. While it may not be highly polished, it’s fully functional and <em>“Good Enough”!</em></p>
   </div>
 
   <div>
